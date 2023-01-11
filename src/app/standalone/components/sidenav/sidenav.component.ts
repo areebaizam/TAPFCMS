@@ -48,7 +48,7 @@ import { headerData } from "@tap/shared/models/app.data";
 })
 export class SidenavComponent implements OnInit {
   title = "TAPBase";
-  isSideNavOpen: boolean = true;
+  isSideNavOpen: boolean = false;
   isPortraitViewPort: boolean = false;
   eNodeCategory = eNodeCategory;
   nodes: Array<MenuNode> = headerData;

@@ -1,11 +1,18 @@
-.nav-container{
+@import '/src/app/styles/global-variables.scss';
+
+.nav-container {
     position: fixed;
 }
+
 .wrapper {
     width: 100%;
 }
+
 .node {
-    // width: 100%;
-    padding-left: calc(2rem + env(safe-area-inset-left) + 8px);
+    padding-left: $page-wrapper-padding-left;
     justify-content: flex-start;
+}
+
+.active {
+    background-color:$primary-theme-color-background-dark;
 }

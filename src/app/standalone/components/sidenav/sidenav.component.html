@@ -6,13 +6,13 @@
                     <a mat-tab-link
                         *ngFor="let node of nodes | filterBoolean:'visible':true | filterString:'category':eNodeCategory.BRAND"
                         (click)="handleBtnClick(node)" [routerLink]="node.url" routerLinkActive #rla="routerLinkActive"
-                        [routerLinkActiveOptions]="{exact: true}" [active]=rla.isActive class="node">
+                        [routerLinkActiveOptions]="{exact: true}" [active]=rla.isActive [class.active]=rla.isActive class="node">
                         <tap-btn-icon-row [node]="node"></tap-btn-icon-row>
                     </a>
                     <a mat-tab-link
                         *ngFor="let node of nodes | filterBoolean:'visible':true | filterString:'category':eNodeCategory.NAV"
                         (click)="handleBtnClick(node)" [routerLink]="node.url" routerLinkActive #rla="routerLinkActive"
-                        [routerLinkActiveOptions]="{exact: true}" [active]=rla.isActive class="node">
+                        [routerLinkActiveOptions]="{exact: true}" [active]=rla.isActive class="node" [class.active]=rla.isActive>
                         <tap-btn-icon-row [node]="node"></tap-btn-icon-row>
                     </a>
                 </div>
