@@ -1,0 +1,25 @@
+$page-wrapper-height:100vh;
+$page-wrapper-width:100vw;
+
+$main-header-height:48px;
+$main-drawer-width:250px;
+
+$main-content-padding-x:30px;
+$main-content-padding-y:30px;
+$body-content-padding-x:10vw;
+
+// Note:A1 Add padding if viewport-fit=cover in index.html
+$page-wrapper-padding-left: calc(2rem + env(safe-area-inset-left));
+$page-wrapper-padding-right: calc(2rem + env(safe-area-inset-right));
+$page-wrapper-padding-top: calc(1rem + env(safe-area-inset-top));
+$page-wrapper-padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+
+
+$main-wrapper-height: calc(#{$page-wrapper-height} - #{$main-header-height});
+
+// colors
+$primary-theme-color-dark:#61443a;
+$primary-theme-color:#795548;
+$primary-theme-color-light:#a1887f;
+$primary-theme-color-background-dark:#d7ccc8;
+$primary-theme-color-background:#f2eeed;

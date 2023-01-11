@@ -1,0 +1,27 @@
+<div class="mobile-header-buffer"></div>
+<mat-toolbar class="mat-elevation-z6 wrapper">
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel" >
+        <!-- Home Tab -->
+        <a mat-tab-link *ngFor="let node of nodes | filterString:'name':'home'" (click)="handleBtnClick(node)"
+            [routerLink]="node.url" routerLinkActive #rla="routerLinkActive" [routerLinkActiveOptions]="{exact: true}"
+            [active]="rla.isActive">
+            <tap-btn-icon-col [node]="node"></tap-btn-icon-col>
+        </a>
+
+        <a mat-tab-link
+            *ngFor="let node of nodes | filterBoolean:'visible':true | filterString:'category':eNodeCategory.NAV"
+            (click)="handleBtnClick(node)" [routerLink]="node.url" routerLinkActive #rla="routerLinkActive"
+            [routerLinkActiveOptions]="{exact: true}" [active]="rla.isActive">
+            <tap-btn-icon-col [node]="node"></tap-btn-icon-col>
+        </a>
+
+        <!-- Menu Tab -->
+        <a mat-tab-link
+            *ngFor="let node of nodes | filterBoolean:'visible':true | filterString:'category':eNodeCategory.MENU"
+            (click)="handleBtnClick(node)" [routerLink]="node.url" routerLinkActive #rla="routerLinkActive"
+            [routerLinkActiveOptions]="{exact: true}" [active]="rla.isActive">
+            <tap-btn-icon-col [node]="node"></tap-btn-icon-col>
+        </a>
+    </nav>
+    <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+</mat-toolbar>

@@ -2,8 +2,15 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src",
     "outDir": "./dist/out-tsc",
+    "paths": {
+      "@tap": ["app/"],
+      "@tap/env": ["environments/environment"],
+      "@tap/features/*": ["app/features/*"],
+      "@tap/standalone/*": ["app/standalone/*"],
+      "@tap/shared/*": ["app/shared/*"]
+    },
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
@@ -19,10 +26,10 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "types": [
+      "@angular/localize"
+    ],
+    "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

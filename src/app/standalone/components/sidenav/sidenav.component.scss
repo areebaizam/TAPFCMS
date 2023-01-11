@@ -1,0 +1,11 @@
+.nav-container{
+    position: fixed;
+}
+.wrapper {
+    width: 100%;
+}
+.node {
+    // width: 100%;
+    padding-left: calc(2rem + env(safe-area-inset-left) + 8px);
+    justify-content: flex-start;
+}

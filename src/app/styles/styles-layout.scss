@@ -1,0 +1,66 @@
+@import "/src/app/styles/global-variables.scss";
+
+.main-header-wrapper{
+    height: $main-header-height;
+    padding: 0 $main-content-padding-x !important;
+}
+.main-body-wrapper{
+    min-height: $main-wrapper-height;
+    padding: 0 $page-wrapper-padding-right 0 $page-wrapper-padding-left;
+    // padding: $main-content-padding-y $body-content-padding-x;
+}
+
+.mobile-header-buffer{
+  height: $main-header-height;
+}
+
+
+.flex-row,
+.flex-row-center,
+.flex-row-around,
+.flex-row-between {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.flex-row-center {
+  justify-content: center;
+}
+
+.flex-row-around {
+  justify-content: space-around;
+}
+
+.flex-row-between {
+  justify-content: space-between;
+}
+
+.flex-column-start,
+.flex-column-center,
+.flex-column-around,
+.flex-column-between {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.flex-column-start {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.flex-column-center {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.flex-column-around {
+  justify-content: space-around;
+}
+
+.flex-column-between {
+  justify-content: space-between;
+}

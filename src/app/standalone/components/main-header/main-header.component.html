@@ -1,0 +1,21 @@
+
+<mat-toolbar class="mat-elevation-z6 wrapper">
+    <button mat-icon-button color="primary" aria-label="Menu"
+        *ngFor="let node of nodes | filterBoolean:'visible':true | filterString:'category':eNodeCategory.MENU"
+        (click)="handleBtnClick(node)">
+        <mat-icon>{{node.iconClass}}</mat-icon>
+    </button>
+    <button mat-button color="primary" aria-label="Home"  (click)="handleBtnClick(node)"
+        *ngFor="let node of nodes | filterBoolean:'visible':true | filterString:'category':eNodeCategory.BRAND" routerLink={{node.url}}
+        class="brand"> <span class="brand">{{node.name}}</span></button>
+
+    <span class="spacer" aria-hidden="true"></span>
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel" fitInkBarToContent class="mat-tab-group-inverted-header">
+        <a mat-tab-link *ngFor="let node of nodes | filterBoolean:'visible':true | filterString:'category':eNodeCategory.NAV"
+            (click)="handleBtnClick(node)" [routerLink]="node.url" routerLinkActive #rla="routerLinkActive"
+            [routerLinkActiveOptions]="{exact: true}" [active]="rla.isActive">
+            <tap-btn-icon-row [node]="node"></tap-btn-icon-row>
+        </a>
+    </nav>
+    <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+</mat-toolbar>

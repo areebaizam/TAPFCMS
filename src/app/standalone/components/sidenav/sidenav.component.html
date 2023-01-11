@@ -1,0 +1,32 @@
+<div style="min-width: 350px;">
+    <mat-sidenav-container>
+        <mat-sidenav [(opened)]="isSideNavOpen" class="nav-container">
+            <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+                <div class="wrapper">
+                    <a mat-tab-link
+                        *ngFor="let node of nodes | filterBoolean:'visible':true | filterString:'category':eNodeCategory.BRAND"
+                        (click)="handleBtnClick(node)" [routerLink]="node.url" routerLinkActive #rla="routerLinkActive"
+                        [routerLinkActiveOptions]="{exact: true}" [active]=rla.isActive class="node">
+                        <tap-btn-icon-row [node]="node"></tap-btn-icon-row>
+                    </a>
+                    <a mat-tab-link
+                        *ngFor="let node of nodes | filterBoolean:'visible':true | filterString:'category':eNodeCategory.NAV"
+                        (click)="handleBtnClick(node)" [routerLink]="node.url" routerLinkActive #rla="routerLinkActive"
+                        [routerLinkActiveOptions]="{exact: true}" [active]=rla.isActive class="node">
+                        <tap-btn-icon-row [node]="node"></tap-btn-icon-row>
+                    </a>
+                </div>
+            </nav>
+            <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+        </mat-sidenav>
+        <mat-sidenav-content class="outlet-wrapper">
+            <ng-container *ngIf="isPortraitViewPort">
+                <tap-main-header></tap-main-header>
+            </ng-container>
+            <router-outlet> </router-outlet>
+            <ng-container *ngIf="!isPortraitViewPort">
+                <tap-mobile-header></tap-mobile-header>
+            </ng-container>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

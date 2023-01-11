@@ -1,0 +1,23 @@
+@use '@angular/material'as mat;
+
+@include mat.core();
+
+$tap-primary-theme: mat.define-palette(mat.$brown-palette, 500);
+$tap-accent-theme: mat.define-palette(mat.$amber-palette, A200, A100, A400);
+$tap-warn-theme: mat.define-palette(mat.$red-palette);
+
+//TODO Define centralized typography
+// $tap-typography: mat.define-typography-config(
+//   );
+
+$tap-theme: mat.define-light-theme((
+ color: (
+   primary: $tap-primary-theme,
+   accent: $tap-accent-theme,
+   warn: $tap-warn-theme
+ ),
+ typography: mat.define-typography-config(),
+ density: 0,
+));
+
+@include mat.all-component-themes($tap-theme);
