@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from "@angular/core";
+import { MatCardModule } from "@angular/material/card";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
+import { HeadingComponent,FooterCopyrightComponent } from "@tap/standalone/components/";
 
 @Component({
-  selector: 'tap-donate',
+  selector: "tap-donate",
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './donate.component.html',
-  styleUrls: ['./donate.component.scss']
+  imports: [MatCardModule, MatButtonModule, MatIconModule, HeadingComponent, FooterCopyrightComponent],
+  templateUrl: "./donate.component.html",
+  styleUrls: ["./donate.component.scss"],
 })
-export class DonateComponent {
-
-}
+export class DonateComponent {}

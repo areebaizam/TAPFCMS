@@ -1,0 +1,28 @@
+@import '/src/app/styles/global-variables.scss';
+.donation-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: $main-wrapper-height;
+}
+.wrapper{
+    padding: 0 $page-wrapper-padding-right 0 $page-wrapper-padding-left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quote{
+    font-size: 20px;
+}
+
+.card{
+    max-width: 900px;
+}
+
+.btn-wrapper{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}

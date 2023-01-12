@@ -1,0 +1,39 @@
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    padding-top: 5px;
+}
+
+.example-card {
+    width: 165px;
+    height: 80px;
+}
+
+.sunrise {
+    background-image: url('/../assets/images/svg/sunrise.svg');
+    background-size: cover;
+}
+
+.sunset {
+    background-image: url('/../assets/images/svg/sunset.svg');
+    background-size: cover;
+}
+
+
+mat-card-subtitle {
+    font-size: 16px;
+    padding-right: 0 !important;
+}
+
+mat-card-header {
+    .mat-mdc-card-header {
+        padding-right: 0;
+    }
+
+    .mat-mdc-card-title {
+        font-size: 28px;
+        padding-right: 0;
+    }
+}
