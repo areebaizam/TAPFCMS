@@ -1,13 +1,11 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from "@angular/core";
+import { FooterCopyrightComponent } from "@tap/standalone/components/";
 
 @Component({
-  selector: 'tap-home',
+  selector: "tap-home",
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  imports: [FooterCopyrightComponent],
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"],
 })
-export class HomeComponent {
-
-}
+export class HomeComponent {}

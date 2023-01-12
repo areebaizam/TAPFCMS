@@ -20,7 +20,8 @@ export enum eMatElevation {
     HOME = "",
     CONTACT = "contact",
     ADMIN = "admin",
-    PRAYER = "prayer",
+    PRAYER = "prayer",    
+    DONATE = "donate",
   }
   
   export enum eRouteActionURL {

@@ -5,6 +5,11 @@ export const APP_ROUTES: Routes = [
     path: "",
     loadChildren: () =>
       import("./features/home/home.route").then((mod) => mod.ROUTES),
+  },  
+  {
+    path: "prayer",
+    loadChildren: () =>
+      import("./features/prayer/prayer.route").then((mod) => mod.ROUTES),
   },
   {
     path: "contact",
@@ -12,9 +17,9 @@ export const APP_ROUTES: Routes = [
       import("./features/contact/contact.route").then((mod) => mod.ROUTES),
   },
   {
-    path: "prayer",
+    path: "donate",
     loadChildren: () =>
-      import("./features/prayer/prayer.route").then((mod) => mod.ROUTES),
+      import("./features/donate/donate.route").then((mod) => mod.ROUTES),
   },
   { path: "**", redirectTo: "" },
 ];

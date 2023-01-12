@@ -2,11 +2,11 @@
 <mat-toolbar class="mat-elevation-z6 wrapper">
     <nav mat-tab-nav-bar [tabPanel]="tabPanel" >
         <!-- Home Tab -->
-        <a mat-tab-link *ngFor="let node of nodes | filterString:'name':'home'" (click)="handleBtnClick(node)"
+        <!-- <a mat-tab-link *ngFor="let node of nodes | filterString:'name':'home'" (click)="handleBtnClick(node)"
             [routerLink]="node.url" routerLinkActive #rla="routerLinkActive" [routerLinkActiveOptions]="{exact: true}"
             [active]="rla.isActive">
             <tap-btn-icon-col [node]="node"></tap-btn-icon-col>
-        </a>
+        </a> -->
 
         <a mat-tab-link
             *ngFor="let node of nodes | filterBoolean:'visible':true | filterString:'category':eNodeCategory.NAV"

@@ -12,7 +12,7 @@ import { MenuNode, eNodeCategory } from "@tap/shared/models";
 import { FilterBooleanPipe, FilterStringPipe } from "@tap/standalone/pipes";
 
 //Data
-import { headerData } from "@tap/shared/models/app.data";
+import { headerMobileData } from "@tap/shared/models/app.data";
 
 //Components
 import { BtnIconColComponent } from "@tap/standalone/components/btn-icon-col/btn-icon-col.component";
@@ -38,7 +38,7 @@ import { CoreService } from '@tap/shared/services/';
   styleUrls: ["./mobile-header.component.scss"],
 })
 export class MobileHeaderComponent {
-  nodes: Array<MenuNode> = headerData;
+  nodes: Array<MenuNode> = headerMobileData;
   eNodeCategory = eNodeCategory;
   constructor(private coreService: CoreService) {}
   
