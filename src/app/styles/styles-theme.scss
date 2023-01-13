@@ -1,23 +1,27 @@
 @use '@angular/material'as mat;
 
 @include mat.core();
-
-$tap-primary-theme: mat.define-palette(mat.$brown-palette, 500);
+$tap-primary-pallete:mat.$brown-palette;
+$tap-primary-theme: mat.define-palette($tap-primary-pallete, 500);
 $tap-accent-theme: mat.define-palette(mat.$amber-palette, A200, A100, A400);
 $tap-warn-theme: mat.define-palette(mat.$red-palette);
 
 //TODO Define centralized typography
-// $tap-typography: mat.define-typography-config(
-//   );
+$tap-typography: mat.define-typography-config($font-family: 'El Messiri');
 
-$tap-theme: mat.define-light-theme((
- color: (
-   primary: $tap-primary-theme,
-   accent: $tap-accent-theme,
-   warn: $tap-warn-theme
- ),
- typography: mat.define-typography-config(),
- density: 0,
-));
+$tap-theme: mat.define-light-theme((color: (primary: $tap-primary-theme,
+      accent: $tap-accent-theme,
+      warn: $tap-warn-theme),
+    typography: $tap-typography,
+    density: 0,
+  ));
 
 @include mat.all-component-themes($tap-theme);
+
+// colors
+$primary-theme-color-dark:mat.get-color-from-palette($tap-primary-pallete, 700); //700
+$primary-theme-color:mat.get-color-from-palette($tap-primary-pallete, 500); //500
+$primary-theme-color-light:mat.get-color-from-palette($tap-primary-pallete, 500); //300
+$primary-theme-color-background-dark:mat.get-color-from-palette($tap-primary-pallete, 100); //100
+$primary-theme-color-background:mat.get-color-from-palette($tap-primary-pallete, 50); //50
+

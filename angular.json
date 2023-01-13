@@ -57,8 +57,7 @@
               "src/assets",
               "src/manifest.webmanifest"
             ],
-            "styles": [
-              "src/app/styles/styles-theme.scss",
+            "styles": [              
               "src/styles.scss"
             ],
             "scripts": [],
