@@ -3,7 +3,7 @@
     <button mat-icon-button color="primary" aria-label="Menu"
         *ngFor="let node of nodes | filterBoolean:'visible':true | filterString:'category':eNodeCategory.MENU"
         (click)="handleBtnClick(node)">
-        <mat-icon>{{node.iconClass}}</mat-icon>
+        <mat-icon class="material-icons-outlined" aria-hidden="true">{{node.iconClass}}</mat-icon>
     </button>
     <button mat-button color="primary" aria-label="Home"  (click)="handleBtnClick(node)"
         *ngFor="let node of nodes | filterBoolean:'visible':true | filterString:'category':eNodeCategory.BRAND" routerLink={{node.url}}
