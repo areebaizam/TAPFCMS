@@ -1,11 +1,16 @@
 @import '/src/app/styles/global-variables.scss';
+@import '/src/app/styles/styles-theme.scss';
 
 .wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    padding: 0 $page-wrapper-padding-right 0 $page-wrapper-padding-left;
+    margin: 10px $page-wrapper-padding-right 10px $page-wrapper-padding-left;
+    padding: 10px 10px 0;
+    background-color: $primary-theme-color-background-dark;
+    border: 1px solid $primary-theme-color-light;
+    border-radius: 10px;
 }
 
 

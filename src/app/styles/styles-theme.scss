@@ -21,7 +21,7 @@ $tap-theme: mat.define-light-theme((color: (primary: $tap-primary-theme,
 // colors
 $primary-theme-color-dark:mat.get-color-from-palette($tap-primary-pallete, 700); //700
 $primary-theme-color:mat.get-color-from-palette($tap-primary-pallete, 500); //500
-$primary-theme-color-light:mat.get-color-from-palette($tap-primary-pallete, 500); //300
+$primary-theme-color-light:mat.get-color-from-palette($tap-primary-pallete, 300); //300
 $primary-theme-color-background-dark:mat.get-color-from-palette($tap-primary-pallete, 100); //100
 $primary-theme-color-background:mat.get-color-from-palette($tap-primary-pallete, 50); //50
 

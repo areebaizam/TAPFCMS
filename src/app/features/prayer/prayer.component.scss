@@ -1,0 +1,27 @@
+@import '/src/app/styles/styles-theme.scss';
+
+.wrapper {
+    width: 180px;
+    height: 185px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgba(121, 85, 72, .15);
+    background-image: url('/../assets/images/svg/bg-lisbon.svg');
+    margin: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.zawal {
+    background-image: unset;
+    background-color: #ef9a9a; //$red-200
+    border: 1px solid #e57373; //$red-300
+}
+
+.active {
+    background-image: unset;
+    background-color: #a5d6a7; //$green-200
+    border: 1px solid #81c784; //$green-300
+}
