@@ -1,0 +1,20 @@
+@import '/src/app/styles/global-variables.scss';
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0 $page-wrapper-padding-right 0 $page-wrapper-padding-left;
+}
+
+
+.external-link::after {
+    content: "\e89e";
+    font-family: Material Icons;
+    margin-left: 0.3rem;
+    padding-bottom: 0.3rem;
+    float: right;
+    display: flex;
+    // align-items: center;
+}

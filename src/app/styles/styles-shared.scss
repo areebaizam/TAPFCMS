@@ -23,7 +23,7 @@
     font-size: 40px;
     color: $primary-theme-color-dark;
     line-height: 1.5;
-    // text-shadow: 0px 4px 4px rgba(68, 26, 5, 0.39);
+    text-shadow: 0px 4px 4px rgba(68, 26, 5, 0.39);
 }
 
 .main-sub-title {
@@ -40,9 +40,17 @@
 
 .main-text {
     font-size: 16px;
+    font-weight: 500;
     color: $primary-theme-color;
     letter-spacing: 2px;
     word-spacing: 2px;
+}
+
+.body-text {
+    font-size: 16px;
+    font-weight: 500;
+    color: $primary-theme-color;
+    word-break: break-word;
 }
 
 .text-italic {

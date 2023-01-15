@@ -25,8 +25,19 @@ export enum eMatElevation {
   }
   
   export enum eRouteActionURL {
-    create = "create",
-    update = "update",
+    CREATE = "create",
+    UPDATE = "update",
+  }
+
+  //Topic Heading
+  export enum eTopicHeading{
+    WELCOME = "welcome",
+    HELP = "help",
+    CONTACT = "contact",
+    SERVICES = "services",
+    VOLUNTEER = "volunteer",
+    DONATION = "donation",
+    SUGGESTION = "suggestion",
   }
   
   // * Menu Node
@@ -43,5 +54,20 @@ export enum eMatElevation {
     url?: string | undefined;
     visible?: boolean = true;
     children?: MenuNode[] | undefined;
+  }
+
+  export class FeatureCard {
+    order: number = -1;
+    header?: string | '';
+    iconClassName?: string | undefined;
+    content?: string | '';
+    visible?: boolean = true;
+  }
+  
+  export class TopicHeading {
+    type?: eTopicHeading | '';
+    title?: string | '';
+    subtitle?: string | '';
+    content?: string | '';
   }
   

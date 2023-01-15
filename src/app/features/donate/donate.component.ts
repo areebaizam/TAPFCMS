@@ -3,6 +3,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { HeadingComponent,FooterCopyrightComponent } from "@tap/standalone/components/";
+import { TopicHeading, topicList, eTopicHeading } from '@tap/shared/models';
 
 @Component({
   selector: "tap-donate",
@@ -11,4 +12,6 @@ import { HeadingComponent,FooterCopyrightComponent } from "@tap/standalone/compo
   templateUrl: "./donate.component.html",
   styleUrls: ["./donate.component.scss"],
 })
-export class DonateComponent {}
+export class DonateComponent {
+  heading: TopicHeading = topicList.filter(t=>t.type==eTopicHeading.DONATION)[0];
+}

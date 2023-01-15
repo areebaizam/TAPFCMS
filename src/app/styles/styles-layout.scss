@@ -1,15 +1,16 @@
 @import "/src/app/styles/global-variables.scss";
 
-.main-header-wrapper{
-    height: $main-header-height;
-    padding: 0 $main-content-padding-x !important;
-}
-.main-body-wrapper{
-    min-height: $main-wrapper-height;
-    padding: 0 $page-wrapper-padding-right 0 $page-wrapper-padding-left;
+.main-header-wrapper {
+  height: $main-header-height;
+  padding: 0 $main-content-padding-x !important;
 }
 
-.mobile-header-buffer{
+.main-body-wrapper {
+  min-height: $main-wrapper-height;
+  padding: 0 $page-wrapper-padding-right 0 $page-wrapper-padding-left;
+}
+
+.mobile-header-buffer {
   height: $main-header-height;
 }
 
@@ -70,4 +71,32 @@
 
 .align-center {
   text-align: center;
+}
+
+.section-desc {
+  width: 60%;
+}
+
+.section-detail {
+  padding-left: 10px;
+  width: 40%;
+}
+
+
+/* On screens that are 600px or less */
+@media screen and (max-width: 600px) {
+  .section-desc {
+    width: 100%;
+  }
+
+  .section-detail {
+    // align-items: center;
+    padding-left: unset;
+    width: 100%;
+
+    .flex-row {
+      justify-content: center;
+    }
+  }
+
 }

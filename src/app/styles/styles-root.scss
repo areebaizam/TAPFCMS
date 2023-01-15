@@ -1,4 +1,5 @@
 @import "/src/app/styles/global-variables.scss";
+
 .mat-toolbar {
     height: $main-header-height;
     width: 100%;
@@ -8,10 +9,15 @@
 
 .mat-drawer-container {
     min-height: 100vh;
-    background-color: $primary-theme-color-background!important;
+    background-color: $primary-theme-color-background !important;
 }
 
 .mat-drawer {
     width: $main-drawer-width;
-    background-color: $primary-theme-color-background!important;
+    background-color: $primary-theme-color-background !important;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }

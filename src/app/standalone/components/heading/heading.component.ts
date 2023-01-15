@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
-
+import { Component, Input } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { TopicHeading } from '@tap/shared/models';
 @Component({
-  selector: 'tap-heading',
+  selector: "tap-heading",
   standalone: true,
-  imports: [],
-  templateUrl: './heading.component.html',
+  imports: [NgClass],
+  templateUrl: "./heading.component.html",
 })
 export class HeadingComponent {
-
+  @Input() heading: TopicHeading = new TopicHeading();
+  @Input() alignLeft: Boolean = false;
 }
