@@ -7,7 +7,9 @@
     </button>
     <button mat-button color="primary" aria-label="Home"  (click)="handleBtnClick(node)"
         *ngFor="let node of nodes | filterBoolean:'visible':true | filterString:'category':eNodeCategory.BRAND" routerLink={{node.url}}
-        class="brand"> <span class="brand">{{node.name}}</span></button>
+        class="brand"> <img src="/../assets/images/png/fmcs.png" class="img-fluid" alt="brand" style="height: 36px">
+    <span class="main-title brand">FMCS</span>
+    </button>
 
     <span class="spacer" aria-hidden="true"></span>
     <nav mat-tab-nav-bar [tabPanel]="tabPanel" fitInkBarToContent class="mat-tab-group-inverted-header">
