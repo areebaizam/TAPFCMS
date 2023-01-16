@@ -73,11 +73,11 @@
   text-align: center;
 }
 
-.section-desc {
+.section-sixty {
   width: 60%;
 }
 
-.section-detail {
+.section-forty {
   padding-left: 10px;
   width: 40%;
 }
@@ -85,11 +85,11 @@
 
 /* On screens that are 600px or less */
 @media screen and (max-width: 600px) {
-  .section-desc {
+  .section-sixty {
     width: 100%;
   }
 
-  .section-detail {
+  .section-forty {
     // align-items: center;
     padding-left: unset;
     width: 100%;

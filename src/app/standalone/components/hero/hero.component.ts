@@ -1,11 +1,11 @@
 import { Component } from "@angular/core";
-import { HeadingComponent } from "@tap/standalone/components/";
+import { HeadingComponent, PrayerTimeComponent } from "@tap/standalone/components/";
 import { TopicHeading, topicList, eTopicHeading } from "@tap/shared/models";
 
 @Component({
   selector: "tap-hero",
   standalone: true,
-  imports: [HeadingComponent],
+  imports: [HeadingComponent, PrayerTimeComponent],
   templateUrl: "./hero.component.html",
   styleUrls: ["./hero.component.scss"],
 })

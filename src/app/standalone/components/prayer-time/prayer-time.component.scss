@@ -1,0 +1,46 @@
+@import '/src/app/styles/styles-theme.scss';
+
+.container-prayer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px;
+    width: fit-content;
+    padding: 10px;
+    background-color: $primary-theme-color-background-dark;
+    border: 1px solid $primary-theme-color-light;
+    border-radius: 10px;
+}
+
+.wrapper {
+    width: 160px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.prayer-heading {
+    font-size: 32px;
+    line-height: 1;
+}
+
+.active{
+    -webkit-box-shadow: 10px 10px 21px -7px rgba(93,64,55,1);
+    -moz-box-shadow: 10px 10px 21px -7px rgba(93,64,55,1);
+    box-shadow: 10px 10px 21px -7px rgba(93,64,55,1);
+}
+
+mat-card.mat-mdc-card.mdc-card.prayer {
+    background-color: #a5d6a7 !important; //$green-200
+    border: 1px solid #81c784; //$green-300
+
+}
+
+
+
+mat-card.mat-mdc-card.mdc-card.zawal {
+    background-color: #ffcdd2!important; //$red-100
+    border: 1px solid #ef9a9a; //$red-200
+}
