@@ -7,8 +7,8 @@
     gap: 10px;
     width: fit-content;
     padding: 10px;
-    background-color: $primary-theme-color-background-dark;
-    border: 1px solid $primary-theme-color-light;
+    background-color: #FFFFFF;
+    border: 1px solid $primary-theme-color-background-dark;
     border-radius: 10px;
 }
 
@@ -28,13 +28,14 @@
 
 .prayer-card {
     border-radius: 10px;
-    border: 1px solid $primary-theme-color-background;
-    background-color: $primary-theme-color-background-dark;
+    border: 1px solid $primary-theme-color-background-dark;
+    background-color: $primary-theme-color-background;
 
 }
 
 .prayer-active {
-    background-color: $primary-theme-color-background;
+    background-color: rgba(77, 182, 172, .5);
+    border:unset;
 }
 
 .zawal-card {
