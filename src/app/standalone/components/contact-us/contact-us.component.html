@@ -1,23 +1,19 @@
-<div class="wrapper">
+<!-- <div class="wrapper">
     <tap-heading [heading]="heading" class="section-sixty"></tap-heading>
     <div class="section-forty">
-        <div class="flex-row">
-            <span><mat-icon class="mx-1 material-icons-outlined" color="primary" aria-hidden="true">location_on</mat-icon></span>
-            <a target="_blank" rel="noopener noreferrer" title="Location"
-                href="https://www.google.com/maps/dir//Fraserview+Muslim+Community+Services+6436+Fraser+St+Vancouver,+BC+V5W+3A6/@49.2261272,-123.0905443,14z/data=!4m5!4m4!1m0!1m2!1m1!1s0x548674154a882ced:0x7df2309f17ba710d"
-                class="body-text pt-1 external-link">6436 Fraser St., Vancouver, V5W3A6</a>
-        </div>
-        <div class="flex-row py-1">
-            <mat-icon class="mx-1 material-icons-outlined" color="primary">call</mat-icon>
-            <a href="tel:+16047809121" title="Phone">
-                <div class="body-text pt-1 external-link">+1 (604) 780-9121</div>
-            </a>
-        </div>
-        <div class="flex-row">
-            <mat-icon class="mx-1 material-icons-outlined" color="primary">mail</mat-icon>
-            <a href="mailto:fmcs786@gmail.com">
-                <div class="body-text pt-1 external-link">fmcs786@gmail.com</div>
-            </a>
+        <tap-contact-us-detail></tap-contact-us-detail>        
+    </div>
+</div> -->
+<div class="flex-column-center">
+    <span class="main-sub-title py-2">Contact Us</span>
+    <div class="separator-img"></div>
+    <div class="flex-row-center">
+        <tap-contact-us-detail></tap-contact-us-detail>
+        <div class="map-wrapper">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1302.8619401249955!2d-123.09287949166395!3d49.22476344656481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548674154a882ced%3A0x7df2309f17ba710d!2sFraserview%20Muslim%20Community%20Services!5e0!3m2!1sen!2sca!4v1673951510275!5m2!1sen!2sca"
+                width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" SameSite="Lax"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
 </div>

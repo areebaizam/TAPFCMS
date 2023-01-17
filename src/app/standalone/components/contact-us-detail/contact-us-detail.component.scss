@@ -1,0 +1,17 @@
+@import '/src/app/styles/global-variables.scss';
+.icon-label{
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: 5px;
+    padding: 0 $page-wrapper-padding-right 0 $page-wrapper-padding-left;
+}
+
+.external-link::after {
+    content: "\e89e";
+    font-family: Material Icons;
+    margin-left: 3px;
+    padding-bottom: 0.3rem;
+    float: right;
+    display: flex;
+}

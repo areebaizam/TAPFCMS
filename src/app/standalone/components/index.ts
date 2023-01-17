@@ -5,6 +5,7 @@ export * from "./card-icon/card-icon.component";
 export * from "./prayer-time/prayer-time.component";
 export * from "./heading/heading.component"; 
 
+export * from "./contact-us-detail/contact-us-detail.component";
 export * from "./contact-us/contact-us.component";
 export * from "./footer-copyright/footer-copyright.component";
 export * from "./hero/hero.component";

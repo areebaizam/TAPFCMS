@@ -1,25 +1,4 @@
-@import '/src/app/styles/global-variables.scss';
-@import '/src/app/styles/styles-theme.scss';
-
-.wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 10px $page-wrapper-padding-right 10px $page-wrapper-padding-left;
-    padding: 10px 10px 0;
-    background-color: #FFF;
-    border: 1px solid $primary-theme-color-light;
-    border-radius: 10px;
-}
-
-
-.external-link::after {
-    content: "\e89e";
-    font-family: Material Icons;
-    margin-left: 0.3rem;
-    padding-bottom: 0.3rem;
-    float: right;
-    display: flex;
-    // align-items: center;
+.map-wrapper{
+    flex-grow: 1;
+    max-width: 600px;
 }
