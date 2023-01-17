@@ -1,0 +1,15 @@
+@import '/src/app/styles/global-variables.scss';
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: $main-wrapper-height;
+    padding-top: 1rem;
+}
+
+.contact-heading{
+    max-width: 800px;
+    display: flex;
+}

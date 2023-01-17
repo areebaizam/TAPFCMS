@@ -1,8 +1,8 @@
 @import '/src/app/styles/global-variables.scss';
 .icon-label{
     display: flex;
-    width: fit-content;
-    align-items: center;
+    min-width: fit-content;
+    justify-content: center;
     gap: 5px;
     padding: 0 $page-wrapper-padding-right 0 $page-wrapper-padding-left;
 }
