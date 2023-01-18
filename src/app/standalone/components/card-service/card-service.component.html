@@ -1,1 +1,11 @@
-<p>card-service works!</p>
+<div class="service-container">
+    <ng-container *ngFor="let card of cards | filterBoolean:'visible':true">
+        <div class="wrapper">
+            <span class="main-title main-text-heading">{{card.header}}</span>
+            <span class="main-text py-1">{{card.content}}</span>
+            <button mat-flat-button color="primary" *ngIf="card.iconClass" [routerLink]="card.url">
+                <mat-icon class="material-icons-outlined"
+                    aria-hidden="true">{{card.iconClass}}</mat-icon>{{card.iconLabel |uppercase}}</button>
+        </div>
+    </ng-container>
+</div>

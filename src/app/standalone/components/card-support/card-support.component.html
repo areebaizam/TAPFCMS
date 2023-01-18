@@ -1,17 +1,11 @@
 <div class="support-container">
-    <div class="wrapper">
-        <span class="main-title">Donate Now</span>
-        <span class="main-text pb-1">Please donate generously as this ensures that the mosque is maintained properly and the
-            Muslim community benefits from these facilities</span>
-        <button mat-flat-button color="primary"><mat-icon class="material-icons"
-                aria-hidden="true">volunteer_activism</mat-icon>Donate</button>
-
-    </div>
-    <div class="wrapper">
-        <span class="main-title">Volunteer for Jumuah</span>
-        <span class="main-text pb-1">We are short of volunteers for Jumuah preparations. We need volunteers to help us make
-            the arrangement</span>
-        <button mat-stroked-button color="primary"><mat-icon
-                aria-hidden="true">edit_square</mat-icon>Register</button>
-    </div>
+    <ng-container *ngFor="let card of cards | filterBoolean:'visible':true">
+        <div class="wrapper">
+            <span class="main-title main-text-heading">{{card.header}}</span>
+            <span class="main-text py-1">{{card.content}}</span>
+            <button mat-stroked-button color="primary" *ngIf="card.iconClass" [routerLink]="card.url"><mat-icon
+                    class="material-icons-outlined" aria-hidden="true">{{card.iconClass}}</mat-icon>{{card.iconLabel
+                |uppercase}}</button>
+        </div>
+    </ng-container>
 </div>

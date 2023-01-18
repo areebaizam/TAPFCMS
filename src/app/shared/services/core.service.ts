@@ -11,12 +11,12 @@ export class CoreService {
   constructor() {}
 
   handleNodeEvents(node: MenuNode) {
-    switch (node.name) {
+    switch (node.iconLabel) {
       case 'menu':
-        this.menuBtnClicked$.next(node.name);
+        this.menuBtnClicked$.next(node.iconLabel);
         break;
       default:
-        this.menuBtnClicked$.next(node.name);
+        this.menuBtnClicked$.next(node.iconLabel);
         break;
     }
   }

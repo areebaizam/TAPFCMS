@@ -13,7 +13,7 @@ export enum eMatElevation {
     MENU = 'menu',
     BRAND = 'brand',
   }
-  
+ 
   //Routes
   export enum eRouteURL {
     BASE = "",
@@ -32,7 +32,7 @@ export enum eMatElevation {
   //Topic Heading
   export enum eTopicHeading{
     WELCOME = "welcome",
-    HELP = "help",
+    SUPPORT = "support",
     CONTACT = "contact",
     SERVICES = "services",
     VOLUNTEER = "volunteer",
@@ -48,7 +48,7 @@ export enum eMatElevation {
     type: eNodeType = eNodeType.ROUTE; //ENUM
     category?: eNodeCategory = eNodeCategory.NAV; //ENUM
     iconClass?: string | undefined;
-    name?: string | "";
+    iconLabel?: string | "";
     description?: string | "";
     content?: string | "";
     url?: string | undefined;
@@ -58,9 +58,13 @@ export enum eMatElevation {
 
   export class FeatureCard {
     order: number = -1;
+    type?: eTopicHeading;//ENUM    
+    iconClass?: string | undefined;
+    iconLabel?: string | "";
+    url?: eRouteURL | undefined;//ENUM
+    iconHeaderClass?: string | undefined;
     header?: string | '';
-    iconClassName?: string | undefined;
-    content?: string | '';
+    content?: string | '';    
     visible?: boolean = true;
   }
   

@@ -65,6 +65,11 @@
     text-decoration: underline;
 }
 
+.main-text-heading {
+    font-size: 30px;
+    line-height: 1;
+}
+
 /* On screens that are 600px or less */
 @media screen and (max-width: 600px) {
     .main-title {

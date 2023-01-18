@@ -1,15 +1,23 @@
 import { Component } from '@angular/core';
-import { HeadingComponent,CardServiceComponent,CardSupportComponent } from "@tap/standalone/components/";
-import { TopicHeading, topicList, eTopicHeading } from '@tap/shared/models';
+import { HeadingComponent,CardServiceComponent } from "@tap/standalone/components/";
+import {
+  TopicHeading,
+  topicList,
+  eTopicHeading,
+  FeatureCard,
+  cardData,
+} from "@tap/shared/models";
 
 @Component({
   selector: 'tap-services',
   standalone: true,
-  imports: [HeadingComponent,CardServiceComponent,CardSupportComponent],
+  imports: [HeadingComponent,CardServiceComponent],
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.scss']
 })
 export class ServicesComponent {
-  headingHelp: TopicHeading = topicList.filter(t=>t.type==eTopicHeading.HELP)[0];
-  headingServices: TopicHeading = topicList.filter(t=>t.type==eTopicHeading.SERVICES)[0];
+   heading: TopicHeading = topicList.filter(t=>t.type==eTopicHeading.SERVICES)[0];
+   data: Array<FeatureCard> = cardData.filter(
+    (t) => t.type == eTopicHeading.SERVICES
+  );
 }
