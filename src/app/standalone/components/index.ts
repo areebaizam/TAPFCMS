@@ -2,6 +2,8 @@
 export * from "./btn-icon-col/btn-icon-col.component";
 export * from "./btn-icon-row/btn-icon-row.component";
 export * from "./card-icon/card-icon.component";
+export * from "./card-service/card-service.component";
+export * from "./card-support/card-support.component";
 export * from "./prayer-time/prayer-time.component";
 export * from "./heading/heading.component"; 
 

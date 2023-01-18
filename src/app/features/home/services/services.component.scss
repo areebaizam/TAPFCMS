@@ -2,5 +2,7 @@
 .wrapper{
     display: flex;
     flex-direction: column;
-    padding: 1rem $page-wrapper-padding-right 0 $page-wrapper-padding-left;;
+    align-items: center;
+    padding: 1rem $page-wrapper-padding-right 0 $page-wrapper-padding-left;
+    width: 100%;
 }

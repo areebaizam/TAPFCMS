@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { HeadingComponent } from "@tap/standalone/components/";
+import { HeadingComponent,CardServiceComponent,CardSupportComponent } from "@tap/standalone/components/";
 import { TopicHeading, topicList, eTopicHeading } from '@tap/shared/models';
 
 @Component({
   selector: 'tap-services',
   standalone: true,
-  imports: [HeadingComponent],
+  imports: [HeadingComponent,CardServiceComponent,CardSupportComponent],
   templateUrl: './services.component.html',
   styleUrls: ['./services.component.scss']
 })
