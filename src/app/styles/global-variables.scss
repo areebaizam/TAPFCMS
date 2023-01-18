@@ -16,3 +16,4 @@ $page-wrapper-padding-bottom: calc(1rem + env(safe-area-inset-bottom));
 
 
 $main-wrapper-height: calc(#{$page-wrapper-height} - #{$main-header-height});
+$max-wrapper-width: 1200px;

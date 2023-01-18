@@ -1,8 +1,13 @@
 @import '/src/app/styles/global-variables.scss';
-.wrapper{
-    padding: 20px $page-wrapper-padding-right 0 $page-wrapper-padding-left;
+.hero-container{
+    display: flex;
+    padding: 1rem $page-wrapper-padding-right 0 $page-wrapper-padding-left;
+    justify-content: center;
+}
+.wrapper{    
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    max-width: $max-wrapper-width;
 }

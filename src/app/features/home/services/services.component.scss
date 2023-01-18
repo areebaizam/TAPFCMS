@@ -1,0 +1,6 @@
+@import '/src/app/styles/global-variables.scss';
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem $page-wrapper-padding-right 0 $page-wrapper-padding-left;;
+}

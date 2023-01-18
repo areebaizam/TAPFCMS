@@ -4,12 +4,18 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    // align-items: center;
     min-height: $main-wrapper-height;
     padding-top: 1rem;
 }
 
-.contact-heading{
-    max-width: 800px;
+
+.contact-container{
     display: flex;
+    justify-content: center;
+    padding: 0 $page-wrapper-padding-right 0 $page-wrapper-padding-left;
+    .contact-heading{
+        max-width: 600px;
+        
+    }
 }

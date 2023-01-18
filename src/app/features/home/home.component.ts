@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
+import {ServicesComponent} from "./services/services.component"
 import {
   FooterCopyrightComponent,
-  CardIconComponent,
   ContactUsComponent,
   HeroComponent,
 } from "@tap/standalone/components/";
@@ -9,12 +9,7 @@ import {
 @Component({
   selector: "tap-home",
   standalone: true,
-  imports: [
-    FooterCopyrightComponent,
-    CardIconComponent,
-    ContactUsComponent,
-    HeroComponent,
-  ],
+  imports: [FooterCopyrightComponent, ContactUsComponent, HeroComponent, ServicesComponent],
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
 })
