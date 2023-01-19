@@ -1,5 +1,8 @@
 import { environment } from "@tap/env";
+//Constants
 const adminAPI = "admin";
+export const lat = 49.2263435; 
+export const lng = -123.1067579;
 
 export class Config {
   public static get baseApiUrl(): string {
@@ -8,8 +11,6 @@ export class Config {
 
   //Sunrise-Sunset Url
   public static getSunriseBaseUrl(
-    lat: number,
-    lng: number,
     date: Date
   ): string {
     return `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0&date=${date
