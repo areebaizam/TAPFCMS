@@ -4,6 +4,8 @@ import { Subscription, timer } from "rxjs";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { FooterCopyrightComponent } from "@tap/standalone/components/";
+//Utilities
+import { DateHelper } from "@tap/core/dateHelper.utilities";
 //Services
 import { CoreService } from "@tap/shared/services/";
 //Models
@@ -30,15 +32,15 @@ export class PrayerComponent implements OnInit, OnDestroy {
 
   initListener() {
     this.subscriptions.add(
-      timer(0, 1000).subscribe((n) => {
-        //TODO Move date from here
-        this.date = new Date().toLocaleDateString("en-US", {
+      timer(0, DateHelper.getMinutesToMilliseconds).subscribe((n) => {
+        let date = new Date()
+        this.date = date.toLocaleDateString("en-US", {
           weekday: "long",
           year: "numeric",
           month: "short",
           day: "numeric",
         });
-        this.time = new Date().toLocaleTimeString();
+        this.time = date.toLocaleTimeString().replace(/(.*)\D\d+/, '$1'); //Remove Seconds
       })
     );
   }
