@@ -11,6 +11,7 @@ import {
   SunriseTimingsUTCModel,
   PrayerModel,
   ePrayers,
+  ePrayerLabels,
   ePrayerType,
   ePrayerOffset,
 } from "@tap/shared/models";
@@ -177,8 +178,34 @@ export class CoreService {
         // athan: formatDate(this._maghribStartInEpoch, "hh:mm a", this.locale),
         end: formatDate(this._ishaEndInEpoch, "hh:mm a", this.locale),
         endEpoch: this._ishaEndInEpoch,
-      }
+      },
+      {
+        name: ePrayers.JUMUAH,
+        type: ePrayerType.JUMUAH,
+        start: formatDate('2023-01-20T20:30:00+00:00', "hh:mm a", this.locale), //Noon
+        startEpoch: DateHelper.getTimeInEpoch(sunriseAPIResult.solar_noon), //Noon in Epoch
+        // iqamah: this.maghribStart,
+        // athan: this.maghribStart,
+        end: formatDate('2023-01-20T21:30:00+00:00', "hh:mm a", this.locale),
+        endEpoch: this._asrStartInEpoch,
+      },
     );
+
+    this.prayers.forEach((prayer)=>{
+      if(prayer.type== ePrayerType.PRAYER){
+        prayer.startLabel = ePrayerLabels.ADHAN;
+        prayer.endLabel = ePrayerLabels.IQAMAH;
+      }
+      else if(prayer.type== ePrayerType.INTERVAL){
+        prayer.startLabel = ePrayerLabels.START;
+        prayer.endLabel = ePrayerLabels.END;
+      }      
+      else if(prayer.type== ePrayerType.JUMUAH){
+        prayer.startLabel = ePrayerLabels.FIRST_JUMUAH;
+        prayer.endLabel = ePrayerLabels.SECOND_JUMUAH;
+      }      
+      ;
+    });
   }
 
   handleNodeEvents(node: MenuNode) {
