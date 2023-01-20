@@ -1,0 +1,42 @@
+<div class="prayer-grid-container">
+    <div class="prayer-wrapper">
+        <ng-container *ngFor="let prayer of coreService.prayers">
+            <div class="prayer-grid-wrapper" *ngIf="prayer.type===prayerType.PRAYER else makrooh">
+                <span class="prayer-name main-title">{{prayer.name}}</span>
+                <div class="prayer-time-container">
+                    <span class="prayer-time main-sub-title align-center">{{prayer.start}}</span>
+                    <span class="body-text prayer-label align-center">Adhan</span>
+                </div>
+                <div class="prayer-time-container">
+                    <span class="prayer-time main-sub-title align-center">{{prayer.end}}</span>
+                    <span class="body-text prayer-label align-center">Iqamah</span>
+                </div>
+            </div>
+            <ng-template #makrooh>
+                <div class="interval-grid-wrapper">
+                    <span class="interval-name main-title">{{prayer.name}}</span>
+                    <div class="prayer-time-container">
+                        <span class="interval-time main-sub-title align-center">{{prayer.start}}</span>
+                        <span class="body-text interval-label align-center">Starts</span>
+                    </div>
+                    <div class="prayer-time-container">
+                        <span class="interval-time main-sub-title align-center">{{prayer.end}}</span>
+                        <span class="body-text interval-label align-center">Ends</span>
+                    </div>
+
+                </div>
+
+            </ng-template>
+            <!-- <div class="prayer-wrapper" *ngIf="prayer.type===prayerType.PRAYER">
+            <span class="prayer-name">{{prayer.name}}</span>
+            <span>{{prayer.start}}</span>
+            <span>{{prayer.end}}</span>
+        </div>
+        <div class="interval-wrapper" *ngIf="prayer.type===prayerType.INTERVAL">
+            <span class="prayer-name">{{prayer.name}}</span>
+            <span >{{prayer.start}}</span>
+            <span>{{prayer.end}}</span>
+        </div> -->
+        </ng-container>
+    </div>
+</div>

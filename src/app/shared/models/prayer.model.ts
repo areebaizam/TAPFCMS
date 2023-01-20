@@ -1,12 +1,13 @@
 //Prayers
 export enum ePrayers {
-  SUNRISE = "Sunrise",
+  SHUROOQ = "Shurooq",
   FAJR = "Fajr",
   ISHRAQ="Ishraq",
   CHASHT = "Chasht",
   ZAWAL = "Zawal",
   DHUR = "Dhur",
   ASR = "Asr",
+  GHUROOB="Ghuroob",
   MAGHRIB = "Maghrib",
   ISHA = "Isha",
   FIRST_JUMUAH = "Jumuah I",
@@ -28,7 +29,7 @@ export enum ePrayerOffset {
 }
 
 export class PrayerModel {
-  prayer?:ePrayers;
+  name?:ePrayers;
   type?:ePrayerType;
   start?: string;
   startEpoch?: number;

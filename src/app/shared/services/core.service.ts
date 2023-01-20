@@ -23,8 +23,10 @@ export class CoreService {
   private _ishraqStartInEpoch!: number;
   private _chashtStartInEpoch!: number;
   private _zawalStartInEpoch!: number;
+  private _asrStartInEpoch!: number;
   private _asrEndInEpoch!: number;
   private _maghribStartInEpoch!: number;
+  private _ishaEndInEpoch!: number;
 
   public prayers: Array<PrayerModel> = [];
 
@@ -61,6 +63,10 @@ export class CoreService {
       ePrayerOffset.ZAWAL
     );
 
+    this._asrStartInEpoch = DateHelper.addTimeInEpoch(
+      sunriseAPIResult.solar_noon,
+      sunriseAPIResult.day_length / (4 * 60) //1/4 of Daylength
+    );
     this._asrEndInEpoch = DateHelper.addTimeInEpoch(
       sunriseAPIResult.sunset,
       ePrayerOffset.ASR
@@ -70,29 +76,38 @@ export class CoreService {
       sunriseAPIResult.sunset,
       ePrayerOffset.MAGHRIB
     );
+
+    this._ishaEndInEpoch = DateHelper.addTimeInEpoch(
+      sunriseAPIResult.sunset,
+      (86400 - sunriseAPIResult.day_length) / (2 * 60) //1/4 of Daylength
+    );
   }
 
+ 
+
   setPrayerTimings(sunriseAPIResult: SunriseTimingsUTCModel): void {
+    this.prayers = [];
     this.prayers.push(
       {
-        prayer: ePrayers.FAJR,
+        name: ePrayers.FAJR,
         type: ePrayerType.PRAYER,
-        // start: this.ishraqStart,
+        start: formatDate(sunriseAPIResult.astronomical_twilight_begin, "hh:mm a", this.locale),
+        startEpoch: DateHelper.getTimeInEpoch(sunriseAPIResult.astronomical_twilight_begin), 
         // iqamah: this.maghribStart,
         // athan: this.maghribStart,
         end: formatDate(this._sunriseStartInEpoch, "hh:mm a", this.locale),
         endEpoch: this._sunriseStartInEpoch,
       },
       {
-        prayer: ePrayers.SUNRISE,
+        name: ePrayers.SHUROOQ,
         type: ePrayerType.INTERVAL,
-        start: formatDate(this._sunriseStartInEpoch, "hh:mm a", this.locale),
+        start: formatDate(sunriseAPIResult.sunrise, "hh:mm a", this.locale),
         startEpoch: this._sunriseStartInEpoch,
-        end: formatDate(sunriseAPIResult.sunrise, "hh:mm a", this.locale), //Sunrise
-        endEpoch: DateHelper.getTimeInEpoch(sunriseAPIResult.sunrise), //Sunrise in Epoch
+        end: formatDate(this._ishraqStartInEpoch, "hh:mm a", this.locale), //Sunrise
+        endEpoch: this._ishraqStartInEpoch, //Sunrise in Epoch
       },
       {
-        prayer: ePrayers.ISHRAQ,
+        name: ePrayers.ISHRAQ,
         type: ePrayerType.INTERVAL,
         start: formatDate(this._ishraqStartInEpoch, "hh:mm a", this.locale),
         startEpoch: this._ishraqStartInEpoch,
@@ -100,7 +115,7 @@ export class CoreService {
         endEpoch: this._chashtStartInEpoch,
       },
       {
-        prayer: ePrayers.CHASHT,
+        name: ePrayers.CHASHT,
         type: ePrayerType.INTERVAL,
         start: formatDate(this._chashtStartInEpoch, "hh:mm a", this.locale),
         startEpoch: this._chashtStartInEpoch,
@@ -108,7 +123,7 @@ export class CoreService {
         endEpoch: this._zawalStartInEpoch,
       },
       {
-        prayer: ePrayers.ZAWAL,
+        name: ePrayers.ZAWAL,
         type: ePrayerType.INTERVAL,
         start: formatDate(this._zawalStartInEpoch, "hh:mm a", this.locale),
         startEpoch: this._zawalStartInEpoch,
@@ -116,31 +131,52 @@ export class CoreService {
         endEpoch: DateHelper.getTimeInEpoch(sunriseAPIResult.solar_noon), //Noon in Epoch
       },
       {
-        prayer: ePrayers.DHUR,
+        name: ePrayers.DHUR,
         type: ePrayerType.PRAYER,
         start: formatDate(sunriseAPIResult.solar_noon, "hh:mm a", this.locale), //Noon
         startEpoch: DateHelper.getTimeInEpoch(sunriseAPIResult.solar_noon), //Noon in Epoch
         // iqamah: this.maghribStart,
         // athan: this.maghribStart,
-        // end: formatDate(sunriseAPIResult.solar_noon, "hh:mm a", this.locale),
+        end: formatDate(this._asrStartInEpoch, "hh:mm a", this.locale),
+        endEpoch: this._asrStartInEpoch,
       },
       {
-        prayer: ePrayers.ASR,
+        name: ePrayers.ASR,
         type: ePrayerType.PRAYER,
-        // start: formatDate(sunriseAPIResult.sunset, "hh:mm a", this.locale),
+        start: formatDate(this._asrStartInEpoch, "hh:mm a", this.locale),
+        startEpoch: this._asrStartInEpoch,
         // iqamah: this.maghribStart,
         // athan: this.maghribStart,
         end: formatDate(this._asrEndInEpoch, "hh:mm a", this.locale),
         endEpoch: this._asrEndInEpoch,
       },
       {
-        prayer: ePrayers.MAGHRIB,
+        name: ePrayers.GHUROOB,
+        type: ePrayerType.INTERVAL,
+        start: formatDate(this._asrEndInEpoch, "hh:mm a", this.locale),
+        startEpoch: this._asrEndInEpoch,
+        end: formatDate(sunriseAPIResult.sunset, "hh:mm a", this.locale), //Noon
+        endEpoch: DateHelper.getTimeInEpoch(sunriseAPIResult.sunset), //Noon in Epoch
+      },
+      {
+        name: ePrayers.MAGHRIB,
         type: ePrayerType.PRAYER,
         start: formatDate(sunriseAPIResult.sunset, "hh:mm a", this.locale), //Sunset
         startEpoch: DateHelper.getTimeInEpoch(sunriseAPIResult.sunset), //Sunset in Epoch
         iqamah: formatDate(this._maghribStartInEpoch, "hh:mm a", this.locale),
         athan: formatDate(this._maghribStartInEpoch, "hh:mm a", this.locale),
-        // end: this.maghribStart, //TODO FIND THIS
+        end: formatDate(sunriseAPIResult.astronomical_twilight_end, "hh:mm a", this.locale), 
+        endEpoch: DateHelper.getTimeInEpoch(sunriseAPIResult.astronomical_twilight_end),
+      },
+      {
+        name: ePrayers.ISHA,
+        type: ePrayerType.PRAYER,
+        start: formatDate(sunriseAPIResult.astronomical_twilight_end, "hh:mm a", this.locale), 
+        startEpoch: DateHelper.getTimeInEpoch(sunriseAPIResult.astronomical_twilight_end), 
+        // iqamah: formatDate(this._maghribStartInEpoch, "hh:mm a", this.locale),
+        // athan: formatDate(this._maghribStartInEpoch, "hh:mm a", this.locale),
+        end: formatDate(this._ishaEndInEpoch, "hh:mm a", this.locale),
+        endEpoch: this._ishaEndInEpoch,
       }
     );
   }

@@ -14,10 +14,10 @@ export class SunriseTimingsUTCModel {
   sunset: Date = new Date();
   solar_noon: Date = new Date();
   day_length: number = 0;
-  civil_twilight_begin?: string | "";
-  civil_twilight_end?: string | "";
-  nautical_twilight_begin?: string | "";
-  nautical_twilight_end?: string | "";
-  astronomical_twilight_begin?: string | "";
-  astronomical_twilight_end?: string | "";
+  civil_twilight_begin: Date = new Date();
+  civil_twilight_end: Date = new Date();
+  nautical_twilight_begin: Date = new Date();
+  nautical_twilight_end:Date = new Date();
+  astronomical_twilight_begin: Date = new Date();
+  astronomical_twilight_end: Date = new Date();
 }

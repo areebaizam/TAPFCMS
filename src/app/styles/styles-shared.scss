@@ -19,6 +19,17 @@
     background-repeat: no-repeat;
 }
 
+.grow{
+    flex-grow: 1;
+}
+.fit-content{
+    width: fit-content;
+}
+
+.align-left{
+    align-items: left;
+}
+
 .main-title {
     font-size: 40px;
     color: $primary-theme-color-dark;

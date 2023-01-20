@@ -1,21 +1,25 @@
 <div class="prayer-header">
-    <button mat-button color="primary" aria-label="Home" routerLink="['home']" style="width: fit-content;"> 
-        <img
-        src="/../assets/images/png/fmcs.png" class="img-fluid" alt="brand" style="height: 48px; padding-bottom: 10px;">
+    <button mat-button color="primary" aria-label="Home" routerLink="['home']" style="width: fit-content;">
+        <img src="/../assets/images/png/fmcs.png" class="img-fluid" alt="brand"
+            style="height: 48px; padding-bottom: 10px;">
         <span class="main-title title">Fraserview Muslim Community Services</span>
-        </button>   
+    </button>
 </div>
 
-<div class="prayer-wrapper">
-    <div class="flex-column-center">
-        <img src="/../assets/images/svg/bismillah.svg" class="img-fluid brand" alt="brand">
-        <span class="main-title timer mobile">{{time}}</span>
-        <span class="main-title title mobile">{{date}}</span>
+<div class="prayer-container">
+    <div class="header-wrapper">
+        <div class="flex-column-center">
+            <img src="/../assets/images/svg/bismillah.svg" class="img-fluid brand" alt="brand">
+            <span class="main-title timer mobile">{{time}}</span>
+            <span class="main-title title mobile">{{date}}</span>
+        </div>
     </div>
-    <!-- <tap-footer-copyright></tap-footer-copyright> -->
+    <tap-prayer-grid></tap-prayer-grid>
+    <tap-footer-copyright></tap-footer-copyright>
 </div>
 
-<div class="flex-row-center">
+
+<!-- <div class="flex-row-center">
     <div class="wrapper card">
         <span class="main-title">Fajr</span>
         <span class="body-text">Athan</span>
@@ -57,4 +61,4 @@
         <span class="body-text">Iqamah</span>
         <span class="main-title">07:40 PM</span>
     </div>
-</div>
+</div> -->
