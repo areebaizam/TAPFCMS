@@ -1,0 +1,7 @@
+@import '/src/app/styles/global-variables.scss';
+.wrapper-home{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: $main-wrapper-height;
+}

@@ -1,0 +1,41 @@
+@import '/src/app/styles/global-variables.scss';
+// @import '/src/app/styles/styles-theme.scss';
+
+// .prayer-header {
+//     display: flex;
+//     background-color: $primary-theme-color-background;
+//     position: fixed;
+//     height: $main-header-height;
+//     padding: 0 $page-wrapper-padding-right 0 $page-wrapper-padding-left;
+//     justify-content: flex-end;
+//     flex-direction: column;
+//     align-items: center;
+//     top: 0;
+//     width: 100%;
+//     z-index: 10;
+// }
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    min-height: $main-wrapper-height;
+}
+
+.mobile{
+    display: none;
+}
+
+/* On screens that are 600px or less */
+@media screen and (max-width: 600px) {
+    .not-mobile {
+        display: none;
+    }
+    .mobile{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: space-evenly;
+        min-height: $main-wrapper-height;
+        padding: 0 $page-wrapper-padding-right 0 $page-wrapper-padding-left;
+    }
+}

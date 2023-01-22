@@ -5,6 +5,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import {
   PrayerGridComponent,
+  PrayerGridMosqueComponent,
   FooterCopyrightComponent,
 } from "@tap/standalone/components/";
 //Utilities
@@ -22,6 +23,7 @@ import { eSunriseAPIStatusCodes } from "@tap/shared/models";
     MatToolbarModule,
     MatButtonModule,
     PrayerGridComponent,
+    PrayerGridMosqueComponent,
     FooterCopyrightComponent,
   ],
   templateUrl: "./prayer.component.html",
@@ -53,8 +55,8 @@ export class PrayerComponent implements OnInit, OnDestroy {
     //Minute Change Timer
     this.subscriptions.add(
       timer(
-        this.intervalTimeInMilliseconds,
-        DateHelper.getMinutesToMilliseconds
+        0,
+        1000
       ).subscribe((n) => {
         this.initTime();
       })
@@ -72,7 +74,7 @@ export class PrayerComponent implements OnInit, OnDestroy {
   }
 
   initTime() {
-    this.time = new Date().toLocaleTimeString().replace(/(.*)\D\d+/, "$1"); //Remove Seconds
+    this.time = new Date().toLocaleTimeString(); //Remove Seconds
   }
 
   initDate() {
@@ -92,7 +94,6 @@ export class PrayerComponent implements OnInit, OnDestroy {
             //TODO Move to Prayer Service
             this.coreService.getPrayerTimings(next.results);
             this.coreService.setPrayerTimings(next.results);
-            console.log(this.coreService.prayers);
           } else console.log(next, "Error");
         },
         (error) => {

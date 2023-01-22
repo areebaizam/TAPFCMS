@@ -19,14 +19,15 @@
     background-repeat: no-repeat;
 }
 
-.grow{
+.grow {
     flex-grow: 1;
 }
-.fit-content{
+
+.fit-content {
     width: fit-content;
 }
 
-.align-left{
+.align-left {
     align-items: left;
 }
 
@@ -86,6 +87,7 @@
     .main-title {
         font-size: 32px;
     }
+
     .main-sub-title {
         font-size: 20px;
     }

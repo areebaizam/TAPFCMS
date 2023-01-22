@@ -4,8 +4,11 @@ export * from "./btn-icon-row/btn-icon-row.component";
 export * from "./card-icon/card-icon.component";
 export * from "./card-service/card-service.component";
 export * from "./card-support/card-support.component";
+export * from "./footer-display/footer-display.component";
+export * from "./header-display/header-display.component";
 export * from "./prayer-time/prayer-time.component";
 export * from "./prayer-grid/prayer-grid.component";
+export * from "./prayer-grid-mosque/prayer-grid-mosque.component";
 export * from "./heading/heading.component"; 
 
 export * from "./contact-us-detail/contact-us-detail.component";

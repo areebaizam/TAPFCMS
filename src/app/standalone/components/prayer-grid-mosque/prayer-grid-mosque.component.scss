@@ -1,0 +1,129 @@
+@import '/src/app/styles/global-variables.scss';
+@import '/src/app/styles/styles-theme.scss';
+
+.prayer-grid-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.prayer-wrapper {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    // align-items: center;
+    min-width: 1000px;
+    padding: 5px 10px;
+    background-color: white;
+    border: 1px solid $primary-theme-color-background-dark;
+}
+
+.prayer-grid-wrapper,
+.interval-grid-wrapper {
+    width: 100%;
+    min-width: 300px;
+    // max-width: 600px;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+.prayer-grid-wrapper {
+    margin: 5px 0;
+    // background-color: $primary-theme-color-background;
+}
+
+.isActive{
+    background-color: $primary-theme-color-background;
+}
+.isActiveWarn{
+    background-color:rgb(255, 195, 190,.5);
+}
+
+.prayer-name,
+.prayer-time,
+.interval-name,
+.interval-time {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+
+
+}
+
+.prayer-label {
+    width: 200px;
+    font-size: 24px;
+}
+
+.prayer-name {
+    width: 140px;
+    font-size: 60px;
+}
+
+.interval-name {
+    width: 140px;
+    font-size: 42px;
+    line-height: 2;
+}
+
+.prayer-time {
+    width: 240px;
+    font-size: 54px;
+    // line-height:.7;
+    text-align: center;
+    
+}
+.prayer-time-jumuah{
+    font-size: 42px;
+}
+
+.interval-time {
+    width: 200px;
+    font-size: 32px;
+    line-height: .5;
+    text-align: center;
+}
+.interval-label {
+    width: 200px;
+    font-size: 24px;
+}
+
+
+.prayer-time-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+/* On screens that are 600px or less */
+@media screen and (max-width: 600px) {
+    .prayer-name {
+        font-size: 24px;
+        line-height: 2.3;
+        width: 100px;
+    }
+
+    .prayer-time,
+    .prayer-label,
+    .interval-time {
+        width: 95px;
+    }
+
+    .interval-name {
+        width: 100px;
+        font-size: 20px;
+    }
+
+    .interval-time {
+        font-size: 16px;
+    }
+
+    .interval-label {
+        font-size: 12px;
+    }
+
+}

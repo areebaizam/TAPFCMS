@@ -34,6 +34,9 @@
 .prayer-active {
     background-color: $primary-theme-color;
     border: unset;
+    -webkit-box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
+    -moz-box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
+    box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
 
     * {
         color: $primary-theme-color-background;
@@ -43,11 +46,5 @@
 .zawal-card {
     border-radius: 10px;
     border: 1px solid #ef9a9a;
-    background-color: #ffcdd2;
-}
-
-.active {
-    -webkit-box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
-    -moz-box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
-    box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
+    background-color: rgb(255, 195, 190,.2);
 }

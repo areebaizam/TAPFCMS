@@ -44,41 +44,41 @@ export class CoreService {
   }
 
   getPrayerTimings(sunriseAPIResult: SunriseTimingsUTCModel): void {
-    this._sunriseStartInEpoch = DateHelper.addTimeInEpoch(
+    this._sunriseStartInEpoch = DateHelper.addTimeInEpochMinutes(
       sunriseAPIResult.sunrise,
       ePrayerOffset.SUNRISE
     );
 
-    this._ishraqStartInEpoch = DateHelper.addTimeInEpoch(
+    this._ishraqStartInEpoch = DateHelper.addTimeInEpochMinutes(
       sunriseAPIResult.sunrise,
       ePrayerOffset.ISHRAQ
     );
 
-    this._chashtStartInEpoch = DateHelper.addTimeInEpoch(
+    this._chashtStartInEpoch = DateHelper.addTimeInEpochMinutes(
       sunriseAPIResult.sunrise,
       sunriseAPIResult.day_length / (4 * 60) //1/4 of Daylength
     );
 
-    this._zawalStartInEpoch = DateHelper.addTimeInEpoch(
+    this._zawalStartInEpoch = DateHelper.addTimeInEpochMinutes(
       sunriseAPIResult.solar_noon,
       ePrayerOffset.ZAWAL
     );
 
-    this._asrStartInEpoch = DateHelper.addTimeInEpoch(
+    this._asrStartInEpoch = DateHelper.addTimeInEpochMinutes(
       sunriseAPIResult.solar_noon,
       sunriseAPIResult.day_length / (4 * 60) //1/4 of Daylength
     );
-    this._asrEndInEpoch = DateHelper.addTimeInEpoch(
+    this._asrEndInEpoch = DateHelper.addTimeInEpochMinutes(
       sunriseAPIResult.sunset,
       ePrayerOffset.ASR
     );
 
-    this._maghribStartInEpoch = DateHelper.addTimeInEpoch(
+    this._maghribStartInEpoch = DateHelper.addTimeInEpochMinutes(
       sunriseAPIResult.sunset,
       ePrayerOffset.MAGHRIB
     );
 
-    this._ishaEndInEpoch = DateHelper.addTimeInEpoch(
+    this._ishaEndInEpoch = DateHelper.addTimeInEpochMinutes(
       sunriseAPIResult.sunset,
       (86400 - sunriseAPIResult.day_length) / (2 * 60) //1/4 of Daylength
     );

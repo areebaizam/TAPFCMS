@@ -1,22 +1,27 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { NgFor, NgIf } from "@angular/common";
 import { Subscription } from "rxjs";
+import {
+  HeaderDisplayComponent,
+  PrayerGridMosqueComponent,
+  FooterDisplayComponent,
+} from "@tap/standalone/components/";
 //Services
 import { PrayerService } from "@tap/shared/services/";
 //Models and Enums
-import { ePrayerType, eSunriseAPIStatusCodes } from "@tap/shared/models";
-
-
+import { eSunriseAPIStatusCodes } from "@tap/shared/models";
 @Component({
-  selector: "tap-prayer-grid",
+  selector: "tap-prayers",
   standalone: true,
-  imports: [NgFor, NgIf],
-  templateUrl: "./prayer-grid.component.html",
-  styleUrls: ["./prayer-grid.component.scss"],
+  imports: [
+    HeaderDisplayComponent,
+    PrayerGridMosqueComponent,
+    FooterDisplayComponent,
+  ],
+  templateUrl: "./prayers.component.html",
+  styleUrls: ["./prayers.component.scss"],
 })
-export class PrayerGridComponent implements OnInit, OnDestroy {
-  prayerType = ePrayerType;
-  constructor(public prayerService: PrayerService) {}
+export class PrayersComponent implements OnInit, OnDestroy {
+  constructor(private prayerService: PrayerService) {}
   subscriptions: Subscription = new Subscription();
   ngOnInit(): void {
     this.initListener();
@@ -59,5 +64,4 @@ export class PrayerGridComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
 }

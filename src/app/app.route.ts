@@ -12,6 +12,11 @@ export const APP_ROUTES: Routes = [
       import("./features/prayer/prayer.route").then((mod) => mod.ROUTES),
   },
   {
+    path: "home",
+    loadChildren: () =>
+      import("./features/prayers/prayers.route").then((mod) => mod.ROUTES),
+  },
+  {
     path: "contact",
     loadChildren: () =>
       import("./features/contact/contact.route").then((mod) => mod.ROUTES),
