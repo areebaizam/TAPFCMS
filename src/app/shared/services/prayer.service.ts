@@ -285,7 +285,7 @@ export class PrayerService {
       },
       {
         name: ePrayers.ISHA,
-        type: ePrayerType.INTERVAL,
+        type: ePrayerType.PRAYER,
         start: formatDate(
           this.sunriseAPIResult.astronomical_twilight_end,
           "hh:mm a",
