@@ -1,6 +1,6 @@
 import { NgModule, isDevMode } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from "@angular/common/http";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -14,9 +14,7 @@ import {
   PreloadAllModules,
   withPreloading,
   withInMemoryScrolling,
-  InMemoryScrollingOptions,
 } from "@angular/router";
-
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +30,13 @@ import {
     BrowserAnimationsModule,
     SidenavComponent,
   ],
-  providers: [provideRouter(APP_ROUTES, withPreloading(PreloadAllModules), withInMemoryScrolling({scrollPositionRestoration:'top'}) )],
+  providers: [
+    provideRouter(
+      APP_ROUTES,
+      withInMemoryScrolling({ scrollPositionRestoration: 'top' }),
+      withPreloading(PreloadAllModules)
+    ),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
