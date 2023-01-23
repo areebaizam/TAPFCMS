@@ -1,20 +1,20 @@
 <div class="container-prayer">
     <ng-container *ngFor="let prayer of prayerService.prayers | filterBoolean:'visible':true">
-        <div class="wrapper prayer-card" *ngIf="prayer.type===prayerType.PRAYER">
+        <div class="wrapper prayer-card" *ngIf="prayer.type===prayerType.PRAYER" [class.prayer-active]="prayer.isActive">
             <span class="main-title main-text-heading">{{prayer.name}}</span>
             <span class="main-text">{{prayer.startLabel}}</span>
             <span class="main-sub-title">{{prayer.athan}}</span>
             <span class="main-text">{{prayer.endLabel}}</span>
             <span class="main-title main-text-heading">{{prayer.iqamah}}</span>
         </div>
-        <div class="wrapper prayer-card zawal-card" *ngIf="prayer.type===prayerType.INTERVAL">
+        <div class="wrapper prayer-card zawal-card" *ngIf="prayer.type===prayerType.INTERVAL" [class.isActiveWarn]="prayer.isActive">
             <span class="main-title main-text-heading">{{prayer.name}}</span>
             <span class="main-text">{{prayer.startLabel}}</span>
             <span class="main-sub-title">{{prayer.start}}</span>
             <span class="main-text">{{prayer.endLabel}}</span>
             <span class="main-title main-text-heading">{{prayer.end}}</span>
         </div>
-        <div class="wrapper prayer-card prayer-active" *ngIf="prayer.type===prayerType.JUMUAH">
+        <div class="wrapper prayer-card prayer-jumuah" *ngIf="prayer.type===prayerType.JUMUAH">
             <span class="main-text">{{prayer.startLabel}}</span>
             <span class="main-title main-text-heading">{{prayer.athan}}</span>
             <span class="main-text">{{prayer.endLabel}}</span>

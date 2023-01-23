@@ -31,6 +31,11 @@
 
 }
 
+.prayer-jumuah{
+    background-color: $primary-theme-color-background-dark;
+    border: 1px solid $primary-theme-color-background;
+}
+
 .prayer-active {
     background-color: $primary-theme-color;
     border: unset;
@@ -46,5 +51,13 @@
 .zawal-card {
     border-radius: 10px;
     border: 1px solid #ef9a9a;
-    background-color: rgb(255, 195, 190,.2);
+    background-color: rgb(255, 195, 190, .2);
+}
+
+//Order matter for 
+.isActiveWarn {
+    -webkit-box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
+    -moz-box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
+    box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
+    background-color: rgb(255, 195, 190, .6);
 }
