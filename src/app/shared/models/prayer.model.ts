@@ -53,12 +53,8 @@ export class PrayerModel {
   iqamah?: string;
   end?: string;
   endEpoch?: number;
-  isActive?: boolean;
-  visible?:boolean;
-  constructor() {
-    this.isActive = false;
-    this.visible = true;
-  }
+  isActive?: boolean = false;
+  visible?:boolean = true;
 }
 
 export class PrayerTimingsModel {

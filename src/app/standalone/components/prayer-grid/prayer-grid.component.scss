@@ -33,6 +33,15 @@
     background-color: $primary-theme-color-background;
 }
 
+.isActive{
+    background-color:rgb(26, 162, 96,.3);
+}
+
+.isActiveWarn{
+    background-color: rgb(255, 195, 190,.5);
+}
+
+
 .interval-grid-wrapper {
     // background-color: #89CDCF;
 

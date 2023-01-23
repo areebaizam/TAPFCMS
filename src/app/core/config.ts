@@ -10,10 +10,8 @@ export class Config {
   // }
 
   //Sunrise-Sunset Url
-  public static getSunriseBaseUrl(date: Date): string {
-    return `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0&date=${date
-      .toISOString()
-      .slice(0, 10)}`;
+  public static getSunriseBaseUrl(date: string): string {
+    return `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0&date=${date}`;
   }
 
   // Prayer CSV URL

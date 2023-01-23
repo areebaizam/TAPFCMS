@@ -1,4 +1,4 @@
-<div class="prayer-header">
+<div class="prayer-header" *ngIf="showHeader">
     <button mat-button color="primary" aria-label="Home" routerLink="['home']" style="width: fit-content;">
         <span class="main-title title">Fraserview Muslim Community Services</span>
     </button>
@@ -12,6 +12,6 @@
         <!-- <img src="/../assets/images/png/fmcs.png" class="img-fluid" alt="brand-img"
             style="height: 100px; padding-bottom: 10px;"> -->
     </div>
-    <span class="main-title time">{{formattedTime}}</span>
-    <span class="main-title">{{formattedDate}}</span>
+    <span class="main-title time" *ngIf="showHeader">{{formattedTime}}</span>
+    <span class="main-title" *ngIf="showHeader">{{formattedDate}}</span>
 </div>

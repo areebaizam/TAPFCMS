@@ -1,7 +1,7 @@
 import { Inject, Injectable, LOCALE_ID } from "@angular/core";
 import { formatDate } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { Config } from "@tap/core/config";
 import { DateHelper } from "@tap/core/dateHelper.utilities";
 import {
@@ -14,6 +14,7 @@ import {
   ePrayerOffset,
   eAshura,
 } from "@tap/shared/models";
+import { off } from "process";
 
 const MONTHS = [
   "January",
@@ -55,7 +56,9 @@ export class PrayerService {
   sunriseAPIResult: SunriseTimingsUTCModel = new SunriseTimingsUTCModel();
 
   // TODO use HttpResponse<T> or CustomHttpResponse<T> with interceptor
-  getSunriseTime$(date: Date = new Date()): Observable<any> {
+  getSunriseTime$(
+    date: string = new Date().toLocaleDateString()
+  ): Observable<any> {
     return this.http.get(Config.getSunriseBaseUrl(date));
   }
 
@@ -70,7 +73,7 @@ export class PrayerService {
 
   loadPrayerTimingsFromCsv(data: any) {
     this.annualPrayerTimings = [];
-    let csvToRowArray = data.split("\n");
+    let csvToRowArray = data.toString().split("\n");
     for (let index = 1; index < csvToRowArray.length - 1; index++) {
       let row = csvToRowArray[index].split(",");
       this.annualPrayerTimings.push(
@@ -190,24 +193,24 @@ export class PrayerService {
         endEpoch: this._ishraqStartInEpoch, //Sunrise in Epoch
         visible: true,
       },
-      {
-        name: ePrayers.ISHRAQ,
-        type: ePrayerType.INTERVAL,
-        start: formatDate(this._ishraqStartInEpoch, "hh:mm a", this.locale),
-        startEpoch: this._ishraqStartInEpoch,
-        end: formatDate(this._chashtStartInEpoch, "hh:mm a", this.locale),
-        endEpoch: this._chashtStartInEpoch,
-        visible: false,
-      },
-      {
-        name: ePrayers.CHASHT,
-        type: ePrayerType.INTERVAL,
-        start: formatDate(this._chashtStartInEpoch, "hh:mm a", this.locale),
-        startEpoch: this._chashtStartInEpoch,
-        end: formatDate(this._zawalStartInEpoch, "hh:mm a", this.locale),
-        endEpoch: this._zawalStartInEpoch,
-        visible: false,
-      },
+      // {
+      //   name: ePrayers.ISHRAQ,
+      //   type: ePrayerType.INTERVAL,
+      //   start: formatDate(this._ishraqStartInEpoch, "hh:mm a", this.locale),
+      //   startEpoch: this._ishraqStartInEpoch,
+      //   end: formatDate(this._chashtStartInEpoch, "hh:mm a", this.locale),
+      //   endEpoch: this._chashtStartInEpoch,
+      //   visible: false,
+      // },
+      // {
+      //   name: ePrayers.CHASHT,
+      //   type: ePrayerType.INTERVAL,
+      //   start: formatDate(this._chashtStartInEpoch, "hh:mm a", this.locale),
+      //   startEpoch: this._chashtStartInEpoch,
+      //   end: formatDate(this._zawalStartInEpoch, "hh:mm a", this.locale),
+      //   endEpoch: this._zawalStartInEpoch,
+      //   visible: false,
+      // },
       {
         name: ePrayers.ZAWAL,
         type: ePrayerType.INTERVAL,

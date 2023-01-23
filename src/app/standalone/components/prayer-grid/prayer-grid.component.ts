@@ -19,7 +19,7 @@ export class PrayerGridComponent implements OnInit, OnDestroy {
   constructor(public prayerService: PrayerService) {}
   subscriptions: Subscription = new Subscription();
   ngOnInit(): void {
-    this.initListener();
+    // this.initListener();
   }
 
   initListener() {

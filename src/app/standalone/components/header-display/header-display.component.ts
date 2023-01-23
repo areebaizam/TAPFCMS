@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Subscription, timer } from "rxjs";
+import { NgIf } from "@angular/common";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
 //Services
@@ -7,14 +8,17 @@ import { PrayerService } from "@tap/shared/services/";
 //Models
 import { ePrayers } from "@tap/shared/models";
 
+
 @Component({
   selector: "tap-header-display",
   standalone: true,
-  imports: [RouterLink, MatButtonModule],
+  imports: [NgIf,RouterLink, MatButtonModule],
   templateUrl: "./header-display.component.html",
   styleUrls: ["./header-display.component.scss"],
 })
 export class HeaderDisplayComponent implements OnInit, OnDestroy {
+  @Input() showHeader: boolean = false;
+
   subscriptions: Subscription = new Subscription();
   currentDate: Date = new Date();
   formattedDate: string = "";
