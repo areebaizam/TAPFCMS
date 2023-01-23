@@ -34,6 +34,9 @@
 .prayer-jumuah{
     background-color: $primary-theme-color-background-dark;
     border: 1px solid $primary-theme-color-background;
+    -webkit-box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, .5);
+    -moz-box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, .5);
+    box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, .5);
 }
 
 .prayer-active {
