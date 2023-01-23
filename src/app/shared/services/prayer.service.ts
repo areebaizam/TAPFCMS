@@ -151,7 +151,6 @@ export class PrayerService {
       sunriseAPIResult.sunset,
       (86400 - sunriseAPIResult.day_length) / (2 * 60) //1/4 of Daylength
     );
-    this.setPrayerTimings(); //TODO Fix this ERROR
   }
 
   setPrayerTimings(): void {

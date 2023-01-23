@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { NgFor, NgIf } from "@angular/common";
-import { Subscription } from "rxjs";
+import { forkJoin, Subscription } from "rxjs";
 //Pipes
 import { FilterBooleanPipe, FilterStringPipe } from "@tap/standalone/pipes";
 //Services
 import { PrayerService } from "@tap/shared/services/";
 //Models and Enums
-import { eSunriseAPIStatusCodes, ePrayerType } from "@tap/shared/models";
+import { ePrayerType } from "@tap/shared/models";
 @Component({
   selector: "tap-prayer-time",
   standalone: true,
@@ -23,38 +23,22 @@ export class PrayerTimeComponent implements OnInit, OnDestroy {
   }
 
   initListener() {
-    this.getPrayerCsvTimings();
-    this.getSunriseTimings();
+    this.getPrayerTimings();
   }
 
-  getPrayerCsvTimings() {
-    this.subscriptions.add(
-      this.prayerService.getPrayerTime$().subscribe(
-        (data) => {
-          this.prayerService.setPrayerCsvTimings(data);
-        },
-        (error) => {
-          console.log(error);
-        }
-      )
-    );
-  }
+  getPrayerTimings() {
+    let csvTimings$ = this.prayerService.getPrayerTime$();
+    let sunriseTimings$ = this.prayerService.getSunriseTime$();
 
-  getSunriseTimings() {
     this.subscriptions.add(
-      this.prayerService.getSunriseTime$().subscribe(
-        (next) => {
-          if ((next.status = eSunriseAPIStatusCodes.OK)) {
-            //TODO Move to Prayer Service
-            this.prayerService.setSunriseApiTimings(next.results);
-          } else console.log(next, "Error");
-        },
-        (error) => {
-          console.log(error);
-        }
-      )
+      forkJoin([csvTimings$, sunriseTimings$]).subscribe((results) => {
+        this.prayerService.setPrayerCsvTimings(results[0]);
+        this.prayerService.setSunriseApiTimings(results[1]?.results);
+        this.prayerService.setPrayerTimings();
+      })
     );
   }
+  
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { RouterLink } from "@angular/router";
-import { Subscription, timer } from "rxjs";
+import { forkJoin, Subscription } from "rxjs";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import {
@@ -8,12 +8,8 @@ import {
   HeaderDisplayComponent,
   FooterCopyrightComponent,
 } from "@tap/standalone/components/";
-//Utilities
-import { DateHelper } from "@tap/core/dateHelper.utilities";
 //Services
 import { PrayerService } from "@tap/shared/services/";
-//Models and Enums
-import { eSunriseAPIStatusCodes } from "@tap/shared/models";
 
 @Component({
   selector: "tap-prayer",
@@ -37,36 +33,19 @@ export class PrayerComponent implements OnInit, OnDestroy {
   }
 
   initListener() {
-    this.getPrayerCsvTimings();
-    this.getSunriseTimings();
+    this.getPrayerTimings();
   }
 
-  getPrayerCsvTimings() {
-    this.subscriptions.add(
-      this.prayerService.getPrayerTime$().subscribe(
-        (data) => {
-          this.prayerService.setPrayerCsvTimings(data);
-        },
-        (error) => {
-          console.log(error);
-        }
-      )
-    );
-  }
+  getPrayerTimings() {
+    let csvTimings$ = this.prayerService.getPrayerTime$();
+    let sunriseTimings$ = this.prayerService.getSunriseTime$();
 
-  getSunriseTimings() {
     this.subscriptions.add(
-      this.prayerService.getSunriseTime$().subscribe(
-        (next) => {
-          if ((next.status = eSunriseAPIStatusCodes.OK)) {
-            //TODO Move to Prayer Service
-            this.prayerService.setSunriseApiTimings(next.results);
-          } else console.log(next, "Error");
-        },
-        (error) => {
-          console.log(error);
-        }
-      )
+      forkJoin([csvTimings$, sunriseTimings$]).subscribe((results) => {
+        this.prayerService.setPrayerCsvTimings(results[0]);
+        this.prayerService.setSunriseApiTimings(results[1]?.results);
+        this.prayerService.setPrayerTimings();
+      })
     );
   }
 
