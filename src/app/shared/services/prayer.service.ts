@@ -57,7 +57,7 @@ export class PrayerService {
 
   // TODO use HttpResponse<T> or CustomHttpResponse<T> with interceptor
   getSunriseTime$(
-    date: string = new Date().toLocaleDateString()
+    date: string = new Date().toLocaleDateString('en-US')
   ): Observable<any> {
     return this.http.get(Config.getSunriseBaseUrl(date));
   }

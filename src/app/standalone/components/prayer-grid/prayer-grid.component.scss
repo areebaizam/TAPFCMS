@@ -30,12 +30,23 @@
 
 .prayer-grid-wrapper {
     margin: 5px 0;
-    background-color: rgba($primary-theme-color-background, 0.3); 
+    background-color: rgba($primary-theme-color-background, 0.5);
 }
 
+.isActive {
+    background-color: $primary-theme-color-background-dark;
+    background-color: rgba($primary-theme-color, 1);
+    -webkit-box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
+    -moz-box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
+    box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
 
-.isActiveWarn{
-    background-color: rgb(255, 195, 190,.5);
+    * {
+        color: $primary-theme-color-background;
+    }
+}
+
+.isActiveWarn {
+    background-color: rgb(255, 195, 190, .5);
 }
 
 
@@ -57,8 +68,8 @@
     font-size: 32px;
 }
 
-.jumuah-name{
- height: 60px;
+.jumuah-name {
+    height: 60px;
 }
 
 .interval-name {
