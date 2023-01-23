@@ -13,6 +13,8 @@ import {
   provideRouter,
   PreloadAllModules,
   withPreloading,
+  withInMemoryScrolling,
+  InMemoryScrollingOptions,
 } from "@angular/router";
 
 
@@ -30,7 +32,7 @@ import {
     BrowserAnimationsModule,
     SidenavComponent,
   ],
-  providers: [provideRouter(APP_ROUTES, withPreloading(PreloadAllModules))],
+  providers: [provideRouter(APP_ROUTES, withPreloading(PreloadAllModules), withInMemoryScrolling({scrollPositionRestoration:'top'}) )],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
