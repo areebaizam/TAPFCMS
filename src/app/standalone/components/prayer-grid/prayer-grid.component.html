@@ -5,7 +5,7 @@
             <span class="body-text prayer-label align-center">Athan</span>
             <span class="body-text prayer-label align-right">Iqamah</span>
         </div>
-        <span class="separator"></span>
+        <span class="separator mb-1"></span>
         <ng-container *ngFor="let prayer of prayerService.prayers">
             <div class="prayer-grid-wrapper" [class.isActive]="prayer.isActive" *ngIf="prayer.type===prayerType.PRAYER">
                 <span class="prayer-name main-title">{{prayer.name}}</span>

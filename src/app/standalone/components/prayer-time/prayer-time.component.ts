@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { NgFor, NgIf } from "@angular/common";
-import { forkJoin, Subscription } from "rxjs";
 //Pipes
 import { FilterBooleanPipe, FilterStringPipe } from "@tap/standalone/pipes";
 //Services
@@ -14,33 +13,7 @@ import { ePrayerType } from "@tap/shared/models";
   templateUrl: "./prayer-time.component.html",
   styleUrls: ["./prayer-time.component.scss"],
 })
-export class PrayerTimeComponent implements OnInit, OnDestroy {
+export class PrayerTimeComponent {
   prayerType = ePrayerType;
   constructor(public prayerService: PrayerService) {}
-  subscriptions: Subscription = new Subscription();
-  ngOnInit(): void {
-    this.initListener();
-  }
-
-  initListener() {
-    this.getPrayerTimings();
-  }
-
-  getPrayerTimings() {
-    let csvTimings$ = this.prayerService.getPrayerTime$();
-    let sunriseTimings$ = this.prayerService.getSunriseTime$();
-
-    this.subscriptions.add(
-      forkJoin([csvTimings$, sunriseTimings$]).subscribe((results) => {
-        this.prayerService.setPrayerCsvTimings(results[0]);
-        this.prayerService.setSunriseApiTimings(results[1]?.results);
-        this.prayerService.setPrayerTimings();
-      })
-    );
-  }
-  
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
 }

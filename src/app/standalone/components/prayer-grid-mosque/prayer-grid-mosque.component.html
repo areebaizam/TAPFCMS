@@ -3,14 +3,15 @@
         <div class="prayer-grid-wrapper" style="background-color: unset;">
             <span class="prayer-name main-title"></span>
             <span class="prayer-time main-title align-center">Adhan</span>
-            <span class="prayer-time main-title align-center">Iqamah</span>
+            <span class="prayer-time main-title align-right">Iqamah</span>
         </div>
         <div class="separator"></div>
+        <div class="separator mb-1"></div>
         <ng-container *ngFor="let prayer of prayerService.prayers | filterBoolean:'visible':true">
             <div class="prayer-grid-wrapper" [class.isActive]="prayer.isActive" *ngIf="prayer.type===prayerType.PRAYER">
                 <span class="prayer-name main-title">{{prayer.name}}</span>
                 <span class="prayer-time main-title align-center">{{prayer.athan}}</span>
-                <span class="prayer-time main-title align-center">{{prayer.iqamah}}</span>
+                <span class="prayer-time main-title align-right">{{prayer.iqamah}}</span>
             </div>
             <div class="interval-grid-wrapper" *ngIf="prayer.type===prayerType.INTERVAL"
                 [class.isActiveWarn]="prayer.isActive">
@@ -20,19 +21,19 @@
                     <span class="body-text interval-label align-center">{{prayer.startLabel}}</span>
                 </div>
                 <div class="prayer-time-container">
-                    <span class="interval-time main-sub-title align-center">{{prayer.end}}</span>
-                    <span class="body-text interval-label align-center">{{prayer.endLabel}}</span>
+                    <span class="interval-time main-sub-title align-right">{{prayer.end}}</span>
+                    <span class="body-text interval-label align-right">{{prayer.endLabel}}</span>
                 </div>
             </div>
             <div class="prayer-grid-wrapper" *ngIf="prayer.type===prayerType.JUMUAH">
-                <span class="prayer-name main-title">{{prayer.name}}</span>
+                <span class="prayer-name main-title jumuah-name ">{{prayer.name}}</span>
                 <div class="prayer-time-container">
                     <span class="prayer-time main-sub-title align-center prayer-time-jumuah">{{prayer.athan}}</span>
                     <span class="body-text prayer-label align-center">{{prayer.startLabel}}</span>
                 </div>
                 <div class="prayer-time-container">
-                    <span class="prayer-time main-sub-title align-center prayer-time-jumuah">{{prayer.iqamah}}</span>
-                    <span class="body-text prayer-label align-center">{{prayer.endLabel}}</span>
+                    <span class="prayer-time main-sub-title align-right prayer-time-jumuah">{{prayer.iqamah}}</span>
+                    <span class="body-text prayer-label align-right">{{prayer.endLabel}}</span>
                 </div>
             </div>
         </ng-container>

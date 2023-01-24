@@ -1,6 +1,6 @@
 import { Inject, Injectable, LOCALE_ID } from "@angular/core";
 import { formatDate } from "@angular/common";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { Config } from "@tap/core/config";
 import { DateHelper } from "@tap/core/dateHelper.utilities";
@@ -49,6 +49,9 @@ export class PrayerService {
   private _maghribStartInEpoch!: number;
   private _ishaEndInEpoch!: number;
 
+  public _cacheSunriseAPIData: any = null;
+  private _cachePrayerCSVData: any = null;
+
   public prayers: Array<PrayerModel> = [];
 
   annualPrayerTimings: PrayerTimingsModel[] = [];
@@ -56,24 +59,27 @@ export class PrayerService {
   sunriseAPIResult: SunriseTimingsUTCModel = new SunriseTimingsUTCModel();
 
   // TODO use HttpResponse<T> or CustomHttpResponse<T> with interceptor
-  getSunriseTime$(
-    date: string = new Date().toLocaleDateString('en-US')
+  getSunriseAPITime$(
+    date: string = new Date().toLocaleDateString("en-US")
   ): Observable<any> {
+    if (this._cacheSunriseAPIData) return of(this._cacheSunriseAPIData);
     return this.http.get(Config.getSunriseBaseUrl(date));
   }
 
-  getPrayerTime$(): Observable<any> {
+  getPrayerCSVTime$(): Observable<string> {
+    if (this._cachePrayerCSVData) return of(this._cachePrayerCSVData);
     return this.http.get(Config.getPrayerCSVUrl, { responseType: "text" });
   }
 
-  setPrayerCsvTimings(data: any) {
-    this.loadPrayerTimingsFromCsv(data);
+  setPrayerCsvTimings(csvData: any) {
+    this._cachePrayerCSVData = csvData;
+    this.loadPrayerTimingsFromCsv(csvData);
     this.convertLocalTimeToUTC();
   }
 
-  loadPrayerTimingsFromCsv(data: any) {
+  loadPrayerTimingsFromCsv(csvData: any) {
     this.annualPrayerTimings = [];
-    let csvToRowArray = data.toString().split("\n");
+    let csvToRowArray = csvData.toString().split("\n");
     for (let index = 1; index < csvToRowArray.length - 1; index++) {
       let row = csvToRowArray[index].split(",");
       this.annualPrayerTimings.push(
@@ -111,45 +117,47 @@ export class PrayerService {
     });
   }
 
-  setSunriseApiTimings(sunriseAPIResult: SunriseTimingsUTCModel): void {
-    this.sunriseAPIResult = sunriseAPIResult;
+  setSunriseApiTimings(apiData: any): void {
+    //Cach API Data
+    this._cacheSunriseAPIData = apiData;
+    this.sunriseAPIResult = apiData.results;
     this._sunriseStartInEpoch = DateHelper.addTimeInEpochMinutes(
-      sunriseAPIResult.sunrise,
+      this.sunriseAPIResult.sunrise,
       ePrayerOffset.SUNRISE
     );
 
     this._ishraqStartInEpoch = DateHelper.addTimeInEpochMinutes(
-      sunriseAPIResult.sunrise,
+      this.sunriseAPIResult.sunrise,
       ePrayerOffset.ISHRAQ
     );
 
     this._chashtStartInEpoch = DateHelper.addTimeInEpochMinutes(
-      sunriseAPIResult.sunrise,
-      sunriseAPIResult.day_length / (4 * 60) //1/4 of Daylength
+      this.sunriseAPIResult.sunrise,
+      this.sunriseAPIResult.day_length / (4 * 60) //1/4 of Daylength
     );
 
     this._zawalStartInEpoch = DateHelper.addTimeInEpochMinutes(
-      sunriseAPIResult.solar_noon,
+      this.sunriseAPIResult.solar_noon,
       ePrayerOffset.ZAWAL
     );
 
     this._asrStartInEpoch = DateHelper.addTimeInEpochMinutes(
-      sunriseAPIResult.solar_noon,
-      sunriseAPIResult.day_length / (4 * 60) //1/4 of Daylength
+      this.sunriseAPIResult.solar_noon,
+      this.sunriseAPIResult.day_length / (4 * 60) //1/4 of Daylength
     );
     this._asrEndInEpoch = DateHelper.addTimeInEpochMinutes(
-      sunriseAPIResult.sunset,
+      this.sunriseAPIResult.sunset,
       ePrayerOffset.ASR
     );
 
     this._maghribStartInEpoch = DateHelper.addTimeInEpochMinutes(
-      sunriseAPIResult.sunset,
+      this.sunriseAPIResult.sunset,
       ePrayerOffset.MAGHRIB
     );
 
     this._ishaEndInEpoch = DateHelper.addTimeInEpochMinutes(
-      sunriseAPIResult.sunset,
-      (86400 - sunriseAPIResult.day_length) / (2 * 60) //1/4 of Daylength
+      this.sunriseAPIResult.sunset,
+      (86400 - this.sunriseAPIResult.day_length) / (2 * 60) //1/4 of Daylength
     );
   }
 
@@ -158,6 +166,26 @@ export class PrayerService {
     let currentAshura: PrayerTimingsModel = this.getCurrentAshuraTimings();
 
     this.prayers.push(
+      {
+        name: ePrayers.TAHAJJUD,
+        type: ePrayerType.INTERVAL,
+        start: formatDate(
+          DateHelper.getYesterdayCurrentTimeLocal(this._ishaEndInEpoch),
+          "hh:mm a",
+          this.locale
+        ),
+        startEpoch: DateHelper.getYesterdayCurrentTime(this._ishaEndInEpoch),
+        end: formatDate(
+          this.sunriseAPIResult.astronomical_twilight_begin,
+          "hh:mm a",
+          this.locale
+        ),
+        endEpoch: DateHelper.getTimeInEpoch(
+          this.sunriseAPIResult.astronomical_twilight_begin
+        ),
+        visible: true,
+        isActive: false,
+      },
       {
         name: ePrayers.FAJR,
         type: ePrayerType.PRAYER,
@@ -178,6 +206,7 @@ export class PrayerService {
         end: formatDate(this._sunriseStartInEpoch, "hh:mm a", this.locale),
         endEpoch: this._sunriseStartInEpoch,
         visible: true,
+        isActive: false,
       },
       {
         name: ePrayers.SHUROOQ,
@@ -191,25 +220,28 @@ export class PrayerService {
         end: formatDate(this._ishraqStartInEpoch, "hh:mm a", this.locale), //Sunrise
         endEpoch: this._ishraqStartInEpoch, //Sunrise in Epoch
         visible: true,
+        isActive: false,
       },
-      // {
-      //   name: ePrayers.ISHRAQ,
-      //   type: ePrayerType.INTERVAL,
-      //   start: formatDate(this._ishraqStartInEpoch, "hh:mm a", this.locale),
-      //   startEpoch: this._ishraqStartInEpoch,
-      //   end: formatDate(this._chashtStartInEpoch, "hh:mm a", this.locale),
-      //   endEpoch: this._chashtStartInEpoch,
-      //   visible: false,
-      // },
-      // {
-      //   name: ePrayers.CHASHT,
-      //   type: ePrayerType.INTERVAL,
-      //   start: formatDate(this._chashtStartInEpoch, "hh:mm a", this.locale),
-      //   startEpoch: this._chashtStartInEpoch,
-      //   end: formatDate(this._zawalStartInEpoch, "hh:mm a", this.locale),
-      //   endEpoch: this._zawalStartInEpoch,
-      //   visible: false,
-      // },
+      {
+        name: ePrayers.ISHRAQ,
+        type: ePrayerType.INTERVAL,
+        start: formatDate(this._ishraqStartInEpoch, "hh:mm a", this.locale),
+        startEpoch: this._ishraqStartInEpoch,
+        end: formatDate(this._chashtStartInEpoch, "hh:mm a", this.locale),
+        endEpoch: this._chashtStartInEpoch,
+        visible: true,
+        isActive: false,
+      },
+      {
+        name: ePrayers.CHASHT,
+        type: ePrayerType.INTERVAL,
+        start: formatDate(this._chashtStartInEpoch, "hh:mm a", this.locale),
+        startEpoch: this._chashtStartInEpoch,
+        end: formatDate(this._zawalStartInEpoch, "hh:mm a", this.locale),
+        endEpoch: this._zawalStartInEpoch,
+        visible: true,
+        isActive: false,
+      },
       {
         name: ePrayers.ZAWAL,
         type: ePrayerType.INTERVAL,
@@ -222,6 +254,7 @@ export class PrayerService {
         ), //Noon
         endEpoch: DateHelper.getTimeInEpoch(this.sunriseAPIResult.solar_noon), //Noon in Epoch
         visible: true,
+        isActive: false,
       },
       {
         name: ePrayers.DHUR,
@@ -241,6 +274,7 @@ export class PrayerService {
         end: formatDate(this._asrStartInEpoch, "hh:mm a", this.locale),
         endEpoch: this._asrStartInEpoch,
         visible: new Date().getDay() == 5 ? false : true,
+        isActive: false,
       },
       {
         name: ePrayers.ASR,
@@ -256,6 +290,7 @@ export class PrayerService {
         end: formatDate(this._asrEndInEpoch, "hh:mm a", this.locale),
         endEpoch: this._asrEndInEpoch,
         visible: true,
+        isActive: false,
       },
       {
         name: ePrayers.GHUROOB,
@@ -265,6 +300,7 @@ export class PrayerService {
         end: formatDate(this.sunriseAPIResult.sunset, "hh:mm a", this.locale), //Noon
         endEpoch: DateHelper.getTimeInEpoch(this.sunriseAPIResult.sunset), //Noon in Epoch
         visible: false,
+        isActive: false,
       },
       {
         name: ePrayers.MAGHRIB,
@@ -282,6 +318,7 @@ export class PrayerService {
           this.sunriseAPIResult.astronomical_twilight_end
         ),
         visible: true,
+        isActive: false,
       },
       {
         name: ePrayers.ISHA,
@@ -303,6 +340,7 @@ export class PrayerService {
         end: formatDate(this._ishaEndInEpoch, "hh:mm a", this.locale),
         endEpoch: this._ishaEndInEpoch,
         visible: true,
+        isActive: false,
       },
       {
         name: ePrayers.JUMUAH,
@@ -314,6 +352,7 @@ export class PrayerService {
         end: formatDate("2023-01-20T21:30:00+00:00", "hh:mm a", this.locale),
         endEpoch: this._asrStartInEpoch,
         visible: true,
+        isActive: false,
       }
     );
 
@@ -342,5 +381,10 @@ export class PrayerService {
     return this.annualPrayerTimingsUTC.filter(
       (ashr) => ashr.month === currentMonth && ashr.ashura === ashura
     )[0];
+  }
+
+  invalidateCache() {
+    this._cacheSunriseAPIData = null;
+    this._cachePrayerCSVData = null;
   }
 }

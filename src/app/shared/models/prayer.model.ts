@@ -1,7 +1,8 @@
 //Prayers
 export enum ePrayers {
-  SHUROOQ = "Shurooq",
+  TAHAJJUD = "Tahajjud",
   FAJR = "Fajr",
+  SHUROOQ = "Shurooq",
   ISHRAQ = "Ishraq",
   CHASHT = "Chasht",
   ZAWAL = "Zawal",
@@ -10,7 +11,7 @@ export enum ePrayers {
   GHUROOB = "Ghuroob",
   MAGHRIB = "Maghrib",
   ISHA = "Isha",
-  JUMUAH = "Jumuah",
+  JUMUAH = "Jumuah",  
 }
 export enum ePrayerLabels {
   ADHAN = "Adhan",
@@ -53,8 +54,8 @@ export class PrayerModel {
   iqamah?: string;
   end?: string;
   endEpoch?: number;
-  isActive?: boolean = false;
-  visible?:boolean = true;
+  isActive: boolean = false;
+  visible:boolean = true;
 }
 
 export class PrayerTimingsModel {

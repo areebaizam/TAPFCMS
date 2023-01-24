@@ -27,7 +27,7 @@
     display: flex;
     justify-content: space-around;
     border-radius: 10px;
-    padding-left: 10px;
+    padding: 0 10px;
 }
 
 .prayer-grid-wrapper {
@@ -49,32 +49,31 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: left;
 
 
 }
 
 .prayer-label {
-    width: 200px;
+    width: 240px;
     font-size: 24px;
 }
 
 .prayer-name {
-    width: 140px;
+    width: 240px;
     font-size: 60px;
+    line-height: 1;
 }
 
 .interval-name {
-    width: 140px;
+    width: 240px;
     font-size: 42px;
-    line-height: 2;
+    line-height: 1.5;
+    height: 70px;
 }
 
 .prayer-time {
     width: 240px;
     font-size: 54px;
-    // line-height:.7;
-    text-align: center;
     
 }
 .prayer-time-jumuah{
@@ -82,14 +81,17 @@
 }
 
 .interval-time {
-    width: 200px;
+    width: 240px;
     font-size: 32px;
     line-height: .5;
-    text-align: center;
 }
 .interval-label {
     width: 200px;
     font-size: 24px;
+}
+
+.jumuah-name {
+    height: 90px;
 }
 
 
