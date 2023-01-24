@@ -19,6 +19,7 @@ import { DateHelper } from "@tap/core/dateHelper.utilities";
 })
 export class HeaderDisplayComponent implements OnInit, OnDestroy {
   @Input() showHeader: boolean = false;
+  @Input() hideDate: boolean = false;
 
   subscriptions: Subscription = new Subscription();
   currentDate: Date = new Date();
@@ -87,11 +88,6 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
         prayer.isActive = true;
       else false;
     });
-
-    console.log(
-      " this.prayerService.prayers",
-      DateHelper.getTomorrowDateInterval()
-    );
   }
 
   ngOnDestroy(): void {

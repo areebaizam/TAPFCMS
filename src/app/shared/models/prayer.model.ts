@@ -18,8 +18,8 @@ export enum ePrayerLabels {
   IQAMAH = "Iqamah",
   START = "Starts",
   END = "Ends",
-  FIRST_JUMUAH = "Jumuah I",
-  SECOND_JUMUAH = "Jumuah II",
+  FIRST_JUMUAH = "First Jumuah",
+  SECOND_JUMUAH = "Second Jumuah",
 }
 
 export enum eAshura {

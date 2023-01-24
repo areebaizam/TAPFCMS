@@ -13,7 +13,7 @@
     flex-direction: column;
     border-radius: 10px;
     // align-items: center;
-    min-width: 1000px;
+    min-width: 1200px;
     padding: 5px 10px;
     background-color: white;
     border: 1px solid $primary-theme-color-background-dark;
@@ -31,8 +31,13 @@
 }
 
 .prayer-grid-wrapper {
-    margin: 5px 0;
+    // margin: 5px 0;
     // background-color: $primary-theme-color-background;
+}
+
+.jumuah-container{
+    border-radius: 10px;
+    background-color: rgba($primary-theme-color-background,.5);
 }
 
 .isActive{
@@ -54,26 +59,26 @@
 }
 
 .prayer-label {
-    width: 240px;
+    width: 300px;
     font-size: 24px;
 }
 
 .prayer-name {
-    width: 240px;
-    font-size: 60px;
+    width: 260px;
+    font-size: 70px;
     line-height: 1;
 }
 
 .interval-name {
-    width: 240px;
+    width: 260px;
     font-size: 42px;
     line-height: 1.5;
     height: 70px;
 }
 
 .prayer-time {
-    width: 240px;
-    font-size: 54px;
+    width: 300px;
+    font-size: 70px;
     
 }
 .prayer-time-jumuah{
@@ -81,19 +86,18 @@
 }
 
 .interval-time {
-    width: 240px;
+    width: 300px;
     font-size: 32px;
     line-height: .5;
 }
 .interval-label {
-    width: 200px;
+    width: 300px;
     font-size: 24px;
 }
-
-.jumuah-name {
-    height: 90px;
+.khutbah-label {
+    width: 260px;
+    font-size: 32px;
 }
-
 
 .prayer-time-container {
     display: flex;

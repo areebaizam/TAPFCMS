@@ -12,7 +12,7 @@
     border-radius: 10px;
     align-items: center;
     width: 600px;
-    padding: 5px 10px;
+    padding: 5px 7px;
     background-color: white;
     border: 1px solid $primary-theme-color-background-dark;
 }
@@ -31,6 +31,7 @@
 .prayer-grid-wrapper {
     margin: 5px 0;
     background-color: rgba($primary-theme-color-background, 0.5);
+    height: 50px;
 }
 
 .isActive {
@@ -108,11 +109,11 @@
     .prayer-time,
     .prayer-label,
     .interval-time {
-        width: 95px;
+        width: 115px;
     }
 
     .interval-name {
-        width: 100px;
+        width: 115px;
         font-size: 20px;
     }
 

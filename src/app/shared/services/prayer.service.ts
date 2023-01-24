@@ -166,26 +166,26 @@ export class PrayerService {
     let currentAshura: PrayerTimingsModel = this.getCurrentAshuraTimings();
 
     this.prayers.push(
-      {
-        name: ePrayers.TAHAJJUD,
-        type: ePrayerType.INTERVAL,
-        start: formatDate(
-          DateHelper.getYesterdayCurrentTimeLocal(this._ishaEndInEpoch),
-          "hh:mm a",
-          this.locale
-        ),
-        startEpoch: DateHelper.getYesterdayCurrentTime(this._ishaEndInEpoch),
-        end: formatDate(
-          this.sunriseAPIResult.astronomical_twilight_begin,
-          "hh:mm a",
-          this.locale
-        ),
-        endEpoch: DateHelper.getTimeInEpoch(
-          this.sunriseAPIResult.astronomical_twilight_begin
-        ),
-        visible: false,
-        isActive: false,
-      },
+      // {
+      //   name: ePrayers.TAHAJJUD,
+      //   type: ePrayerType.INTERVAL,
+      //   start: formatDate(
+      //     DateHelper.getYesterdayCurrentTimeLocal(this._ishaEndInEpoch),
+      //     "hh:mm a",
+      //     this.locale
+      //   ),
+      //   startEpoch: DateHelper.getYesterdayCurrentTime(this._ishaEndInEpoch),
+      //   end: formatDate(
+      //     this.sunriseAPIResult.astronomical_twilight_begin,
+      //     "hh:mm a",
+      //     this.locale
+      //   ),
+      //   endEpoch: DateHelper.getTimeInEpoch(
+      //     this.sunriseAPIResult.astronomical_twilight_begin
+      //   ),
+      //   visible: false,
+      //   isActive: false,
+      // },
       {
         name: ePrayers.FAJR,
         type: ePrayerType.PRAYER,
@@ -222,26 +222,26 @@ export class PrayerService {
         visible: true,
         isActive: false,
       },
-      {
-        name: ePrayers.ISHRAQ,
-        type: ePrayerType.INTERVAL,
-        start: formatDate(this._ishraqStartInEpoch, "hh:mm a", this.locale),
-        startEpoch: this._ishraqStartInEpoch,
-        end: formatDate(this._chashtStartInEpoch, "hh:mm a", this.locale),
-        endEpoch: this._chashtStartInEpoch,
-        visible: false,
-        isActive: false,
-      },
-      {
-        name: ePrayers.CHASHT,
-        type: ePrayerType.INTERVAL,
-        start: formatDate(this._chashtStartInEpoch, "hh:mm a", this.locale),
-        startEpoch: this._chashtStartInEpoch,
-        end: formatDate(this._zawalStartInEpoch, "hh:mm a", this.locale),
-        endEpoch: this._zawalStartInEpoch,
-        visible: false,
-        isActive: false,
-      },
+      // {
+      //   name: ePrayers.ISHRAQ,
+      //   type: ePrayerType.INTERVAL,
+      //   start: formatDate(this._ishraqStartInEpoch, "hh:mm a", this.locale),
+      //   startEpoch: this._ishraqStartInEpoch,
+      //   end: formatDate(this._chashtStartInEpoch, "hh:mm a", this.locale),
+      //   endEpoch: this._chashtStartInEpoch,
+      //   visible: false,
+      //   isActive: false,
+      // },
+      // {
+      //   name: ePrayers.CHASHT,
+      //   type: ePrayerType.INTERVAL,
+      //   start: formatDate(this._chashtStartInEpoch, "hh:mm a", this.locale),
+      //   startEpoch: this._chashtStartInEpoch,
+      //   end: formatDate(this._zawalStartInEpoch, "hh:mm a", this.locale),
+      //   endEpoch: this._zawalStartInEpoch,
+      //   visible: false,
+      //   isActive: false,
+      // },
       {
         name: ePrayers.ZAWAL,
         type: ePrayerType.INTERVAL,
