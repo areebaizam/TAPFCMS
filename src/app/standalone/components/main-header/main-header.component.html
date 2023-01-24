@@ -7,7 +7,7 @@
     <button mat-button color="primary" aria-label="Home" (click)="handleBtnClick(node)"
         *ngFor="let node of nodes | filterBoolean:'visible':true | filterString:'category':eNodeCategory.BRAND"
         [routerLink]="node.url" class="brand"> <img src="/../assets/images/png/fmcs.png" class="img-fluid" alt="brand"
-            style="height: 36px">
+            style="height: 36px; width: 32px;">
         <span class="main-title brand">FMCS</span>
     </button>
 
