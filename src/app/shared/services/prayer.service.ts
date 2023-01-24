@@ -183,7 +183,7 @@ export class PrayerService {
         endEpoch: DateHelper.getTimeInEpoch(
           this.sunriseAPIResult.astronomical_twilight_begin
         ),
-        visible: true,
+        visible: false,
         isActive: false,
       },
       {
@@ -229,7 +229,7 @@ export class PrayerService {
         startEpoch: this._ishraqStartInEpoch,
         end: formatDate(this._chashtStartInEpoch, "hh:mm a", this.locale),
         endEpoch: this._chashtStartInEpoch,
-        visible: true,
+        visible: false,
         isActive: false,
       },
       {
@@ -239,7 +239,7 @@ export class PrayerService {
         startEpoch: this._chashtStartInEpoch,
         end: formatDate(this._zawalStartInEpoch, "hh:mm a", this.locale),
         endEpoch: this._zawalStartInEpoch,
-        visible: true,
+        visible: false,
         isActive: false,
       },
       {
