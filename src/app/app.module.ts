@@ -3,18 +3,19 @@ import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
 import { AppComponent } from "./app.component";
-import { SidenavComponent } from "./standalone/components";
-
-//Router Configuration
-import { APP_ROUTES } from "./app.route";
 import {
   provideRouter,
   PreloadAllModules,
   withPreloading,
   withInMemoryScrolling,
 } from "@angular/router";
+
+
+import { SidenavComponent } from "./standalone/components";
+
+//Router Configuration
+import { APP_ROUTES } from "./app.route";
 
 @NgModule({
   declarations: [AppComponent],

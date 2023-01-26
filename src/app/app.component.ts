@@ -5,5 +5,7 @@ import { Component } from '@angular/core';
   template: `<tap-sidenav></tap-sidenav>`,
 })
 export class AppComponent {
+  
   title = 'ClientApp';
+  
 }

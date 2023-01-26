@@ -14,7 +14,7 @@ export enum ePrayers {
   JUMUAH = "Jumuah",  
 }
 export enum ePrayerLabels {
-  ADHAN = "Adhan",
+  ATHAN = "Athan",
   IQAMAH = "Iqamah",
   START = "Starts",
   END = "Ends",

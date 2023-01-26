@@ -358,7 +358,7 @@ export class PrayerService {
 
     this.prayers.forEach((prayer) => {
       if (prayer.type == ePrayerType.PRAYER) {
-        prayer.startLabel = ePrayerLabels.ADHAN;
+        prayer.startLabel = ePrayerLabels.ATHAN;
         prayer.endLabel = ePrayerLabels.IQAMAH;
       } else if (prayer.type == ePrayerType.INTERVAL) {
         prayer.startLabel = ePrayerLabels.START;

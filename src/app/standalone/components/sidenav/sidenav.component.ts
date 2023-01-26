@@ -22,6 +22,8 @@ import {
 import { FilterBooleanPipe, FilterStringPipe } from "@tap/standalone/pipes";
 //Services
 import { CoreService } from "@tap/shared/services/";
+//SEO Router Service 
+import { SeoRouterHelperService } from "@tap/core/services";
 //Models and Enums
 import { MenuNode, eNodeCategory } from "@tap/shared/models";
 //Data
@@ -55,7 +57,8 @@ export class SidenavComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private coreService: CoreService
+    private coreService: CoreService,
+    private seoRouterHelperService: SeoRouterHelperService
   ) {}
 
   async ngOnInit(): Promise<void> {
