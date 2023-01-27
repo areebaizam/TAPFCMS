@@ -279,9 +279,9 @@ export class PrayerService {
         ),
         end: formatDate(this._asrStartInEpoch, "hh:mm a", this.locale),
         endEpoch: this._asrStartInEpoch,
-        visible: new Date().getDay() == 5 ? false : true,
+        visible: true,
         isActive: false,
-        order: 7,
+        order: 8,
       },
       {
         name: ePrayers.ASR,
@@ -298,7 +298,7 @@ export class PrayerService {
         endEpoch: this._asrEndInEpoch,
         visible: true,
         isActive: false,
-        order: 8,
+        order: 9,
       },
       {
         name: ePrayers.GHUROOB,
@@ -309,7 +309,7 @@ export class PrayerService {
         endEpoch: DateHelper.getTimeInEpoch(this.sunriseAPIResult.sunset), //Noon in Epoch
         visible: false,
         isActive: false,
-        order: 9,
+        order: 10,
       },
       {
         name: ePrayers.MAGHRIB,
@@ -328,7 +328,7 @@ export class PrayerService {
         ),
         visible: true,
         isActive: false,
-        order: 10,
+        order: 11,
       },
       {
         name: ePrayers.ISHA,
@@ -351,7 +351,7 @@ export class PrayerService {
         endEpoch: this._ishaEndInEpoch,
         visible: true,
         isActive: false,
-        order: 11,
+        order: 12,
       },
       {
         name: ePrayers.JUMUAH,
@@ -364,7 +364,7 @@ export class PrayerService {
         endEpoch: this._asrStartInEpoch,
         visible: true,
         isActive: false,
-        order: new Date().getDay() == 5 ? 7 : 12, //5=Friday, 7 is order of DHUR, 12 is Default Order
+        order: new Date().getDay() == 5 ? 7 : 13, //5=Friday, 6 is order of DHUR, 12 is Default Order
       }
     );
 
