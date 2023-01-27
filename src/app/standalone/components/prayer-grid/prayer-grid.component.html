@@ -6,7 +6,7 @@
             <span class="body-text prayer-label align-right">Iqamah/Ends</span>
         </div>
         <span class="separator mb-2"></span>
-        <ng-container *ngFor="let prayer of prayerService.prayers">
+        <ng-container *ngFor="let prayer of prayerService.prayers | filterBoolean:'visible':true ">
             <div class="prayer-grid-wrapper" [class.isActive]="prayer.isActive" *ngIf="prayer.type===prayerType.PRAYER">
                 <span class="interval-name main-title">{{prayer.name}}</span>
                 <span class="prayer-time main-sub-title align-center">{{prayer.athan}}</span>
