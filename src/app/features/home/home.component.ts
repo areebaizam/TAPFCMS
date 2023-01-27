@@ -23,7 +23,7 @@ import {
 })
 export class HomeComponent {
   options = {
-    autoClose: false,
+    autoClose: true,
     keepAfterRouteChange: false,
   };
 
