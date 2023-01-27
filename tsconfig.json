@@ -7,6 +7,7 @@
     "paths": {
       "@tap": ["app/"],
       "@tap/env": ["environments/environment"],
+      "@tap/lib/*": ["app/lib/*"],
       "@tap/core/*": ["app/core/*"],
       "@tap/features/*": ["app/features/*"],
       "@tap/standalone/*": ["app/standalone/*"],

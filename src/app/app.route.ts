@@ -9,7 +9,7 @@ export const APP_ROUTES: Routes = [
       seo: {
         title: `Fraserview Musallah`,
         description: `Fraserview Muslim Community Services is committed to preserving an Islamic identity, building and supporting a viable Muslim community.`,
-        image: "/assets/images/png/fmcs.jpg",
+        image: "/assets/images/png/fmcs.png",
         author: "AlephLab.ca",
       },
     },
@@ -22,7 +22,7 @@ export const APP_ROUTES: Routes = [
       seo: {
         title: `Prayer Timings FMCS`,
         description: `Our Center is now open for prayers five times.`,
-        image: "/assets/images/png/fmcs.jpg",
+        image: "/assets/images/png/fmcs.png",
         author: "AlephLab.ca",
       },
     },
@@ -40,7 +40,7 @@ export const APP_ROUTES: Routes = [
         seo: {
           title: `Contact FMCS`,
           description: `Reach out to us if you have any query, comment, suggestion or complaint, or would like to enroll for volunteering.`,
-          image: "/assets/images/png/fmcs.jpg",
+          image: "/assets/images/png/fmcs.png",
           author: "AlephLab.ca",
         }
       }
@@ -53,7 +53,7 @@ export const APP_ROUTES: Routes = [
         seo: {
           title: `Donate to FMCS`,
           description: `Please donate generously as this ensures that the mosque is maintained properly and the Muslim community benefits from these facilities.`,
-          image: "/assets/images/png/fmcs.jpg",
+          image: "/assets/images/png/fmcs.png",
           author: "AlephLab.ca",
         }
       }

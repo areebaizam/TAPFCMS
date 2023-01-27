@@ -18,11 +18,12 @@ import {
   MobileHeaderComponent,
   BtnIconRowComponent,
 } from "@tap/standalone/components/";
+import { AlertComponent } from "@tap/lib/alert";
 //Pipes
 import { FilterBooleanPipe, FilterStringPipe } from "@tap/standalone/pipes";
 //Services
 import { CoreService } from "@tap/shared/services/";
-//SEO Router Service 
+//SEO Router Service
 import { SeoRouterHelperService } from "@tap/core/services";
 //Models and Enums
 import { MenuNode, eNodeCategory } from "@tap/shared/models";
@@ -44,6 +45,7 @@ import { headerData } from "@tap/shared/models/app.data";
     MainHeaderComponent,
     MobileHeaderComponent,
     BtnIconRowComponent,
+    AlertComponent,
   ],
   templateUrl: "./sidenav.component.html",
   styleUrls: ["./sidenav.component.scss"],
@@ -58,7 +60,8 @@ export class SidenavComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private coreService: CoreService,
-    private seoRouterHelperService: SeoRouterHelperService
+    //To invoke SEO Service
+    private seoRouterHelperService: SeoRouterHelperService,
   ) {}
 
   async ngOnInit(): Promise<void> {

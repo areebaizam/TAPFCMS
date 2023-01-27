@@ -11,11 +11,18 @@ import { DOCUMENT } from "@angular/common";
   providedIn: "root",
 })
 export class SeoMetatagService {
+  //TODO Remove base url
+  baseURL: string = "https://ashy-cliff-00fa64610.2.azurestaticapps.net";
+  fbAppID: string = "FraserMusallah";
+  //TO move to SEO DATA
+  keywords ="mosque musallah prayer timings vancouver";
+
   constructor(
     private readonly metaService: Meta,
     private readonly titleService: Title,
     @Inject(DOCUMENT) private readonly document: any
   ) {}
+
   public setData(data: SeoSocialData): void {
     this.setSection(data.section);
     this.setKeywords(data.keywords);
@@ -32,12 +39,10 @@ export class SeoMetatagService {
     // TODO Change Author
     // this.setTwitterSiteCreator(data.author);
     this.setTwitterCard("summary");
-    this.setFbAppId("CarRentalVancouver");
+    this.setFbAppId(this.fbAppID);
   }
 
-  public setKeywords(keywords: string = ""): void {
-    keywords =
-      "cheap car rental sharing vancouver airport drop  cheapest pick-up match";
+  public setKeywords(keywords: string = this.keywords): void {
     if (Boolean(keywords)) {
       this.metaService.updateTag({ name: "keywords", content: keywords });
     } else {
@@ -110,9 +115,7 @@ export class SeoMetatagService {
   }
 
   public setImage(image?: string, auxData?: ImageAuxData): void {
-    //TODO Remove base url
-    const baseURL = "https://cheapcarrentalvancouver.com";
-    image = baseURL + image;
+    image = this.baseURL + image;
     if (image && image.length) {
       this.metaService.updateTag({
         property: "twitter:image",
