@@ -1,7 +1,7 @@
 {
-  "name": "ClientApp",
-  "short_name": "ClientApp",
-  "theme_color": "#1976d2",
+  "name": "FMCS",
+  "short_name": "FMCS",
+  "theme_color": "#EFEBE9",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",

@@ -7,11 +7,16 @@
         <div class="separator my-3" aria-hidden="true"></div>
         <span class="main-sub-title quote">Select Payment Method</span>
         <div class="btn-wrapper my-3">
-            <button mat-flat-button color="primary"><mat-icon class="material-icons-outlined"
-                    aria-hidden="true">credit_card</mat-icon>Credit
-                Card</button>
-            <button mat-stroked-button color="primary"><mat-icon
-                    aria-hidden="true">account_balance</mat-icon>Paypal</button>
+            <a href="https://www.thefmcs.ca/stripe" >
+                <button mat-flat-button color="primary"><mat-icon class="material-icons-outlined"
+                        aria-hidden="true">credit_card</mat-icon>Credit
+                    Card</button>
+            </a>
+            <form action="https://www.paypal.com/donate" method="post" target="_blank" class="donate-button">
+                <input type="hidden" name="hosted_button_id" value="R2BNU3PQVWV4A" />
+                <button mat-stroked-button color="primary"><mat-icon
+                        aria-hidden="true">account_balance</mat-icon>Paypal</button>
+            </form>
         </div>
         <div class="card">
             <div class="pointers">
@@ -42,6 +47,7 @@
             <p class="main-text px-3">Jazakum Allah Khair.</p>
         </div>
     </div>
+
 
     <tap-footer-copyright></tap-footer-copyright>
 </div>

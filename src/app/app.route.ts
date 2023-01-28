@@ -31,6 +31,14 @@ export const APP_ROUTES: Routes = [
     path: "home",
     loadChildren: () =>
       import("./features/prayers/prayers.route").then((mod) => mod.ROUTES),
+      data: {
+        seo: {
+          title: `Mosque Display FMCS`,
+          description: `This is Fraserview Musallah display prayer timings`,
+          image: "/assets/images/png/fmcs.png",
+          author: "AlephLab.ca",
+        },
+      },
   },
   {
     path: "contact",
