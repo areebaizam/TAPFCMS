@@ -86,7 +86,7 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
         date.getTime() < prayer.endEpoch
       )
         prayer.isActive = true;
-      else false;
+      else prayer.isActive = false;
     });
   }
 
