@@ -1,5 +1,6 @@
 @import '/src/app/styles/global-variables.scss';
 @import '/src/app/styles/styles-theme.scss';
+
 .prayer-header {
     display: flex;
     background-color: $primary-theme-color-background;
@@ -13,14 +14,17 @@
     width: 100%;
     z-index: 10;
 }
+
 .brand {
     width: 230px;
     height: 50px;
 }
-.time{
+
+.time {
     font-size: 80px;
     line-height: .9;
 }
-.rem-time{
+
+.rem-time {
     font-size: 32px;
 }

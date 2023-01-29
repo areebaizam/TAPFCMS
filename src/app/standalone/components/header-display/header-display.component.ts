@@ -89,7 +89,7 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
         this.currentDate.getTime() < prayer.endEpoch
       ) {
         prayer.isActive = true;
-        this.refreshHijriDate(prayer);        
+        this.refreshHijriDate(prayer);
       } else prayer.isActive = false;
     });
   }
@@ -111,12 +111,11 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
         );
   }
 
-  refreshHijriDate(prayer:PrayerModel){
-    if (prayer.name === ePrayers.MAGHRIB){
+  refreshHijriDate(prayer: PrayerModel) {
+    if (prayer.name === ePrayers.MAGHRIB) {
       this.prayerService.invalidateHijriCache();
-      this.getHijriDate()
+      this.getHijriDate();
     }
-    
   }
   getHijriDate() {
     let gregorianDate = this.prayerService.getGregorianDate();
