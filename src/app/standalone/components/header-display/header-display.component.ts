@@ -41,7 +41,7 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
       timer(0, 1000).subscribe((n) => {
         this.currentDate = new Date();
         this.initTime();
-        this.getActivePrayer(this.currentDate);
+        this.getActivePrayer();
         this.getNextPrayerTime();
       })
     );
@@ -79,13 +79,13 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
     });
   }
 
-  getActivePrayer(date: Date) {
+  getActivePrayer() {
     this.prayerService.prayers.forEach((prayer) => {
       if (
         prayer.startEpoch &&
         prayer.endEpoch &&
-        prayer.startEpoch < date.getTime() &&
-        date.getTime() < prayer.endEpoch
+        prayer.startEpoch < this.currentDate.getTime() &&
+        this.currentDate.getTime() < prayer.endEpoch
       )
         prayer.isActive = true;
       else prayer.isActive = false;

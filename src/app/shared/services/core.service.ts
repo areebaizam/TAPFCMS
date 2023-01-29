@@ -1,8 +1,5 @@
 import { Injectable } from "@angular/core";
-
 import { Subject } from "rxjs/internal/Subject";
-
-import { Config } from "@tap/core/config";
 import { MenuNode } from "@tap/shared/models";
 
 @Injectable({

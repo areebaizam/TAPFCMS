@@ -1,8 +1,8 @@
-// import { environment } from "@tap/env";
+import { PrayerConfig } from "./prayer.config";
 //Constants
 const adminAPI = "admin";
-export const lat = 49.2263435;
-export const lng = -123.1067579;
+export const lat = PrayerConfig.location.lat;
+export const lng = PrayerConfig.location.lng;
 
 export class Config {
   // public static get baseApiUrl(): string {

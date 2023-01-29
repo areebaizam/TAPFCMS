@@ -43,8 +43,12 @@ export class DateHelper {
   }
 
   public static convertSecondsToTime(seconds: number): string {
-    let date = new Date(seconds).toISOString().slice(11,19);
+    let date = new Date(seconds).toISOString().slice(11, 19); //Extract timt from date
     return date;
+  }
+
+  public static convertDegreeToMinutes(degree: number = 15): number {
+    return degree * 6;
   }
 
   public static get getMinutesToMilliseconds(): number {
