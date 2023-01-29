@@ -14,6 +14,11 @@ export class Config {
     return `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0&date=${date}`;
   }
 
+  //Hijri Date URL
+  public static getHijriDateUrl(date: string): string {
+    return `http://api.aladhan.com/v1/gToH?date=${date}`;
+  }
+
   // Prayer CSV URL
   public static get getPrayerCSVUrl(): string {
     // return `${this.baseApiUrl}/assets/csv/prayer_fcms.csv`;

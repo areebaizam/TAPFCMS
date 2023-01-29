@@ -6,7 +6,7 @@ import { RouterLink } from "@angular/router";
 //Services
 import { PrayerService } from "@tap/shared/services/";
 //Models
-import { PrayerModel, ePrayerType } from "@tap/shared/models";
+import { PrayerModel, ePrayerType, ePrayers } from "@tap/shared/models";
 //Utilities
 import { DateHelper } from "@tap/core/dateHelper.utilities";
 
@@ -76,6 +76,7 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
       this.prayerService.setPrayerCsvTimings(results[0]);
       this.prayerService.setSunriseApiTimings(results[1]);
       this.prayerService.setPrayerTimings();
+      this.getHijriDate();
     });
   }
 
@@ -86,9 +87,10 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
         prayer.endEpoch &&
         prayer.startEpoch < this.currentDate.getTime() &&
         this.currentDate.getTime() < prayer.endEpoch
-      )
+      ) {
         prayer.isActive = true;
-      else prayer.isActive = false;
+        this.refreshHijriDate(prayer);        
+      } else prayer.isActive = false;
     });
   }
 
@@ -103,10 +105,24 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
     if (prayer && prayer.startEpoch)
       this.formattedRemainingTime =
         prayer.name +
-        " in " +
+        " starts in " +
         DateHelper.convertSecondsToTime(
           prayer.startEpoch - this.currentDate.getTime()
         );
+  }
+
+  refreshHijriDate(prayer:PrayerModel){
+    if (prayer.name === ePrayers.MAGHRIB){
+      this.prayerService.invalidateHijriCache();
+      this.getHijriDate()
+    }
+    
+  }
+  getHijriDate() {
+    let gregorianDate = this.prayerService.getGregorianDate();
+    this.prayerService
+      .getHijriDate$(gregorianDate)
+      .subscribe((next) => this.prayerService.setHijriDate(next));
   }
 
   ngOnDestroy(): void {

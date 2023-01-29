@@ -14,5 +14,6 @@
     </div>
     <span class="main-title time" *ngIf="showHeader">{{formattedTime}}</span>
     <span class="main-title" *ngIf="!hideDate">{{formattedDate}}</span>
-    <span class="main-title">{{formattedRemainingTime}}</span>
+    <span class="main-title rem-time">{{prayerService.hijriDate}}</span>
+    <span class="main-title rem-time">{{formattedRemainingTime}}</span>
 </div>

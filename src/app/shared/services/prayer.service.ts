@@ -39,6 +39,7 @@ export class PrayerService {
   private _ishaEndInEpoch!: number;
 
   public _cacheSunriseAPIData: any = null;
+  public _cacheHijriAPIData: any = null;
   private _cachePrayerCSVData: any = null;
 
   public prayers: Array<PrayerModel> = [];
@@ -49,6 +50,7 @@ export class PrayerService {
   annualPrayerTimings: PrayerTimingsModel[] = [];
   annualPrayerTimingsUTC: PrayerTimingsModel[] = [];
   sunriseAPIResult: SunriseTimingsUTCModel = new SunriseTimingsUTCModel();
+  hijriDate: string = "";
 
   // TODO use HttpResponse<T> or CustomHttpResponse<T> with interceptor
   getSunriseAPITime$(
@@ -56,6 +58,17 @@ export class PrayerService {
   ): Observable<any> {
     if (this._cacheSunriseAPIData) return of(this._cacheSunriseAPIData);
     return this.http.get(Config.getSunriseBaseUrl(date));
+  }
+  // TODO use HttpResponse<T> or CustomHttpResponse<T> with interceptor
+  getHijriDate$(date: string): Observable<any> {
+    if (this._cacheHijriAPIData) return of(this._cacheHijriAPIData);
+    return this.http.get(Config.getHijriDateUrl(date));
+  }
+
+  setHijriDate(hijriData: any) {
+    this._cacheHijriAPIData = hijriData;
+    this.hijriDate =hijriData.data.hijri.month.en+" "+
+      hijriData.data.hijri.day + ", " + hijriData.data.hijri.year + " Hijri";
   }
 
   getPrayerCSVTime$(): Observable<string> {
@@ -367,7 +380,17 @@ export class PrayerService {
 
     //Sort Prayers based on order id
     this.prayers?.sort((a, b) => (a.order < b.order ? -1 : 1));
-    
+  }
+
+  getGregorianDate(): string {
+    let currentDate = new Date();
+    let nextDate = new Date(currentDate).setDate(currentDate.getDate() + 1);
+    if (
+      currentDate.getTime() >
+      DateHelper.getTimeInEpoch(this.sunriseAPIResult.sunset)
+    )
+      return formatDate(nextDate, "dd-MM-yyyy", this.locale);
+    return formatDate(currentDate, "dd-MM-yyyy", this.locale);
   }
 
   getCurrentAshuraTimings(): PrayerTimingsModel {
@@ -386,5 +409,8 @@ export class PrayerService {
   invalidateCache() {
     this._cacheSunriseAPIData = null;
     this._cachePrayerCSVData = null;
+  }
+  invalidateHijriCache() {
+    this._cacheHijriAPIData = null;
   }
 }
