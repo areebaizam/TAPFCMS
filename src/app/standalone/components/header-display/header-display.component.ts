@@ -6,7 +6,7 @@ import { RouterLink } from "@angular/router";
 //Services
 import { PrayerService } from "@tap/shared/services/";
 //Models
-import { ePrayers } from "@tap/shared/models";
+import { PrayerModel, ePrayerType } from "@tap/shared/models";
 //Utilities
 import { DateHelper } from "@tap/core/dateHelper.utilities";
 
@@ -25,6 +25,7 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
   currentDate: Date = new Date();
   formattedDate: string = "";
   formattedTime: string = "";
+  formattedRemainingTime: string = "";
 
   constructor(public prayerService: PrayerService) {}
 
@@ -41,6 +42,7 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
         this.currentDate = new Date();
         this.initTime();
         this.getActivePrayer(this.currentDate);
+        this.getNextPrayerTime();
       })
     );
 
@@ -88,6 +90,23 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
         prayer.isActive = true;
       else prayer.isActive = false;
     });
+  }
+
+  getNextPrayerTime() {
+    const prayer = this.prayerService.prayers.find(
+      (prayer) =>
+        prayer.type != ePrayerType.INTERVAL &&
+        prayer.startEpoch &&
+        this.currentDate.getTime() < prayer.startEpoch
+    );
+
+    if (prayer && prayer.startEpoch)
+      this.formattedRemainingTime =
+        prayer.name +
+        " in " +
+        DateHelper.convertSecondsToTime(
+          prayer.startEpoch - this.currentDate.getTime()
+        );
   }
 
   ngOnDestroy(): void {

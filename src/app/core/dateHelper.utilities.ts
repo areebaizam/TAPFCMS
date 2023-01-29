@@ -42,6 +42,11 @@ export class DateHelper {
     return utc8TimeInEpoch;
   }
 
+  public static convertSecondsToTime(seconds: number): string {
+    let date = new Date(seconds).toISOString().slice(11,19);
+    return date;
+  }
+
   public static get getMinutesToMilliseconds(): number {
     return minutesToMilliseconds;
   }
