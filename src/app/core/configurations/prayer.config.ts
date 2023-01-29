@@ -4,7 +4,7 @@ export const PrayerConfig = {
     lat: 49.2263435,
     lng: -123.1067579,
   },
-  prayerOrg: ePrayerOrganization.IUK,
+  prayerOrg: ePrayerOrganization.BCMA,
   offsetInMinutes: {
     sunrise: -15,
     ishraq: 20,

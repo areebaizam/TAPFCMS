@@ -16,5 +16,13 @@ import { FilterBooleanPipe, FilterStringPipe } from "@tap/standalone/pipes";
 })
 export class PrayerGridComponent {
   prayerType = ePrayerType;
-  constructor(public prayerService: PrayerService) {}
+  orgDetails: string;
+  constructor(public prayerService: PrayerService) {
+    this.orgDetails =
+      "BCMA Timings: ( Fajr: " +
+      prayerService.prayerOrg?.Fajr +
+      "° / Isha: " +
+      prayerService.prayerOrg?.Isha +
+      "° )";
+  }
 }

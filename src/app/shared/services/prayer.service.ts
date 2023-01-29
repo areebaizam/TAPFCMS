@@ -13,6 +13,7 @@ import {
   ePrayerType,
   eAshura,
   PrayerDegreeMap,
+  PrayerOrgDegree,
   MONTHS,
 } from "@tap/shared/models";
 
@@ -41,6 +42,9 @@ export class PrayerService {
   private _cachePrayerCSVData: any = null;
 
   public prayers: Array<PrayerModel> = [];
+  public prayerOrg?: PrayerOrgDegree = PrayerDegreeMap.get(
+    PrayerConfig.prayerOrg
+  );
 
   annualPrayerTimings: PrayerTimingsModel[] = [];
   annualPrayerTimingsUTC: PrayerTimingsModel[] = [];
@@ -111,9 +115,7 @@ export class PrayerService {
     this.sunriseAPIResult = apiData.results;
     this._fajrStartInEpoch = DateHelper.addTimeInEpochMinutes(
       this.sunriseAPIResult.sunrise,
-      -DateHelper.convertDegreeToMinutes(
-        PrayerDegreeMap.get(PrayerConfig.prayerOrg)?.Fajr
-      )
+      -DateHelper.convertDegreeToMinutes(this.prayerOrg?.Fajr)
     );
     this._sunriseStartInEpoch = DateHelper.addTimeInEpochMinutes(
       this.sunriseAPIResult.sunrise,
@@ -156,9 +158,7 @@ export class PrayerService {
 
     this._ishaStartInEpoch = DateHelper.addTimeInEpochMinutes(
       this.sunriseAPIResult.sunset,
-      DateHelper.convertDegreeToMinutes(
-        PrayerDegreeMap.get(PrayerConfig.prayerOrg)?.Isha
-      )
+      DateHelper.convertDegreeToMinutes(this.prayerOrg?.Isha)
     );
 
     this._ishaEndInEpoch = DateHelper.addTimeInEpochMinutes(

@@ -43,11 +43,12 @@ export enum eAshura {
 }
 
 export enum ePrayerOrganization {
-  EGA = "Egyptian General Authority",
-  ISNA = "Islamic Society of North America",
-  IUK = "University Of Islamic Sciences, Karachi",
-  MWL = "Muslim World League",
-  SIA = "Shia Ithna Ashari",
+  BCMA,
+  EGA,
+  ISNA,
+  IUK,
+  MWL,
+  SIA,
 }
 
 export enum ePrayerType {
@@ -64,28 +65,20 @@ export enum eLocation {
   DHUR = 2,
   MAGHRIB = 7,
 }
-//Prayer OffSet
-// export enum ePrayerOffset {
-//   SUNRISE = -15,
-//   SHUROOQ = 20,
-//   ISHRAQ = 20,
-//   ZAWAL = -20,
-//   DHUR = 2,
-//   ASR = -15,
-//   MAGHRIB = 5,
-// }
 
-export class PrayerDegree {
+export class PrayerOrgDegree {
+  Organization: string = "";
   Fajr: number = 15;
   Isha: number = 15;
 }
 
 export const PrayerDegreeMap = new Map([
-  [ePrayerOrganization.EGA, { Fajr: 19.5, Isha: 17.5 } as PrayerDegree],
-  [ePrayerOrganization.ISNA, { Fajr: 15, Isha: 15 } as PrayerDegree],
-  [ePrayerOrganization.IUK, { Fajr: 18, Isha: 18 } as PrayerDegree],
-  [ePrayerOrganization.MWL, { Fajr: 18, Isha: 17 } as PrayerDegree],
-  [ePrayerOrganization.SIA, { Fajr: 16, Isha: 14 } as PrayerDegree],
+  [ePrayerOrganization.BCMA, { Organization:"BCMA and Sharia Council of B.C.", Fajr: 18, Isha: 15 } as PrayerOrgDegree],
+  [ePrayerOrganization.EGA, { Organization:"Egyptian General Authority", Fajr: 19.5, Isha: 17.5 } as PrayerOrgDegree],
+  [ePrayerOrganization.ISNA, { Organization:"Islamic Society of North America", Fajr: 15, Isha: 15 } as PrayerOrgDegree],
+  [ePrayerOrganization.IUK, { Organization:"University Of Islamic Sciences, Karachi", Fajr: 18, Isha: 18 } as PrayerOrgDegree],
+  [ePrayerOrganization.MWL, { Organization:"Muslim World League", Fajr: 18, Isha: 17 } as PrayerOrgDegree],
+  [ePrayerOrganization.SIA, { Organization:"Shia Ithna Ashari", Fajr: 16, Isha: 14 } as PrayerOrgDegree],
 ]);
 
 export class PrayerModel {
