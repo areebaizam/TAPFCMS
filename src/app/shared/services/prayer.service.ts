@@ -51,10 +51,6 @@ export class PrayerService {
   annualPrayerTimingsUTC: PrayerTimingsModel[] = [];
   sunriseAPIResult: SunriseTimingsUTCModel = new SunriseTimingsUTCModel();
   hijriDate: string = "";
-  headers: HttpHeaders = new HttpHeaders().append('Content-Type', 'application/json')
-  .append('Access-Control-Allow-Headers', 'Content-Type')
-  .append('Access-Control-Allow-Methods', 'GET')
-  .append('Access-Control-Allow-Origin', '*');
 
   // TODO use HttpResponse<T> or CustomHttpResponse<T> with interceptor
   getSunriseAPITime$(
@@ -66,16 +62,18 @@ export class PrayerService {
   // TODO use HttpResponse<T> or CustomHttpResponse<T> with interceptor
   getHijriDate$(date: string): Observable<any> {
     if (this._cacheHijriAPIData) return of(this._cacheHijriAPIData);
-    return this.http.get(Config.getHijriDateUrl(date), {
-      headers: this.headers,
-    });
+    return this.http.get(Config.getHijriDateUrl(date));
   }
 
   setHijriDate(hijriData: any) {
     this._cacheHijriAPIData = hijriData;
-    this.hijriDate = hijriData;
-    // this.hijriDate = hijriData.data.hijri.month.en+" "+
-    //   hijriData.data.hijri.day + ", " + hijriData.data.hijri.year + " Hijri";
+    this.hijriDate =
+      hijriData.data.hijri.month.en +
+      " " +
+      hijriData.data.hijri.day +
+      ", " +
+      hijriData.data.hijri.year +
+      " Hijri";
   }
 
   getPrayerCSVTime$(): Observable<string> {
@@ -396,8 +394,8 @@ export class PrayerService {
       currentDate.getTime() >
       DateHelper.getTimeInEpoch(this.sunriseAPIResult.sunset)
     )
-      return formatDate(nextDate, "yyyy-MM-dd", this.locale);
-    return formatDate(currentDate, "yyyy-MM-dd", this.locale);
+      return formatDate(nextDate, "dd-MM-yyyy", this.locale);
+    return formatDate(currentDate, "dd-MM-yyyy", this.locale);
   }
 
   getCurrentAshuraTimings(): PrayerTimingsModel {

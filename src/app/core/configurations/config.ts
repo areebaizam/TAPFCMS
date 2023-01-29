@@ -16,7 +16,7 @@ export class Config {
 
   //Hijri Date URL
   public static getHijriDateUrl(date: string): string {
-    return `https://hijri.habibur.com/api01/date/?date=${date}`;
+    return `https://api.aladhan.com/v1/gToH?date=${date}`;
   }
 
   // Prayer CSV URL
