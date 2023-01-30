@@ -152,7 +152,7 @@ export class PrayerTimingService {
     this.prayers.push(
       {
         name: ePrayers.TAHAJJUD,
-        type: ePrayerType.MAKROOH,
+        type: ePrayerType.NAFL,
         start: formatDate(this._ishaEndInEpoch, "hh:mm a", this.locale), //TODO Fix This
         startEpoch: this._ishaEndInEpoch,
         end: formatDate(this._fajrStartInEpoch, "hh:mm a", this.locale),

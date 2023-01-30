@@ -42,7 +42,12 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
         this.currentDate = new Date();
         this.initTime();
         this.getActivePrayer();
-        this.getNextPrayerTime();
+        if (
+          !this.prayerService.prayers.some(
+            (p) => p.type === ePrayerType.PRAYER && p.isActive === true
+          )
+        )
+          this.getNextPrayerTime();
       })
     );
 
@@ -86,9 +91,16 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
         prayer.endEpoch &&
         prayer.startEpoch < this.currentDate.getTime() &&
         this.currentDate.getTime() < prayer.endEpoch
-      )
+      ) {
         prayer.isActive = true;
-      else prayer.isActive = false;
+        if (prayer.type === ePrayerType.PRAYER)
+          this.formattedRemainingTime =
+            prayer.name +
+            " ends in " +
+            DateHelper.convertSecondsToTime(
+              prayer.endEpoch - this.currentDate.getTime()
+            );
+      } else prayer.isActive = false;
     });
   }
 
@@ -99,7 +111,6 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
         prayer.startEpoch &&
         this.currentDate.getTime() < prayer.startEpoch
     );
-
     if (prayer && prayer.startEpoch)
       this.formattedRemainingTime =
         prayer.name +
