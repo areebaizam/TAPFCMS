@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { NgFor, NgIf } from "@angular/common";
 //Services
-import { PrayerService } from "@tap/shared/services/";
+import { PrayerTimingService } from "@tap/shared/services/";
 //Models and Enums
 import { ePrayerType } from "@tap/shared/models";
 //Pipes
@@ -17,7 +17,7 @@ import { FilterBooleanPipe, FilterStringPipe } from "@tap/standalone/pipes";
 export class PrayerGridComponent {
   prayerType = ePrayerType;
   orgDetails: string;
-  constructor(public prayerService: PrayerService) {
+  constructor(public prayerService: PrayerTimingService) {
     this.orgDetails =
       "BCMA Timings: ( Fajr: " +
       prayerService.prayerOrg?.Fajr +

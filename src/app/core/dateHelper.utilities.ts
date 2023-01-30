@@ -1,23 +1,16 @@
 export const minutesToMilliseconds: number = 60 * 1000; //60000
 export const hoursToMilliseconds: number = 60 * 60 * 1000; //3600000
 export const dayToMilliseconds: number = 24 * 60 * 60 * 1000; //86,400,000
-export const datePrefix: string = "2023-01-01T";
-export const dateSuffix: string = ":00+00:00";
+// export const datePrefix: string = "2023-01-01T"; //TODO Remove this
+// export const dateSuffix: string = ":00+00:00"; //TODO Remove this
 
 export class DateHelper {
-  public static addTimeInEpochMinutes(date: Date, minutes: number): number {
-    return new Date(date).getTime() + minutes * minutesToMilliseconds;
-  }
 
-  public static addTimeInEpochHours(
-    formattedDate: string,
-    hours: number
+  public static addEpochTimeInEpochMinutes(
+    epochDate: number,
+    minutes: number
   ): number {
-    return new Date(formattedDate).getTime() + hours * hoursToMilliseconds;
-  }
-
-  public static getTimeInEpoch(date: Date): number {
-    return new Date(date).getTime();
+    return epochDate + minutes * minutesToMilliseconds;
   }
 
   public static getTomorrowDateInterval(): number {
@@ -28,18 +21,23 @@ export class DateHelper {
     return tomorrow.getTime() - today.getTime();
   }
 
-  public static getYesterdayCurrentTime(epochDate: number): number {
-    return dayToMilliseconds - epochDate;
-  }
-  public static getYesterdayCurrentTimeLocal(epochDate: number): number {
-    return dayToMilliseconds - epochDate - 7 * hoursToMilliseconds;
+  public static getNDayCurrentTimeInEpoch(
+    epochtime: number,
+    days: number
+  ): number {
+    return epochtime + days * dayToMilliseconds;
   }
 
-  public static convertLocalTimeToUTC8(time: string): number {
-    //pad start for Fjr prayer for leading 0
-    let formattedDate = datePrefix + time.padStart(5, "0") + dateSuffix;
-    let utc8TimeInEpoch = DateHelper.addTimeInEpochHours(formattedDate, 8);
-    return utc8TimeInEpoch;
+  public static convertLocalTimeToEpoch(
+    time: string,
+    date: Date = new Date()
+  ): number {
+    let hour = parseInt(time.split(" ").join("").padStart(5, "0").slice(0, 2));
+    let minutes = parseInt(
+      time.split(" ").join("").padStart(5, "0").slice(3, 5)
+    );
+    date.setHours(hour, minutes, 0, 0);
+    return date.getTime();
   }
 
   public static convertSecondsToTime(seconds: number): string {
@@ -47,13 +45,6 @@ export class DateHelper {
     return date;
   }
 
-  public static convertDegreeToMinutes(degree: number = 15): number {
-    return degree * 6;
-  }
-
-  public static get getMinutesToMilliseconds(): number {
-    return minutesToMilliseconds;
-  }
   public static get getDayToMilliseconds(): number {
     return dayToMilliseconds;
   }

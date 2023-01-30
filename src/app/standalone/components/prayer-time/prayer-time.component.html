@@ -7,7 +7,14 @@
             <span class="main-text">{{prayer.endLabel}}</span>
             <span class="main-title main-text-heading">{{prayer.iqamah}}</span>
         </div>
-        <div class="wrapper prayer-card zawal-card" *ngIf="prayer.type===prayerType.INTERVAL" [class.isActiveWarn]="prayer.isActive">
+        <div class="wrapper prayer-card zawal-card" *ngIf="prayer.type===prayerType.MAKROOH" [class.isActiveWarn]="prayer.isActive">
+            <span class="main-title main-text-heading">{{prayer.name}}</span>
+            <span class="main-text">{{prayer.startLabel}}</span>
+            <span class="main-sub-title">{{prayer.start}}</span>
+            <span class="main-text">{{prayer.endLabel}}</span>
+            <span class="main-title main-text-heading">{{prayer.end}}</span>
+        </div>
+        <div class="wrapper prayer-card" *ngIf="prayer.type===prayerType.NAFL" [class.isActiveWarn]="prayer.isActive">
             <span class="main-title main-text-heading">{{prayer.name}}</span>
             <span class="main-text">{{prayer.startLabel}}</span>
             <span class="main-sub-title">{{prayer.start}}</span>

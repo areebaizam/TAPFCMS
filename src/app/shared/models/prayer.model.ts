@@ -53,7 +53,8 @@ export enum ePrayerOrganization {
 
 export enum ePrayerType {
   PRAYER,
-  INTERVAL,
+  MAKROOH,
+  NAFL,
   JUMUAH,
 }
 

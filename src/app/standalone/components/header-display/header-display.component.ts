@@ -4,7 +4,7 @@ import { NgIf } from "@angular/common";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
 //Services
-import { PrayerService } from "@tap/shared/services/";
+import { PrayerTimingService } from "@tap/shared/services/";
 //Models
 import { PrayerModel, ePrayerType, ePrayers } from "@tap/shared/models";
 //Utilities
@@ -27,7 +27,7 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
   formattedTime: string = "";
   formattedRemainingTime: string = "";
 
-  constructor(public prayerService: PrayerService) {}
+  constructor(public prayerService: PrayerTimingService) {}
 
   ngOnInit(): void {
     this.initTime();
@@ -71,12 +71,11 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
   getPrayerTimings() {
     forkJoin(
       this.prayerService.getPrayerCSVTime$(),
-      this.prayerService.getSunriseAPITime$()
+      this.prayerService.getPrayerAPITime$()
     ).subscribe((results) => {
       this.prayerService.setPrayerCsvTimings(results[0]);
-      this.prayerService.setSunriseApiTimings(results[1]);
+      this.prayerService.setPrayerAPITime(results[1]);
       this.prayerService.setPrayerTimings();
-      this.getHijriDate();
     });
   }
 
@@ -87,17 +86,16 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
         prayer.endEpoch &&
         prayer.startEpoch < this.currentDate.getTime() &&
         this.currentDate.getTime() < prayer.endEpoch
-      ) {
+      )
         prayer.isActive = true;
-        this.refreshHijriDate(prayer);
-      } else prayer.isActive = false;
+      else prayer.isActive = false;
     });
   }
 
   getNextPrayerTime() {
     const prayer = this.prayerService.prayers.find(
       (prayer) =>
-        prayer.type != ePrayerType.INTERVAL &&
+        prayer.type === ePrayerType.PRAYER &&
         prayer.startEpoch &&
         this.currentDate.getTime() < prayer.startEpoch
     );
@@ -111,18 +109,18 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
         );
   }
 
-  refreshHijriDate(prayer: PrayerModel) {
-    if (prayer.name === ePrayers.MAGHRIB) {
-      this.prayerService.invalidateHijriCache();
-      this.getHijriDate();
-    }
-  }
-  getHijriDate() {
-    let gregorianDate = this.prayerService.getGregorianDate();
-    this.prayerService
-      .getHijriDate$(gregorianDate)
-      .subscribe((next) => this.prayerService.setHijriDate(next));
-  }
+  // refreshHijriDate(prayer: PrayerModel) {
+  //   if (prayer.name === ePrayers.MAGHRIB) {
+  //     this.prayerService.invalidateHijriCache();
+  //     this.getHijriDate();
+  //   }
+  // }
+  // getHijriDate() {
+  //   let gregorianDate = this.prayerService.getGregorianDate();
+  //   this.prayerService
+  //     .getHijriDate$(gregorianDate)
+  //     .subscribe((next) => this.prayerService.setHijriDate(next));
+  // }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

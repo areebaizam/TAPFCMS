@@ -6,14 +6,20 @@
             <span class="body-text prayer-label align-right">Iqamah/Ends</span>
         </div>
         <span class="separator mb-2"></span>
-        <ng-container *ngFor="let prayer of prayerService.prayers | filterBoolean:'visible':true ">
+        <ng-container *ngFor="let prayer of prayerService.prayers ">
             <div class="prayer-grid-wrapper" [class.isActive]="prayer.isActive" *ngIf="prayer.type===prayerType.PRAYER">
                 <span class="interval-name main-title">{{prayer.name}}</span>
                 <span class="prayer-time main-sub-title align-center">{{prayer.athan}}</span>
                 <span class="prayer-time main-sub-title align-right">{{prayer.iqamah}}</span>
             </div>
-            <div class="interval-grid-wrapper" *ngIf="prayer.type===prayerType.INTERVAL"
+            <div class="interval-grid-wrapper" *ngIf="prayer.type===prayerType.MAKROOH"
                 [class.isActiveWarn]="prayer.isActive">
+                <span class="interval-name main-title">{{prayer.name}}</span>
+                <span class="prayer-time main-sub-title align-center">{{prayer.start}}</span>
+                <span class="prayer-time main-sub-title align-right">{{prayer.end}}</span>
+            </div>
+            <div class="interval-grid-wrapper" *ngIf="prayer.type===prayerType.NAFL"
+                [class.isActive]="prayer.isActive">
                 <span class="interval-name main-title">{{prayer.name}}</span>
                 <span class="prayer-time main-sub-title align-center">{{prayer.start}}</span>
                 <span class="prayer-time main-sub-title align-right">{{prayer.end}}</span>

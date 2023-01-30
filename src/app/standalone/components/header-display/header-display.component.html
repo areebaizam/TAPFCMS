@@ -12,7 +12,7 @@
             style="height: 100px; padding-bottom: 10px;"> -->
     </div>
     <span class="main-title time" *ngIf="showHeader">{{formattedTime}}</span>
-    <span class="main-title" *ngIf="!hideDate">{{formattedDate}}</span>
-    <span class="main-title rem-time">{{prayerService.hijriDate}}</span>
-    <span class="main-title rem-time">{{formattedRemainingTime}}</span>
+    <span class="main-title">{{prayerService.hijriDate}}</span>
+    <span class="main-title rem-time" *ngIf="!hideDate">{{formattedDate}}</span>
+    <span class="main-title rem-time" *ngIf="!hideDate">{{formattedRemainingTime}}</span>
 </div>
