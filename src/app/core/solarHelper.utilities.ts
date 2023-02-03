@@ -9,6 +9,7 @@ const radians = (degree: number) => (degree * Math.PI) / 180;
 const degrees = (radian: number) => (radian * 180) / Math.PI;
 const julianDate = (date: Date) =>
   Math.floor(date.getTime() / 86400000 + 2440587.5);
+  
 export class SunriseSunset {
   private static getBaselineNumbers(date: Date): any {
     const jd = julianDate(date);

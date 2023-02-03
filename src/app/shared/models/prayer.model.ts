@@ -98,7 +98,7 @@ export enum eJuristicMethod{
   HNF, // 1 for Hanafi (Shadow length is twice the object)
 }
 export const JuristicMethodMap = new Map([
-  [eJuristicMethod.STD, "Standard (Shafi, Maliki, Hanbali)"],
+  [eJuristicMethod.STD, "Standard"],
   [eJuristicMethod.HNF, "Hanafi"],
 ]);
 
@@ -127,6 +127,7 @@ export enum eLocation {
 }
 export class PrayerModel {
   name?: ePrayers;
+  label?: string;
   type?: ePrayerType;
   start?: string;
   startLabel?: string;
@@ -181,12 +182,12 @@ export interface Location {
 }
 
 export interface PrayerOffset {
-  sunrise: number;
+  imsak: number;
+  fajr: number;
   ishraq: number;
   zawal: number;
   dhur: number;
-  sunset: number;
-  maghrib: number;
+  asr: number;
 }
 export interface PrayerConfigModel {
   location: Location;

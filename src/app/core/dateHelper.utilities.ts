@@ -5,7 +5,6 @@ export const hoursToMilliseconds: number = 60 * minutesToMilliseconds; //3600000
 export const dayToMilliseconds: number = 24 * hoursToMilliseconds; //86,400,000
 
 export class DateHelper {
-
   public static addEpochTimeInEpochMinutes(
     epochDate: number,
     minutes: number
@@ -13,14 +12,24 @@ export class DateHelper {
     return epochDate + minutes * minutesToMilliseconds;
   }
 
-  public static convertEpochOffsetToEpoch(baseDate:Date, offSetInSeconds:number) : number {
+  public static convertEpochOffsetToEpoch(
+    baseDate: Date,
+    offSetInSeconds: number
+  ): number {
     baseDate.setHours(0, 0, 0, 0);
     let baseEpochDateInMilliseconds = baseDate.getTime() - 8 * 60 * 60 * 1000; //TODO FIX THIS 8 Offset
-    return baseEpochDateInMilliseconds + offSetInSeconds * secondsToMilliseconds;
+    return (
+      baseEpochDateInMilliseconds + offSetInSeconds * secondsToMilliseconds
+    );
   }
-  public static addOffsetDegreeToEpoch(baseEpochDate:number, offSetInDegree:number) : number {
-
-    return baseEpochDate + offSetInDegree*degreeToMinutes*minutesToMilliseconds;
+  
+  public static addOffsetDegreeToEpoch(
+    baseEpochDate: number,
+    offSetInDegree: number
+  ): number {
+    return (
+      baseEpochDate + offSetInDegree * degreeToMinutes * minutesToMilliseconds
+    );
   }
 
   public static getTomorrowDateInterval(): number {
@@ -31,10 +40,7 @@ export class DateHelper {
     return tomorrow.getTime() - today.getTime();
   }
 
-  public static addDaysToEpochInEpoch(
-    epochtime: number,
-    days: number
-  ): number {
+  public static addDaysToEpochInEpoch(epochtime: number, days: number): number {
     return epochtime + days * dayToMilliseconds;
   }
 

@@ -13,6 +13,7 @@ import {
   eAshura,
   PrayerCalcMethodDegreeMap,
   PrayerCalcMethodDegree,
+  JuristicMethodMap,
   MONTHS,
 } from "@tap/shared/models";
 
@@ -40,12 +41,17 @@ export class PrayerService {
     private http: HttpClient
   ) {}
 
+  private _imsakStartInEpoch!: number;
   private _fajrStartInEpoch!: number;
+  private _fajrEndInEpoch!: number;
   private _sunriseStartInEpoch!: number;
+  private _ishraqStartInEpoch!: number;
   private _chashtStartInEpoch!: number;
+  private _zawalStartInEpoch!: number;
   private _dhurStartInEpoch!: number; //TODO remove this
   private _noonStartInEpoch!: number;
   private _asrStartInEpoch!: number;
+  private _asrEndInEpoch!: number;
   private _sunsetStartInEpoch!: number;
   private _maghribStartInEpoch!: number;
   private _ishaStartInEpoch!: number;
@@ -74,28 +80,60 @@ export class PrayerService {
       this._sunriseStartInEpoch,
       this.prayerCalcMethod ? -this.prayerCalcMethod.FajrOffset : 0
     );
+
+    this._imsakStartInEpoch = DateHelper.addEpochTimeInEpochMinutes(
+      this._fajrStartInEpoch,
+      PrayerConfig.offsetInMinutes.imsak
+    );
+
+    this._fajrEndInEpoch = DateHelper.addEpochTimeInEpochMinutes(
+      this._sunriseStartInEpoch,
+      PrayerConfig.offsetInMinutes.fajr
+    );
+
+    this._ishraqStartInEpoch = DateHelper.addEpochTimeInEpochMinutes(
+      this._sunriseStartInEpoch,
+      PrayerConfig.offsetInMinutes.ishraq
+    );
+
     this._noonStartInEpoch = DateHelper.convertEpochOffsetToEpoch(
       date,
       solarTimings.solarNoonInSeconds
     );
 
-    (this._dhurStartInEpoch = this._noonStartInEpoch), //add offset of 1 minute
-      (this._sunsetStartInEpoch = DateHelper.convertEpochOffsetToEpoch(
-        date,
-        solarTimings.sunsetInSeconds
-      ));
-
     this._chashtStartInEpoch =
-      0.5 * (this._sunriseStartInEpoch + this._dhurStartInEpoch);
+      0.5 * (this._sunriseStartInEpoch + this._noonStartInEpoch);
+
+    this._zawalStartInEpoch = DateHelper.addEpochTimeInEpochMinutes(
+      this._noonStartInEpoch,
+      PrayerConfig.offsetInMinutes.zawal
+    );
+
+    this._dhurStartInEpoch = DateHelper.addEpochTimeInEpochMinutes(
+      this._noonStartInEpoch,
+      PrayerConfig.offsetInMinutes.dhur
+    );
+
     const asrOffsetInSeconds = SunriseSunset.calcAsrInSeconds(
       solarTimings.lat,
       solarTimings.sunDecl,
       solarTimings.solarNoonInSeconds,
       PrayerConfig.asrJuristicMethod
     );
+
     this._asrStartInEpoch = DateHelper.convertEpochOffsetToEpoch(
       date,
       asrOffsetInSeconds
+    );
+
+    this._sunsetStartInEpoch = DateHelper.convertEpochOffsetToEpoch(
+      date,
+      solarTimings.sunsetInSeconds
+    );
+
+    this._asrEndInEpoch = DateHelper.addEpochTimeInEpochMinutes(
+      this._sunsetStartInEpoch,
+      PrayerConfig.offsetInMinutes.asr
     );
 
     //TODO Add Altitude adjustments
@@ -116,21 +154,8 @@ export class PrayerService {
       date,
       solarTimings.sunsetInSeconds + midnightOffsetInSeconds
     );
-
-    console.log(
-      "_sunriseStartInEpoch",
-      midnightOffsetInSeconds,
-      this._fajrStartInEpoch,
-      this._sunriseStartInEpoch,
-      this._noonStartInEpoch,
-      this._asrStartInEpoch,
-      this._sunsetStartInEpoch,
-      this._maghribStartInEpoch,
-      this._ishaStartInEpoch,
-      this._ishaEndInEpoch
-    );
   }
-  
+
   getPrayerCSVTime$(): Observable<string> {
     if (this._cachePrayerCSVData) return of(this._cachePrayerCSVData);
     return this.http.get(Config.getPrayerCSVUrl, { responseType: "text" });
@@ -194,16 +219,17 @@ export class PrayerService {
           DateHelper.addDaysToEpochInEpoch(this._ishaEndInEpoch, -1),
           "hh:mm a",
           this.locale
-        ), //TODO Fix This
+        ),
         startEpoch: DateHelper.addDaysToEpochInEpoch(this._ishaEndInEpoch, -1),
-        end: formatDate(this._fajrStartInEpoch, "hh:mm a", this.locale),
-        endEpoch: this._fajrStartInEpoch,
+        end: formatDate(this._imsakStartInEpoch, "hh:mm a", this.locale),
+        endEpoch: this._imsakStartInEpoch,
         visible: false,
         isActive: false,
         order: 1,
       },
       {
         name: ePrayers.FAJR,
+        label: this.prayerCalcMethod?.FajrOffset + "° - Sunrise",
         type: ePrayerType.PRAYER,
         start: formatDate(this._fajrStartInEpoch, "hh:mm a", this.locale),
         startEpoch: this._fajrStartInEpoch,
@@ -213,8 +239,8 @@ export class PrayerService {
           "hh:mm a",
           this.locale
         ),
-        end: formatDate(this._sunriseStartInEpoch, "hh:mm a", this.locale),
-        endEpoch: this._sunriseStartInEpoch,
+        end: formatDate(this._fajrEndInEpoch, "hh:mm a", this.locale),
+        endEpoch: this._fajrEndInEpoch,
         visible: true,
         isActive: false,
         order: 2,
@@ -224,15 +250,8 @@ export class PrayerService {
         type: ePrayerType.MAKROOH,
         start: formatDate(this._sunriseStartInEpoch, "hh:mm a", this.locale),
         startEpoch: this._sunriseStartInEpoch,
-        end: formatDate(
-          DateHelper.addEpochTimeInEpochMinutes(this._sunriseStartInEpoch, 20),
-          "hh:mm a",
-          this.locale
-        ), //Sunrise
-        endEpoch: DateHelper.addEpochTimeInEpochMinutes(
-          this._sunriseStartInEpoch,
-          20
-        ), //Sunrise in Epoch
+        end: formatDate(this._ishraqStartInEpoch, "hh:mm a", this.locale),
+        endEpoch: this._ishraqStartInEpoch,
         visible: true,
         isActive: false,
         order: 3,
@@ -240,15 +259,8 @@ export class PrayerService {
       {
         name: ePrayers.ISHRAQ,
         type: ePrayerType.NAFL,
-        start: formatDate(
-          DateHelper.addEpochTimeInEpochMinutes(this._sunriseStartInEpoch, 20),
-          "hh:mm a",
-          this.locale
-        ),
-        startEpoch: DateHelper.addEpochTimeInEpochMinutes(
-          this._sunriseStartInEpoch,
-          20
-        ),
+        start: formatDate(this._ishraqStartInEpoch, "hh:mm a", this.locale),
+        startEpoch: this._ishraqStartInEpoch,
         end: formatDate(this._chashtStartInEpoch, "hh:mm a", this.locale),
         endEpoch: this._chashtStartInEpoch,
         visible: false,
@@ -260,39 +272,26 @@ export class PrayerService {
         type: ePrayerType.NAFL,
         start: formatDate(this._chashtStartInEpoch, "hh:mm a", this.locale),
         startEpoch: this._chashtStartInEpoch,
-        end: formatDate(
-          DateHelper.addEpochTimeInEpochMinutes(this._dhurStartInEpoch, -26),
-          "hh:mm a",
-          this.locale
-        ),
-        endEpoch: DateHelper.addEpochTimeInEpochMinutes(
-          this._dhurStartInEpoch,
-          -26
-        ),
+        end: formatDate(this._zawalStartInEpoch, "hh:mm a", this.locale),
+        endEpoch: this._zawalStartInEpoch,
         visible: false,
         isActive: false,
         order: 5,
       },
       {
         name: ePrayers.ZAWAL,
-        type: ePrayerType.MAKROOH, //TODO Set Offsets
-        start: formatDate(
-          DateHelper.addEpochTimeInEpochMinutes(this._dhurStartInEpoch, -26),
-          "hh:mm a",
-          this.locale
-        ),
-        startEpoch: DateHelper.addEpochTimeInEpochMinutes(
-          this._dhurStartInEpoch,
-          -26
-        ),
-        end: formatDate(this._dhurStartInEpoch, "hh:mm a", this.locale), //Noon
-        endEpoch: this._dhurStartInEpoch, //Noon in Epoch
+        type: ePrayerType.MAKROOH,
+        start: formatDate(this._zawalStartInEpoch, "hh:mm a", this.locale),
+        startEpoch: this._zawalStartInEpoch,
+        end: formatDate(this._noonStartInEpoch, "hh:mm a", this.locale),
+        endEpoch: this._noonStartInEpoch,
         visible: true,
         isActive: false,
         order: 6,
       },
       {
         name: ePrayers.DHUR,
+        label: "Noon + 2'",
         type: ePrayerType.PRAYER,
         start: formatDate(this._dhurStartInEpoch, "hh:mm a", this.locale),
         startEpoch: this._dhurStartInEpoch,
@@ -310,6 +309,7 @@ export class PrayerService {
       },
       {
         name: ePrayers.ASR,
+        label: JuristicMethodMap.get(PrayerConfig.asrJuristicMethod),
         type: ePrayerType.PRAYER,
         start: formatDate(this._asrStartInEpoch, "hh:mm a", this.locale),
         startEpoch: this._asrStartInEpoch,
@@ -319,15 +319,8 @@ export class PrayerService {
           "hh:mm a",
           this.locale
         ),
-        end: formatDate(
-          DateHelper.addEpochTimeInEpochMinutes(this._maghribStartInEpoch, -15),
-          "hh:mm a",
-          this.locale
-        ),
-        endEpoch: DateHelper.addEpochTimeInEpochMinutes(
-          this._maghribStartInEpoch,
-          -15
-        ),
+        end: formatDate(this._asrEndInEpoch, "hh:mm a", this.locale),
+        endEpoch: this._asrEndInEpoch,
         visible: true,
         isActive: false,
         order: 9,
@@ -335,15 +328,8 @@ export class PrayerService {
       {
         name: ePrayers.GHUROOB,
         type: ePrayerType.MAKROOH,
-        start: formatDate(
-          DateHelper.addEpochTimeInEpochMinutes(this._maghribStartInEpoch, -15),
-          "hh:mm a",
-          this.locale
-        ),
-        startEpoch: DateHelper.addEpochTimeInEpochMinutes(
-          this._maghribStartInEpoch,
-          -15
-        ),
+        start: formatDate(this._asrEndInEpoch, "hh:mm a", this.locale),
+        startEpoch: this._asrEndInEpoch,
         end: formatDate(this._maghribStartInEpoch, "hh:mm a", this.locale),
         endEpoch: this._maghribStartInEpoch,
         visible: false,
@@ -352,6 +338,7 @@ export class PrayerService {
       },
       {
         name: ePrayers.MAGHRIB,
+        label: "Sunset",
         type: ePrayerType.PRAYER,
         start: formatDate(this._maghribStartInEpoch, "hh:mm a", this.locale), //Sunset
         startEpoch: this._maghribStartInEpoch, //Sunset in Epoch
@@ -373,6 +360,7 @@ export class PrayerService {
       },
       {
         name: ePrayers.ISHA,
+        label: this.prayerCalcMethod?.IshaOffset + "° - Midnight",
         type: ePrayerType.PRAYER,
         start: formatDate(this._ishaStartInEpoch, "hh:mm a", this.locale),
         startEpoch: this._ishaStartInEpoch,
@@ -391,6 +379,7 @@ export class PrayerService {
       {
         name: ePrayers.JUMUAH,
         type: ePrayerType.JUMUAH,
+        label: "Khutbah",
         start: formatDate(this._dhurStartInEpoch, "hh:mm a", this.locale), //Noon
         startEpoch: this._dhurStartInEpoch, //Noon in Epoch
         athan: formatDate(currentDayInEpoch.jumuah_1, "hh:mm a", this.locale),
@@ -423,6 +412,7 @@ export class PrayerService {
       console.log(
         "prayers",
         p.name,
+        p.label,
         p.start,
         p.athan,
         p.iqamah,

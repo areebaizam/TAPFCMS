@@ -5,13 +5,13 @@ export const PrayerConfig = {
     lng: -123.1067579,
   },
   prayerCalcMethod: ePrayerCalcMethod.BCMA,
-  asrJuristicMethod: eJuristicMethod.HNF, 
+  asrJuristicMethod: eJuristicMethod.STD, 
   offsetInMinutes: {
-    sunrise: -15,
+    imsak: -10,
+    fajr: -15,
     ishraq: 20,
     zawal: -20,
     dhur: 2,
-    sunset: -15,
-    maghrib: 7,
+    asr: -15,
   },
 } as PrayerConfigModel;
