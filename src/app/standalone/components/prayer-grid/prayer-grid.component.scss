@@ -24,7 +24,10 @@
     display: flex;
     justify-content: space-between;
     border-radius: 10px;
-    padding: 0 10px;
+}
+
+.interval-grid-wrapper {
+    padding: 3px 10px 0 10px;
 }
 
 
@@ -32,11 +35,13 @@
     margin: 5px 0;
     background-color: rgba($primary-theme-color-background, 0.5);
     height: 50px;
+    padding: 0 10px;
 }
 
 .isActive {
-    background-color: $primary-theme-color-background-dark;
+    // background-color: $primary-theme-color-background-dark;
     background-color: rgba($primary-theme-color, 1);
+    
     -webkit-box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
     -moz-box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
     box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
@@ -49,6 +54,7 @@
 .isActiveWarn {
     background-color: rgb(255, 195, 190, .5);
 }
+
 .isActiveNafl {
     background-color: rgba($primary-theme-color-background-dark, 0.7);
 }
@@ -67,21 +73,22 @@
     width: 110px;
 }
 
-.khutbah-label{
+.khutbah-label {
     width: 120px
 }
-.khutbah-name{
+
+.khutbah-name {
     line-height: 1;
     font-size: 20px;
 }
 
 .prayer-name {
-    width: 120px;
+    width: 110px;
     font-size: 32px;
 }
 
 .jumuah-name {
-    height: 60px;
+    height: 55px;
 }
 
 .interval-name {
@@ -120,10 +127,10 @@
     .prayer-time,
     .prayer-label,
     .interval-time {
-        width: 95px;
+        width: 110px;
     }
 
-    .khutbah-label{
+    .khutbah-label {
         width: 110px
     }
 
