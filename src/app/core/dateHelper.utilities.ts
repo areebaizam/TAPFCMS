@@ -1,8 +1,8 @@
-export const minutesToMilliseconds: number = 60 * 1000; //60000
-export const hoursToMilliseconds: number = 60 * 60 * 1000; //3600000
-export const dayToMilliseconds: number = 24 * 60 * 60 * 1000; //86,400,000
-// export const datePrefix: string = "2023-01-01T"; //TODO Remove this
-// export const dateSuffix: string = ":00+00:00"; //TODO Remove this
+export const degreeToMinutes: number = 1 * 6; //1 degree = 6 minutes
+export const secondsToMilliseconds: number = 1 * 1000; //1000
+export const minutesToMilliseconds: number = 60 * secondsToMilliseconds; //60000
+export const hoursToMilliseconds: number = 60 * minutesToMilliseconds; //3600000
+export const dayToMilliseconds: number = 24 * hoursToMilliseconds; //86,400,000
 
 export class DateHelper {
 
@@ -13,6 +13,16 @@ export class DateHelper {
     return epochDate + minutes * minutesToMilliseconds;
   }
 
+  public static convertEpochOffsetToEpoch(baseDate:Date, offSetInSeconds:number) : number {
+    baseDate.setHours(0, 0, 0, 0);
+    let baseEpochDateInMilliseconds = baseDate.getTime() - 8 * 60 * 60 * 1000; //TODO FIX THIS 8 Offset
+    return baseEpochDateInMilliseconds + offSetInSeconds * secondsToMilliseconds;
+  }
+  public static addOffsetDegreeToEpoch(baseEpochDate:number, offSetInDegree:number) : number {
+
+    return baseEpochDate + offSetInDegree*degreeToMinutes*minutesToMilliseconds;
+  }
+
   public static getTomorrowDateInterval(): number {
     const today = new Date();
     let tomorrow = new Date();
@@ -21,7 +31,7 @@ export class DateHelper {
     return tomorrow.getTime() - today.getTime();
   }
 
-  public static getNDayCurrentTimeInEpoch(
+  public static addDaysToEpochInEpoch(
     epochtime: number,
     days: number
   ): number {

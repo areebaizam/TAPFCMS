@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { NgFor, NgIf } from "@angular/common";
 //Services
-import { PrayerTimingService } from "@tap/shared/services/";
+import { PrayerService } from "@tap/shared/services/";
 //Models and Enums
 import { ePrayerType } from "@tap/shared/models";
 //Pipes
@@ -17,12 +17,12 @@ import { FilterBooleanPipe, FilterStringPipe } from "@tap/standalone/pipes";
 export class PrayerGridMosqueComponent {
   prayerType = ePrayerType;
   orgDetails: string;
-  constructor(public prayerService: PrayerTimingService) {
+  constructor(public prayerService: PrayerService) {
     this.orgDetails =
     "BCMA & Sharia Council of B.C. Timings: ( Fajr: " +
-    prayerService.prayerOrg?.Fajr +
+    prayerService.prayerCalcMethod?.FajrOffset +
     "° / Isha: " +
-    prayerService.prayerOrg?.Isha +
+    prayerService.prayerCalcMethod?.IshaOffset +
     "° )";
   }
 }

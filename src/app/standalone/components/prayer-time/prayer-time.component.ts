@@ -3,7 +3,7 @@ import { NgFor, NgIf } from "@angular/common";
 //Pipes
 import { FilterBooleanPipe, FilterStringPipe } from "@tap/standalone/pipes";
 //Services
-import { PrayerTimingService } from "@tap/shared/services/";
+import { PrayerService } from "@tap/shared/services/";
 //Models and Enums
 import { ePrayerType } from "@tap/shared/models";
 @Component({
@@ -15,5 +15,5 @@ import { ePrayerType } from "@tap/shared/models";
 })
 export class PrayerTimeComponent {
   prayerType = ePrayerType;
-  constructor(public prayerService: PrayerTimingService) {}
+  constructor(public prayerService: PrayerService) {}
 }

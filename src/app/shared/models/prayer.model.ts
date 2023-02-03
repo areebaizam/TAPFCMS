@@ -42,14 +42,73 @@ export enum eAshura {
   THIRD_ASHURA = "THIRD_ASHURA",
 }
 
-export enum ePrayerOrganization {
+export enum ePrayerCalcMethod {
+  CSTM,
   BCMA,
   EGA,
   ISNA,
   IUK,
   MWL,
+  MAK,//Todo Cover Ramadan Timings
   SIA,
+  TRN,
 }
+
+
+
+
+export class PrayerCalcMethodDegree {
+  Organization: string = "";
+  FajrOffset: number;
+  MaghribSelector: number; //(0 = angle; 1 = minutes after sunset)
+  MaghribOffset: number; //maghrib parameter value (in angle or minutes)
+  IshaSelector: number; //isha selector (0 = angle; 1 = minutes after maghrib)
+  IshaOffset: number; //isha parameter value (in angle or minutes)
+  constructor(
+    org: string,
+    fo: number,
+    ms: number,
+    mo: number,
+    is: number,
+    io: number
+  ) {
+    this.Organization = org;
+    this.FajrOffset = fo;
+    this.MaghribSelector = ms;
+    this.MaghribOffset = mo;
+    this.IshaSelector = is;
+    this.IshaOffset = io;
+  }
+}
+
+export const PrayerCalcMethodDegreeMap = new Map([
+  [ePrayerCalcMethod.BCMA, new PrayerCalcMethodDegree("BCMA and Sharia Council of B.C.",  18, 1,0,0, 15)],  
+  [ePrayerCalcMethod.EGA, new PrayerCalcMethodDegree("Egyptian General Authority",  19.5, 1,0,0, 17.5)],
+  [ePrayerCalcMethod.ISNA, new PrayerCalcMethodDegree("Islamic Society of North America",  15, 1,0,0, 15)],
+  [ePrayerCalcMethod.IUK, new PrayerCalcMethodDegree("Karachi (University Of Islamic Sciences)",  18, 1,0,0, 18)],  
+  [ePrayerCalcMethod.MAK, new PrayerCalcMethodDegree("Makkah (Umm al-Qura University)",  18.5, 1,0,1, 90)],
+  [ePrayerCalcMethod.MWL, new PrayerCalcMethodDegree("Muslim World League",  18, 1,0,0, 17)],
+  [ePrayerCalcMethod.SIA, new PrayerCalcMethodDegree("Shia Ithna Ashari",  16, 0,4,0, 14)],
+  [ePrayerCalcMethod.TRN, new PrayerCalcMethodDegree("Tehran (Institute of Geophysics)",  17.7, 0,4.5,0, 14)],
+  [ePrayerCalcMethod.CSTM, new PrayerCalcMethodDegree("Custom",  18, 1,0,0, 17)],
+]);
+
+export enum eJuristicMethod{
+  STD, //0 for Shafi Maliki Hanbali
+  HNF, // 1 for Hanafi (Shadow length is twice the object)
+}
+export const JuristicMethodMap = new Map([
+  [eJuristicMethod.STD, "Standard (Shafi, Maliki, Hanbali)"],
+  [eJuristicMethod.HNF, "Hanafi"],
+]);
+
+export enum eHighAltitudeAdjustment{
+  NONE, //0.0
+  MIDNIGHT, //Middle of the night 0.5
+  ONE_SEVENTH, // 0.14286
+  ANGLE_BASED,// angle/60.0
+}
+
 
 export enum ePrayerType {
   PRAYER,
@@ -66,22 +125,6 @@ export enum eLocation {
   DHUR = 2,
   MAGHRIB = 7,
 }
-
-export class PrayerOrgDegree {
-  Organization: string = "";
-  Fajr: number = 15;
-  Isha: number = 15;
-}
-
-export const PrayerDegreeMap = new Map([
-  [ePrayerOrganization.BCMA, { Organization:"BCMA and Sharia Council of B.C.", Fajr: 18, Isha: 15 } as PrayerOrgDegree],
-  [ePrayerOrganization.EGA, { Organization:"Egyptian General Authority", Fajr: 19.5, Isha: 17.5 } as PrayerOrgDegree],
-  [ePrayerOrganization.ISNA, { Organization:"Islamic Society of North America", Fajr: 15, Isha: 15 } as PrayerOrgDegree],
-  [ePrayerOrganization.IUK, { Organization:"University Of Islamic Sciences, Karachi", Fajr: 18, Isha: 18 } as PrayerOrgDegree],
-  [ePrayerOrganization.MWL, { Organization:"Muslim World League", Fajr: 18, Isha: 17 } as PrayerOrgDegree],
-  [ePrayerOrganization.SIA, { Organization:"Shia Ithna Ashari", Fajr: 16, Isha: 14 } as PrayerOrgDegree],
-]);
-
 export class PrayerModel {
   name?: ePrayers;
   type?: ePrayerType;
@@ -147,6 +190,7 @@ export interface PrayerOffset {
 }
 export interface PrayerConfigModel {
   location: Location;
-  prayerOrg: ePrayerOrganization;
+  prayerCalcMethod: ePrayerCalcMethod;
+  asrJuristicMethod: eJuristicMethod;
   offsetInMinutes: PrayerOffset;
 }

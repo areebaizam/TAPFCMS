@@ -4,9 +4,9 @@ import { NgIf } from "@angular/common";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
 //Services
-import { PrayerTimingService } from "@tap/shared/services/";
+import { PrayerService } from "@tap/shared/services/";
 //Models
-import { PrayerModel, ePrayerType, ePrayers } from "@tap/shared/models";
+import { ePrayerType } from "@tap/shared/models";
 //Utilities
 import { DateHelper } from "@tap/core/dateHelper.utilities";
 
@@ -27,7 +27,7 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
   formattedTime: string = "";
   formattedRemainingTime: string = "";
 
-  constructor(public prayerService: PrayerTimingService) {}
+  constructor(public prayerService: PrayerService) {}
 
   ngOnInit(): void {
     this.initTime();
@@ -74,12 +74,8 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
   }
 
   getPrayerTimings() {
-    forkJoin(
-      this.prayerService.getPrayerCSVTime$(),
-      this.prayerService.getPrayerAPITime$()
-    ).subscribe((results) => {
-      this.prayerService.setPrayerCsvTimings(results[0]);
-      this.prayerService.setPrayerAPITime(results[1]);
+    this.prayerService.getPrayerCSVTime$().subscribe((result) => {
+      this.prayerService.setPrayerCsvTimings(result);
       this.prayerService.setPrayerTimings();
     });
   }
