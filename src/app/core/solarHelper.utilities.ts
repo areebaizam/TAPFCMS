@@ -7,9 +7,8 @@ const JULIAN_DAYS_ON_19000501_1200 = 2451545;
 const ONE_JULIAN_CENTURY = 36525;
 const radians = (degree: number) => (degree * Math.PI) / 180;
 const degrees = (radian: number) => (radian * 180) / Math.PI;
-const julianDate = (date: Date) =>
-  Math.floor(date.getTime() / 86400000 + 2440587.5);
-  
+const julianDate = (date: Date) => date.getTime() / 86400000 + 2440587.5 + 0.5; //0.5 added for taking noon time not midnight for calculation
+
 export class SunriseSunset {
   private static getBaselineNumbers(date: Date): any {
     const jd = julianDate(date);
@@ -104,7 +103,6 @@ export class SunriseSunset {
     lng: number,
     date: Date
   ): any {
-    date.setHours(0, 0, 0, 0);
     const baseNumbers = this.getBaselineNumbers(date);
     const solarData: SolarDataModel = this.getSolarData(
       lat,

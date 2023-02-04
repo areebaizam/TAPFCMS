@@ -1,11 +1,17 @@
-import { ePrayerCalcMethod, PrayerConfigModel, eJuristicMethod } from "@tap/shared/models";
+import {
+  PrayerConfigModel,
+  ePrayerCalcMethod,
+  eJuristicMethod,
+  eHighAltitudeAdjustment,
+} from "@tap/shared/models";
 export const PrayerConfig = {
   location: {
     lat: 49.2263435,
     lng: -123.1067579,
   },
   prayerCalcMethod: ePrayerCalcMethod.BCMA,
-  asrJuristicMethod: eJuristicMethod.HNF, 
+  asrJuristicMethod: eJuristicMethod.STD,
+  highAltitudeAdj: eHighAltitudeAdjustment.MIDNIGHT,
   offsetInMinutes: {
     imsak: -10,
     fajr: -15,

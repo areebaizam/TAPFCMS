@@ -69,7 +69,7 @@ export class PrayerService {
 
   private setPrayersInteval(
     solarTimings: SolarDataModel,
-    date: Date = new Date()
+    date: Date
   ) {
     this._sunriseStartInEpoch = DateHelper.convertEpochOffsetToEpoch(
       date,
@@ -154,6 +154,8 @@ export class PrayerService {
       date,
       solarTimings.sunsetInSeconds + midnightOffsetInSeconds
     );
+
+    console.log('solarTimings', solarTimings, this._sunriseStartInEpoch,this._noonStartInEpoch, this._sunsetStartInEpoch)
   }
 
   getPrayerCSVTime$(): Observable<string> {
@@ -218,7 +220,7 @@ export class PrayerService {
         start: formatDate(
           DateHelper.addDaysToEpochInEpoch(this._ishaEndInEpoch, -1),
           "hh:mm a",
-          this.locale
+          this.locale,
         ),
         startEpoch: DateHelper.addDaysToEpochInEpoch(this._ishaEndInEpoch, -1),
         end: formatDate(this._imsakStartInEpoch, "hh:mm a", this.locale),
@@ -291,7 +293,7 @@ export class PrayerService {
       },
       {
         name: ePrayers.DHUR,
-        label: "Noon + 2'",
+        label: "Zawal + 2'",
         type: ePrayerType.PRAYER,
         start: formatDate(this._dhurStartInEpoch, "hh:mm a", this.locale),
         startEpoch: this._dhurStartInEpoch,

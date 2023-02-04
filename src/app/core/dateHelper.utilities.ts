@@ -16,13 +16,16 @@ export class DateHelper {
     baseDate: Date,
     offSetInSeconds: number
   ): number {
-    baseDate.setHours(0, 0, 0, 0);
-    let baseEpochDateInMilliseconds = baseDate.getTime() - 8 * 60 * 60 * 1000; //TODO FIX THIS 8 Offset
     return (
-      baseEpochDateInMilliseconds + offSetInSeconds * secondsToMilliseconds
+      Math.round(
+        (baseDate.getTime() +
+          offSetInSeconds * secondsToMilliseconds -
+          baseDate.getTimezoneOffset() * minutesToMilliseconds) /
+          minutesToMilliseconds
+      ) * minutesToMilliseconds
     );
   }
-  
+
   public static addOffsetDegreeToEpoch(
     baseEpochDate: number,
     offSetInDegree: number

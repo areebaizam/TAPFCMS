@@ -109,6 +109,13 @@ export enum eHighAltitudeAdjustment{
   ANGLE_BASED,// angle/60.0
 }
 
+export const HighAltitudeAdjMap = new Map([
+  [eHighAltitudeAdjustment.NONE, "None"],
+  [eHighAltitudeAdjustment.MIDNIGHT, "Midnight"],
+  [eHighAltitudeAdjustment.ONE_SEVENTH, "1/7 of Night"],
+  [eHighAltitudeAdjustment.ANGLE_BASED, "Angle based"],
+]);
+
 
 export enum ePrayerType {
   PRAYER,
@@ -193,5 +200,6 @@ export interface PrayerConfigModel {
   location: Location;
   prayerCalcMethod: ePrayerCalcMethod;
   asrJuristicMethod: eJuristicMethod;
+  highAltitudeAdj: eHighAltitudeAdjustment;
   offsetInMinutes: PrayerOffset;
 }
