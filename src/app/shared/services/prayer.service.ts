@@ -68,7 +68,6 @@ export class PrayerService {
   }
 
   private setPrayersInteval(solarNoonData: SolarNoonData, date: Date) {
-
     const fajrOffsetInSeconds = SunriseSunset.calcSolarAngleOffsetInSeconds(
       180 -
         (this.prayerCalcMethod && this.prayerCalcMethod.FajrOffset
@@ -388,8 +387,7 @@ export class PrayerService {
       },
       {
         name: ePrayers.MAGHRIB,
-        label:
-          "Gh'uroob + 1'",
+        label: this.getPrayerLabel(this.prayerCalcMethod),
         type: ePrayerType.PRAYER,
         start: formatDate(this._maghribStartInEpoch, "hh:mm a", this.locale), //Sunset
         startEpoch: this._maghribStartInEpoch, //Sunset in Epoch
@@ -472,6 +470,23 @@ export class PrayerService {
         p.endEpoch
       );
     });
+  }
+
+  private getPrayerLabel(
+    prayerMethod: PrayerCalcMethodDegree | undefined
+  ): string {
+    let maghribLabel = "Ghuroob";
+    if (
+      prayerMethod &&
+      prayerMethod.MaghribOffset
+    ) {
+      let unit =
+        prayerMethod.MaghribSelector === OffsetSelector.MINUTES
+          ? prayerMethod.MaghribOffset + "'"
+          : prayerMethod.MaghribOffset + "°";
+      maghribLabel = maghribLabel + " + " + unit;
+    }
+    return maghribLabel;
   }
 
   private getCurrentDayTimings(): PrayerTimingsModel {
