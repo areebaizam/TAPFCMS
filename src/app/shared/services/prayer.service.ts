@@ -387,7 +387,7 @@ export class PrayerService {
       },
       {
         name: ePrayers.MAGHRIB,
-        label: this.getPrayerLabel(this.prayerCalcMethod),
+        label: this.getPrayerLabel(this.prayerCalcMethod, ePrayers.MAGHRIB),
         type: ePrayerType.PRAYER,
         start: formatDate(this._maghribStartInEpoch, "hh:mm a", this.locale), //Sunset
         startEpoch: this._maghribStartInEpoch, //Sunset in Epoch
@@ -409,7 +409,7 @@ export class PrayerService {
       },
       {
         name: ePrayers.ISHA,
-        label: this.prayerCalcMethod?.IshaOffset + "° - Midnight",
+        label: this.getPrayerLabel(this.prayerCalcMethod, ePrayers.ISHA),
         type: ePrayerType.PRAYER,
         start: formatDate(this._ishaStartInEpoch, "hh:mm a", this.locale),
         startEpoch: this._ishaStartInEpoch,
@@ -473,20 +473,26 @@ export class PrayerService {
   }
 
   private getPrayerLabel(
-    prayerMethod: PrayerCalcMethodDegree | undefined
+    prayerMethod: PrayerCalcMethodDegree | undefined,
+    prayer: ePrayers
   ): string {
     let maghribLabel = "Ghuroob";
-    if (
-      prayerMethod &&
-      prayerMethod.MaghribOffset
-    ) {
+    let ishaLabel = "";
+    if (prayerMethod && prayerMethod.MaghribOffset) {
       let unit =
         prayerMethod.MaghribSelector === OffsetSelector.MINUTES
           ? prayerMethod.MaghribOffset + "'"
           : prayerMethod.MaghribOffset + "°";
       maghribLabel = maghribLabel + " + " + unit;
     }
-    return maghribLabel;
+
+    if (prayerMethod && prayerMethod.IshaOffset) {
+      ishaLabel =
+        prayerMethod.IshaSelector === OffsetSelector.MINUTES
+          ? "Ghuroob + " + prayerMethod.IshaOffset + "'"
+          : prayerMethod.IshaOffset + "° to Midnight";
+    }
+    return prayer === ePrayers.MAGHRIB ? maghribLabel : ishaLabel;
   }
 
   private getCurrentDayTimings(): PrayerTimingsModel {

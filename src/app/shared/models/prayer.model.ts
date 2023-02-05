@@ -92,7 +92,7 @@ export const PrayerCalcMethodDegreeMap = new Map([
     ePrayerCalcMethod.BCMA,
     new PrayerCalcMethodDegree(
       "BCMA and Sharia Council of B.C.",
-      "Fajr: 18° / Isha: 15°",
+      "BCMA Timings (Fajr: 18° / Isha: 15°)",
       18,
       OffsetSelector.MINUTES,
       1,
@@ -104,7 +104,7 @@ export const PrayerCalcMethodDegreeMap = new Map([
     ePrayerCalcMethod.EGA,
     new PrayerCalcMethodDegree(
       "Egyptian General Authority",
-      "Fajr: 19.5° / Isha: 17.5°",
+      "Egypt (Fajr: 19.5° / Isha: 17.5°)",
       19.5,
       OffsetSelector.MINUTES,
       1,
@@ -116,7 +116,7 @@ export const PrayerCalcMethodDegreeMap = new Map([
     ePrayerCalcMethod.ISNA,
     new PrayerCalcMethodDegree(
       "Islamic Society of North America",
-      "Fajr: 15° / Isha: 15°",
+      "ISNA (Fajr: 15° / Isha: 15°)",
       15,
       OffsetSelector.MINUTES,
       1,
@@ -128,7 +128,7 @@ export const PrayerCalcMethodDegreeMap = new Map([
     ePrayerCalcMethod.IUK,
     new PrayerCalcMethodDegree(
       "Karachi (University Of Islamic Sciences)",
-      "Fajr: 18° / Isha: 18°",
+      "Karachi (Fajr: 18° / Isha: 18°)",
       18,
       OffsetSelector.MINUTES,
       1,
@@ -140,7 +140,7 @@ export const PrayerCalcMethodDegreeMap = new Map([
     ePrayerCalcMethod.MAK,
     new PrayerCalcMethodDegree(
       "Makkah (Umm al-Qura University)",
-      "Fajr: 18.5° / Isha: Maghrib + 90\'",
+      "Makkah (Fajr: 18.5° / Isha: Maghrib + 90')",
       18.5,
       OffsetSelector.MINUTES,
       1,
@@ -152,7 +152,7 @@ export const PrayerCalcMethodDegreeMap = new Map([
     ePrayerCalcMethod.MAKR,
     new PrayerCalcMethodDegree(
       "Makkah (Ramadan Timings)",
-      "Fajr: 18.5° / Isha: Maghrib + 120\'",
+      "Makkah-R (Fajr: 18.5° / Isha: Maghrib + 120')",
       18.5,
       OffsetSelector.MINUTES,
       1,
@@ -164,7 +164,7 @@ export const PrayerCalcMethodDegreeMap = new Map([
     ePrayerCalcMethod.MWL,
     new PrayerCalcMethodDegree(
       "Muslim World League",
-      "Fajr: 18° / Isha: 17°",
+      "MWL (Fajr: 18° / Isha: 17°)",
       18,
       OffsetSelector.MINUTES,
       1,
@@ -176,7 +176,7 @@ export const PrayerCalcMethodDegreeMap = new Map([
     ePrayerCalcMethod.SIA,
     new PrayerCalcMethodDegree(
       "Shia Ithna Ashari",
-      "Fajr: 16° / Maghrib: 4° / Isha: 14°",
+      "SIA Jaffari (Fajr: 16° / Maghrib: 4° / Isha: 14°)",
       16,
       OffsetSelector.DEGREE,
       4,
@@ -188,7 +188,7 @@ export const PrayerCalcMethodDegreeMap = new Map([
     ePrayerCalcMethod.TRN,
     new PrayerCalcMethodDegree(
       "Tehran (Institute of Geophysics)",
-      "Fajr: 17.7° / Maghrib: 4.5° / Isha: 14°",
+      "Tahran (Fajr: 17.7° / Maghrib: 4.5° / Isha: 14°)",
       17.7,
       OffsetSelector.DEGREE,
       4.5,

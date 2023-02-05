@@ -18,6 +18,6 @@ export class PrayerGridComponent {
   prayerType = ePrayerType;
   orgDetails: string;
   constructor(public prayerService: PrayerService) {
-    this.orgDetails = "Calculation: " + prayerService.prayerCalcMethod?.Label;
+    this.orgDetails = "" + prayerService.prayerCalcMethod?.Label;
   }
 }
