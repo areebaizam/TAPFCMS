@@ -14,10 +14,11 @@ import {
   PrayerCalcMethodDegreeMap,
   PrayerCalcMethodDegree,
   JuristicMethodMap,
+  OffsetSelector,
   MONTHS,
 } from "@tap/shared/models";
 
-import { SunriseSunset, SolarDataModel } from "@tap/core/solarHelper.utilities";
+import { SunriseSunset, SolarNoonData } from "@tap/core/solarHelper.utilities";
 
 @Injectable({
   providedIn: "root",
@@ -26,7 +27,7 @@ export class PrayerService {
   //Cache API
   private _cachePrayerCSVData: any = null;
 
-  private _solarTimings: SolarDataModel = new SolarDataModel();
+  private _solarNoonData: SolarNoonData = new SolarNoonData();
 
   public prayers: Array<PrayerModel> = [];
   public prayerCalcMethod?: PrayerCalcMethodDegree =
@@ -48,8 +49,8 @@ export class PrayerService {
   private _ishraqStartInEpoch!: number;
   private _chashtStartInEpoch!: number;
   private _zawalStartInEpoch!: number;
-  private _dhurStartInEpoch!: number; //TODO remove this
   private _noonStartInEpoch!: number;
+  private _dhurStartInEpoch!: number;
   private _asrStartInEpoch!: number;
   private _asrEndInEpoch!: number;
   private _sunsetStartInEpoch!: number;
@@ -59,27 +60,112 @@ export class PrayerService {
 
   getSolarTimings(date: Date = new Date()) {
     date.setHours(0, 0, 0, 0);
-    this._solarTimings = SunriseSunset.CalcSunTimeInSeconds(
-      PrayerConfig.location.lat,
+    this._solarNoonData = SunriseSunset.calcSolarNoonData(
       PrayerConfig.location.lng,
       date
     );
-    this.setPrayersInteval(this._solarTimings, date);
+    this.setPrayersInteval(this._solarNoonData, date);
   }
 
-  private setPrayersInteval(
-    solarTimings: SolarDataModel,
-    date: Date
-  ) {
-    this._sunriseStartInEpoch = DateHelper.convertEpochOffsetToEpoch(
-      date,
-      solarTimings.sunriseInSeconds
+  private setPrayersInteval(solarNoonData: SolarNoonData, date: Date) {
+
+    const fajrOffsetInSeconds = SunriseSunset.calcSolarAngleOffsetInSeconds(
+      180 -
+        (this.prayerCalcMethod && this.prayerCalcMethod.FajrOffset
+          ? this.prayerCalcMethod.FajrOffset
+          : 0),
+      PrayerConfig.location.lat,
+      solarNoonData
+    );
+    //ATM Refraction Factor: .8333 Zenith Angle: Sunset/sunset 90, Civil Twilight:96, Nautical: 102, Astronomical: 108
+    const sunriseOffsetInSeconds = SunriseSunset.calcSolarAngleOffsetInSeconds(
+      180 - 0.833,
+      PrayerConfig.location.lat,
+      solarNoonData
+    );
+    const sunsetOffsetInSeconds = SunriseSunset.calcSolarAngleOffsetInSeconds(
+      0.833,
+      PrayerConfig.location.lat,
+      solarNoonData
     );
 
-    this._fajrStartInEpoch = DateHelper.addOffsetDegreeToEpoch(
-      this._sunriseStartInEpoch,
-      this.prayerCalcMethod ? -this.prayerCalcMethod.FajrOffset : 0
+    const dayPortion = sunsetOffsetInSeconds - sunriseOffsetInSeconds;
+    const nightPortion = 86400 - dayPortion;
+
+    const asrOffsetInSeconds = SunriseSunset.calcAsrOffsetInSeconds(
+      PrayerConfig.location.lat,
+      solarNoonData,
+      PrayerConfig.asrJuristicMethod
     );
+
+    const maghribOffsetInSeconds = SunriseSunset.calcSolarAngleOffsetInSeconds(
+      this.prayerCalcMethod ? this.prayerCalcMethod.MaghribOffset : 0,
+      PrayerConfig.location.lat,
+      solarNoonData
+    );
+
+    const ishaOffsetInSeconds = SunriseSunset.calcSolarAngleOffsetInSeconds(
+      this.prayerCalcMethod ? this.prayerCalcMethod.IshaOffset : 0,
+      PrayerConfig.location.lat,
+      solarNoonData
+    );
+
+    this._noonStartInEpoch = DateHelper.convertEpochOffsetToEpoch(
+      date,
+      solarNoonData.solarNoonInSeconds
+    );
+    this._sunriseStartInEpoch = DateHelper.convertEpochOffsetToEpoch(
+      date,
+      sunriseOffsetInSeconds
+    );
+    this._sunsetStartInEpoch = DateHelper.convertEpochOffsetToEpoch(
+      date,
+      sunsetOffsetInSeconds
+    );
+    this._fajrStartInEpoch = DateHelper.convertEpochOffsetToEpoch(
+      date,
+      fajrOffsetInSeconds
+    );
+    this._asrStartInEpoch = DateHelper.convertEpochOffsetToEpoch(
+      date,
+      asrOffsetInSeconds
+    );
+
+    //Set Maghrib Prayer Start
+    if (
+      this.prayerCalcMethod &&
+      this.prayerCalcMethod.MaghribSelector == OffsetSelector.MINUTES
+    )
+      this._maghribStartInEpoch = DateHelper.addEpochTimeInEpochMinutes(
+        this._sunsetStartInEpoch,
+        this.prayerCalcMethod.MaghribOffset
+      );
+    else if (
+      this.prayerCalcMethod &&
+      this.prayerCalcMethod.MaghribSelector == OffsetSelector.DEGREE
+    )
+      this._maghribStartInEpoch = DateHelper.convertEpochOffsetToEpoch(
+        date,
+        maghribOffsetInSeconds
+      );
+
+    // Set Isha Prayer Start
+    if (
+      this.prayerCalcMethod &&
+      this.prayerCalcMethod.IshaSelector == OffsetSelector.DEGREE
+    )
+      this._ishaStartInEpoch = DateHelper.convertEpochOffsetToEpoch(
+        date,
+        ishaOffsetInSeconds
+      );
+    else if (
+      this.prayerCalcMethod &&
+      this.prayerCalcMethod.IshaSelector == OffsetSelector.MINUTES
+    )
+      this._ishaStartInEpoch = DateHelper.addEpochTimeInEpochMinutes(
+        this._maghribStartInEpoch,
+        this.prayerCalcMethod.IshaOffset
+      );
 
     this._imsakStartInEpoch = DateHelper.addEpochTimeInEpochMinutes(
       this._fajrStartInEpoch,
@@ -96,11 +182,6 @@ export class PrayerService {
       PrayerConfig.offsetInMinutes.ishraq
     );
 
-    this._noonStartInEpoch = DateHelper.convertEpochOffsetToEpoch(
-      date,
-      solarTimings.solarNoonInSeconds
-    );
-
     this._chashtStartInEpoch =
       0.5 * (this._sunriseStartInEpoch + this._noonStartInEpoch);
 
@@ -114,48 +195,15 @@ export class PrayerService {
       PrayerConfig.offsetInMinutes.dhur
     );
 
-    const asrOffsetInSeconds = SunriseSunset.calcAsrInSeconds(
-      solarTimings.lat,
-      solarTimings.sunDecl,
-      solarTimings.solarNoonInSeconds,
-      PrayerConfig.asrJuristicMethod
-    );
-
-    this._asrStartInEpoch = DateHelper.convertEpochOffsetToEpoch(
-      date,
-      asrOffsetInSeconds
-    );
-
-    this._sunsetStartInEpoch = DateHelper.convertEpochOffsetToEpoch(
-      date,
-      solarTimings.sunsetInSeconds
-    );
-
     this._asrEndInEpoch = DateHelper.addEpochTimeInEpochMinutes(
       this._sunsetStartInEpoch,
       PrayerConfig.offsetInMinutes.asr
     );
 
-    //TODO Add Altitude adjustments
-    this._maghribStartInEpoch = this._sunsetStartInEpoch;
-
-    this._ishaStartInEpoch = DateHelper.addOffsetDegreeToEpoch(
-      this._maghribStartInEpoch,
-      this.prayerCalcMethod ? this.prayerCalcMethod.IshaOffset : 0
-    );
-
-    const midnightOffsetInSeconds =
-      SunriseSunset.calcNightInSeconds(
-        solarTimings.sunriseInSeconds,
-        solarTimings.sunsetInSeconds
-      ) / 2;
-
     this._ishaEndInEpoch = DateHelper.convertEpochOffsetToEpoch(
       date,
-      solarTimings.sunsetInSeconds + midnightOffsetInSeconds
+      sunsetOffsetInSeconds + nightPortion / 2
     );
-
-    console.log('solarTimings', solarTimings, this._sunriseStartInEpoch,this._noonStartInEpoch, this._sunsetStartInEpoch)
   }
 
   getPrayerCSVTime$(): Observable<string> {
@@ -220,7 +268,7 @@ export class PrayerService {
         start: formatDate(
           DateHelper.addDaysToEpochInEpoch(this._ishaEndInEpoch, -1),
           "hh:mm a",
-          this.locale,
+          this.locale
         ),
         startEpoch: DateHelper.addDaysToEpochInEpoch(this._ishaEndInEpoch, -1),
         end: formatDate(this._imsakStartInEpoch, "hh:mm a", this.locale),
@@ -332,15 +380,16 @@ export class PrayerService {
         type: ePrayerType.MAKROOH,
         start: formatDate(this._asrEndInEpoch, "hh:mm a", this.locale),
         startEpoch: this._asrEndInEpoch,
-        end: formatDate(this._maghribStartInEpoch, "hh:mm a", this.locale),
-        endEpoch: this._maghribStartInEpoch,
+        end: formatDate(this._sunsetStartInEpoch, "hh:mm a", this.locale),
+        endEpoch: this._sunsetStartInEpoch,
         visible: false,
         isActive: false,
         order: 10,
       },
       {
         name: ePrayers.MAGHRIB,
-        label: "Sunset",
+        label:
+          "Gh'uroob + 1'",
         type: ePrayerType.PRAYER,
         start: formatDate(this._maghribStartInEpoch, "hh:mm a", this.locale), //Sunset
         startEpoch: this._maghribStartInEpoch, //Sunset in Epoch

@@ -1,4 +1,3 @@
-export const degreeToMinutes: number = 1 * 6; //1 degree = 6 minutes
 export const secondsToMilliseconds: number = 1 * 1000; //1000
 export const minutesToMilliseconds: number = 60 * secondsToMilliseconds; //60000
 export const hoursToMilliseconds: number = 60 * minutesToMilliseconds; //3600000
@@ -26,14 +25,6 @@ export class DateHelper {
     );
   }
 
-  public static addOffsetDegreeToEpoch(
-    baseEpochDate: number,
-    offSetInDegree: number
-  ): number {
-    return (
-      baseEpochDate + offSetInDegree * degreeToMinutes * minutesToMilliseconds
-    );
-  }
 
   public static getTomorrowDateInterval(): number {
     const today = new Date();

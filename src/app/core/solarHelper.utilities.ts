@@ -69,55 +69,29 @@ export class SunriseSunset {
       sunDecl,
     };
   }
-  private static getSolarData(
-    lat: number,
-    lng: number,
-    eq: number,
-    sunDecl: number,
-    zenith: number
-  ): any {
-    const haSunrise = degrees(
-      Math.acos(
-        Math.cos(radians(zenith)) /
-          (Math.cos(radians(lat)) * Math.cos(radians(sunDecl))) -
-          Math.tan(radians(lat)) * Math.tan(radians(sunDecl))
-      )
-    );
-    const solarNoon = (720 - 4 * lng - eq) / 1440;
-    const solarNoonInSeconds = solarNoon * 86400;
-    const sunriseInSeconds =
-      solarNoonInSeconds - ((haSunrise * 4) / 1440) * 86400;
-    const sunsetInSeconds =
-      solarNoonInSeconds + ((haSunrise * 4) / 1440) * 86400;
-    return {
-      sunriseInSeconds,
-      solarNoonInSeconds,
-      sunsetInSeconds,
-      sunDecl,
-      lat,
-    };
-  }
 
-  public static CalcSunTimeInSeconds(
-    lat: number,
-    lng: number,
-    date: Date
-  ): any {
-    const baseNumbers = this.getBaselineNumbers(date);
-    const solarData: SolarDataModel = this.getSolarData(
-      lat,
+  public static calcSolarNoonData(lng: number, date: Date): SolarNoonData {
+    let solarNoonData: SolarNoonData = new SolarNoonData();
+    const baseNumbers: BaseNumbers = this.getBaselineNumbers(date);
+    const solarNoonInSeconds: number = this.getSolarNoonInSeconds(
       lng,
-      baseNumbers.eq,
-      baseNumbers.sunDecl,
-      90.8333 //ATM Refraction Factor: .8333 Zenith Angle: Sunset 90, Civil Twilight:96, Nautical: 102, Astronomical: 108
+      baseNumbers.eq
     );
-    return solarData;
+    solarNoonData = {
+      sunDecl: baseNumbers.sunDecl,
+      solarNoonInSeconds: solarNoonInSeconds,
+    };
+    return solarNoonData;
   }
 
-  public static calcAsrInSeconds(
+  private static getSolarNoonInSeconds(lng: number, eq: number): number {
+    const solarNoon = (720 - 4 * lng - eq) / 1440;
+    return solarNoon * 86400;
+  }
+
+  public static calcAsrOffsetInSeconds(
     lat: number,
-    sunDecl: number,
-    solarNoonInSeconds: number,
+    solarNoonData: SolarNoonData,
     asrJuristic: number = 0
   ): number {
     const solarAsr = degrees(
@@ -128,29 +102,53 @@ export class SunriseSunset {
               Math.atan(
                 1 +
                   asrJuristic +
-                  Math.tan(Math.abs(radians(lat) - radians(sunDecl)))
+                  Math.tan(
+                    Math.abs(radians(lat) - radians(solarNoonData.sunDecl))
+                  )
               )
           ) -
-            Math.sin(radians(sunDecl)) * Math.sin(radians(lat))) /
-            (Math.cos(radians(sunDecl)) * Math.cos(radians(lat)))
+            Math.sin(radians(solarNoonData.sunDecl)) * Math.sin(radians(lat))) /
+            (Math.cos(radians(solarNoonData.sunDecl)) * Math.cos(radians(lat)))
         )
     );
-    const asrInSeconds = solarNoonInSeconds + (86400 * solarAsr) / 24;
+    const asrInSeconds =
+      solarNoonData.solarNoonInSeconds + (86400 * solarAsr) / 24;
     return asrInSeconds;
+  }
+
+  public static calcSolarAngleOffsetInSeconds(
+    solarAngle: number,
+    lat: number,
+    solarNoonData: SolarNoonData
+  ): number {
+    const solarAngleDegree = degrees(
+      (1 / 15) *
+        Math.acos(
+          (-Math.sin(radians(solarAngle)) -
+            Math.sin(radians(solarNoonData.sunDecl)) * Math.sin(radians(lat))) /
+            (Math.cos(radians(solarNoonData.sunDecl)) * Math.cos(radians(lat)))
+        )
+    );
+    const solarAngleOffsetInSeconds = (86400 * solarAngleDegree) / 24;
+
+    return solarAngle > 90
+      ? solarNoonData.solarNoonInSeconds - solarAngleOffsetInSeconds
+      : solarNoonData.solarNoonInSeconds + solarAngleOffsetInSeconds;
   }
 
   public static calcNightInSeconds(
     sunriseInSeconds: number,
     sunsetInSeconds: number
   ): number {
-    return 86400 - (sunsetInSeconds - sunriseInSeconds);
+    return 86400 - Math.abs(sunsetInSeconds - sunriseInSeconds);
   }
 }
 
-export class SolarDataModel {
-  sunriseInSeconds: number = 0;
+export interface BaseNumbers {
+  eq: number;
+  sunDecl: number;
+}
+export class SolarNoonData {
   solarNoonInSeconds: number = 0;
-  sunsetInSeconds: number = 0;
   sunDecl: number = 0;
-  lat: number = 0;
 }

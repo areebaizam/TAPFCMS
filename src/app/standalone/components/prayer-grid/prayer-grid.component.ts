@@ -18,11 +18,6 @@ export class PrayerGridComponent {
   prayerType = ePrayerType;
   orgDetails: string;
   constructor(public prayerService: PrayerService) {
-    this.orgDetails =
-      "BCMA Timings: ( Fajr: " +
-      prayerService.prayerCalcMethod?.FajrOffset +
-      "° / Isha: " +
-      prayerService.prayerCalcMethod?.IshaOffset +
-      "° )";
+    this.orgDetails = "Calculation: " + prayerService.prayerCalcMethod?.Label;
   }
 }

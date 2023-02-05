@@ -49,16 +49,20 @@ export enum ePrayerCalcMethod {
   ISNA,
   IUK,
   MWL,
-  MAK,//Todo Cover Ramadan Timings
+  MAK,
+  MAKR, //Makkah Ramadan Timings
   SIA,
   TRN,
 }
 
-
-
+export enum OffsetSelector {
+  DEGREE,
+  MINUTES,
+}
 
 export class PrayerCalcMethodDegree {
   Organization: string = "";
+  Label: string="";
   FajrOffset: number;
   MaghribSelector: number; //(0 = angle; 1 = minutes after sunset)
   MaghribOffset: number; //maghrib parameter value (in angle or minutes)
@@ -66,6 +70,7 @@ export class PrayerCalcMethodDegree {
   IshaOffset: number; //isha parameter value (in angle or minutes)
   constructor(
     org: string,
+    lbl: string,
     fo: number,
     ms: number,
     mo: number,
@@ -73,6 +78,7 @@ export class PrayerCalcMethodDegree {
     io: number
   ) {
     this.Organization = org;
+    this.Label = lbl;
     this.FajrOffset = fo;
     this.MaghribSelector = ms;
     this.MaghribOffset = mo;
@@ -82,18 +88,129 @@ export class PrayerCalcMethodDegree {
 }
 
 export const PrayerCalcMethodDegreeMap = new Map([
-  [ePrayerCalcMethod.BCMA, new PrayerCalcMethodDegree("BCMA and Sharia Council of B.C.",  18, 1,0,0, 15)],  
-  [ePrayerCalcMethod.EGA, new PrayerCalcMethodDegree("Egyptian General Authority",  19.5, 1,0,0, 17.5)],
-  [ePrayerCalcMethod.ISNA, new PrayerCalcMethodDegree("Islamic Society of North America",  15, 1,0,0, 15)],
-  [ePrayerCalcMethod.IUK, new PrayerCalcMethodDegree("Karachi (University Of Islamic Sciences)",  18, 1,0,0, 18)],  
-  [ePrayerCalcMethod.MAK, new PrayerCalcMethodDegree("Makkah (Umm al-Qura University)",  18.5, 1,0,1, 90)],
-  [ePrayerCalcMethod.MWL, new PrayerCalcMethodDegree("Muslim World League",  18, 1,0,0, 17)],
-  [ePrayerCalcMethod.SIA, new PrayerCalcMethodDegree("Shia Ithna Ashari",  16, 0,4,0, 14)],
-  [ePrayerCalcMethod.TRN, new PrayerCalcMethodDegree("Tehran (Institute of Geophysics)",  17.7, 0,4.5,0, 14)],
-  [ePrayerCalcMethod.CSTM, new PrayerCalcMethodDegree("Custom",  18, 1,0,0, 17)],
+  [
+    ePrayerCalcMethod.BCMA,
+    new PrayerCalcMethodDegree(
+      "BCMA and Sharia Council of B.C.",
+      "Fajr: 18° / Isha: 15°",
+      18,
+      OffsetSelector.MINUTES,
+      1,
+      OffsetSelector.DEGREE,
+      15
+    ),
+  ],
+  [
+    ePrayerCalcMethod.EGA,
+    new PrayerCalcMethodDegree(
+      "Egyptian General Authority",
+      "Fajr: 19.5° / Isha: 17.5°",
+      19.5,
+      OffsetSelector.MINUTES,
+      1,
+      OffsetSelector.DEGREE,
+      17.5
+    ),
+  ],
+  [
+    ePrayerCalcMethod.ISNA,
+    new PrayerCalcMethodDegree(
+      "Islamic Society of North America",
+      "Fajr: 15° / Isha: 15°",
+      15,
+      OffsetSelector.MINUTES,
+      1,
+      OffsetSelector.DEGREE,
+      15
+    ),
+  ],
+  [
+    ePrayerCalcMethod.IUK,
+    new PrayerCalcMethodDegree(
+      "Karachi (University Of Islamic Sciences)",
+      "Fajr: 18° / Isha: 18°",
+      18,
+      OffsetSelector.MINUTES,
+      1,
+      OffsetSelector.DEGREE,
+      18
+    ),
+  ],
+  [
+    ePrayerCalcMethod.MAK,
+    new PrayerCalcMethodDegree(
+      "Makkah (Umm al-Qura University)",
+      "Fajr: 18.5° / Isha: Maghrib + 90\'",
+      18.5,
+      OffsetSelector.MINUTES,
+      1,
+      OffsetSelector.MINUTES,
+      90
+    ),
+  ],
+  [
+    ePrayerCalcMethod.MAKR,
+    new PrayerCalcMethodDegree(
+      "Makkah (Ramadan Timings)",
+      "Fajr: 18.5° / Isha: Maghrib + 120\'",
+      18.5,
+      OffsetSelector.MINUTES,
+      1,
+      OffsetSelector.MINUTES,
+      120
+    ),
+  ],
+  [
+    ePrayerCalcMethod.MWL,
+    new PrayerCalcMethodDegree(
+      "Muslim World League",
+      "Fajr: 18° / Isha: 17°",
+      18,
+      OffsetSelector.MINUTES,
+      1,
+      OffsetSelector.DEGREE,
+      17
+    ),
+  ],
+  [
+    ePrayerCalcMethod.SIA,
+    new PrayerCalcMethodDegree(
+      "Shia Ithna Ashari",
+      "Fajr: 16° / Maghrib: 4° / Isha: 14°",
+      16,
+      OffsetSelector.DEGREE,
+      4,
+      OffsetSelector.DEGREE,
+      14
+    ),
+  ],
+  [
+    ePrayerCalcMethod.TRN,
+    new PrayerCalcMethodDegree(
+      "Tehran (Institute of Geophysics)",
+      "Fajr: 17.7° / Maghrib: 4.5° / Isha: 14°",
+      17.7,
+      OffsetSelector.DEGREE,
+      4.5,
+      OffsetSelector.DEGREE,
+      14
+    ),
+  ],
+  [
+    ePrayerCalcMethod.CSTM,
+    new PrayerCalcMethodDegree(
+      "Custom Timings",
+      "",
+      18,
+      OffsetSelector.MINUTES,
+      1,
+      OffsetSelector.DEGREE,
+      18
+    ),
+  ],
 ]);
 
-export enum eJuristicMethod{
+export enum eJuristicMethod {
   STD, //0 for Shafi Maliki Hanbali
   HNF, // 1 for Hanafi (Shadow length is twice the object)
 }
@@ -102,11 +219,11 @@ export const JuristicMethodMap = new Map([
   [eJuristicMethod.HNF, "Hanafi"],
 ]);
 
-export enum eHighAltitudeAdjustment{
+export enum eHighAltitudeAdjustment {
   NONE, //0.0
   MIDNIGHT, //Middle of the night 0.5
   ONE_SEVENTH, // 0.14286
-  ANGLE_BASED,// angle/60.0
+  ANGLE_BASED, // angle/60.0
 }
 
 export const HighAltitudeAdjMap = new Map([
@@ -115,7 +232,6 @@ export const HighAltitudeAdjMap = new Map([
   [eHighAltitudeAdjustment.ONE_SEVENTH, "1/7 of Night"],
   [eHighAltitudeAdjustment.ANGLE_BASED, "Angle based"],
 ]);
-
 
 export enum ePrayerType {
   PRAYER,
