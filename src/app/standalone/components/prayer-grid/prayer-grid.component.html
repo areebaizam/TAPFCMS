@@ -22,7 +22,7 @@
                     <span class="body-text prayer-label align-right">{{prayer.end}}</span>
                 </div>
             </div>
-            <div class="interval-grid-wrapper" *ngIf="prayer.type===prayerType.MAKROOH"
+            <div class="interval-grid-wrapper makrooh" *ngIf="prayer.type===prayerType.MAKROOH"
                 [class.isActiveWarn]="prayer.isActive">
                 <span class="body-text prayer-label">{{prayer.name}}</span>
                 <span class="body-text prayer-label align-center">{{prayer.start}}</span>

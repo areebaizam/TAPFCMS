@@ -116,19 +116,6 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
         );
   }
 
-  // refreshHijriDate(prayer: PrayerModel) {
-  //   if (prayer.name === ePrayers.MAGHRIB) {
-  //     this.prayerService.invalidateHijriCache();
-  //     this.getHijriDate();
-  //   }
-  // }
-  // getHijriDate() {
-  //   let gregorianDate = this.prayerService.getGregorianDate();
-  //   this.prayerService
-  //     .getHijriDate$(gregorianDate)
-  //     .subscribe((next) => this.prayerService.setHijriDate(next));
-  // }
-
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
