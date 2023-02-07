@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { Config, PrayerConfig } from "@tap/core/configurations";
 import { DateHelper } from "@tap/core/dateHelper.utilities";
+import { HijriDate } from "@tap/core/hijriDate.utilities";
 import {
   PrayerTimingsModel,
   PrayerModel,
@@ -60,6 +61,7 @@ export class PrayerService {
 
   getSolarTimings(date: Date = new Date()) {
     date.setHours(0, 0, 0, 0);
+    this.hijriDate= HijriDate.getHijriDate(date);
     this._solarNoonData = SunriseSunset.calcSolarNoonData(
       PrayerConfig.location.lng,
       date
