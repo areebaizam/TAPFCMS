@@ -394,12 +394,12 @@ export class PrayerService {
         start: formatDate(this._maghribStartInEpoch, "hh:mm a", this.locale), //Sunset
         startEpoch: this._maghribStartInEpoch, //Sunset in Epoch
         iqamah: formatDate(
-          DateHelper.addEpochTimeInEpochMinutes(this._maghribStartInEpoch, 7),
+          DateHelper.addEpochTimeInEpochMinutes(this._maghribStartInEpoch, 4),
           "hh:mm a",
           this.locale
         ),
         athan: formatDate(
-          DateHelper.addEpochTimeInEpochMinutes(this._maghribStartInEpoch, 7),
+          DateHelper.addEpochTimeInEpochMinutes(this._maghribStartInEpoch, 4),
           "hh:mm a",
           this.locale
         ),
