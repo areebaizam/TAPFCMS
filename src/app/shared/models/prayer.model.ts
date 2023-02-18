@@ -25,15 +25,15 @@ export enum ePrayers {
   GHUROOB = "Ghuroob",
   MAGHRIB = "Maghrib",
   ISHA = "Isha",
-  JUMUAH = "Jumuah",
+  JUMUAH = "Jumah",
 }
 export enum ePrayerLabels {
   ATHAN = "Athan",
   IQAMAH = "Iqamah",
   START = "Starts",
   END = "Ends",
-  FIRST_JUMUAH = "First Jumuah",
-  SECOND_JUMUAH = "Second Jumuah",
+  FIRST_JUMUAH = "First Jumah",
+  SECOND_JUMUAH = "Second Jumah",
 }
 
 export enum eAshura {
