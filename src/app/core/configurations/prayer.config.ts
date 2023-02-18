@@ -15,7 +15,7 @@ export const PrayerConfig = {
   offsetInMinutes: {
     imsak: -10,
     fajr: -15,
-    ishraq: 10,
+    ishraq: 20,
     zawal: -20,
     dhur: 2,
     asr: -15,
