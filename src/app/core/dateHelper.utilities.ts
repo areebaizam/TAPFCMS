@@ -31,7 +31,7 @@ export class DateHelper {
     let tomorrow = new Date();
     tomorrow.setDate(today.getDate() + 1);
     tomorrow.setHours(0, 0, 0, 0);
-    return tomorrow.getTime() - today.getTime();
+    return tomorrow.getTime() - today.getTime() + 10*secondsToMilliseconds;
   }
 
   public static addDaysToEpochInEpoch(epochtime: number, days: number): number {
