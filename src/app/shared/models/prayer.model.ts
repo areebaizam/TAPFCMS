@@ -311,6 +311,7 @@ export interface PrayerOffset {
   zawal: number;
   dhur: number;
   asr: number;
+  maghrib: number;
 }
 export interface PrayerConfigModel {
   location: Location;
