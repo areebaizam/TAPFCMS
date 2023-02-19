@@ -57,7 +57,6 @@ export class HeaderDisplayComponent implements OnInit, OnDestroy {
         DateHelper.getTomorrowDateInterval(),
         DateHelper.getMinutesToMilliseconds(120)
       ).subscribe((n) => {
-        console.log('Last Refresh',Date(),DateHelper.getTomorrowDateInterval());
         this.prayerService.invalidateCache();
         this.getPrayerTimings();
       })

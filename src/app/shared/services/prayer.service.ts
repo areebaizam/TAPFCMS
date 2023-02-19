@@ -461,7 +461,8 @@ export class PrayerService {
     this.prayers?.sort((a, b) => (a.order < b.order ? -1 : 1));
     this.prayers.forEach((p) => {
       console.log(
-        "prayers",
+        formatDate(Date(),"medium", this.locale),
+        " Prayers",        
         p.name,
         p.label,
         p.start,
