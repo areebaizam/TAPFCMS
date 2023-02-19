@@ -19,5 +19,6 @@ export const PrayerConfig = {
     zawal: -20,
     dhur: 2,
     asr: -15,
+    maghrib:-6, //Already 1 minute addition in epoch
   },
 } as PrayerConfigModel;
