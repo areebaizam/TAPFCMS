@@ -399,7 +399,7 @@ export class PrayerService {
           this.locale
         ),
         athan: formatDate(
-          DateHelper.addEpochTimeInEpochMinutes(this._maghribStartInEpoch, PrayerConfig.offsetInMinutes.maghrib),
+          DateHelper.addEpochTimeInEpochMinutes(this._maghribStartInEpoch, 4),
           "hh:mm a",
           this.locale
         ),
@@ -461,7 +461,8 @@ export class PrayerService {
     this.prayers?.sort((a, b) => (a.order < b.order ? -1 : 1));
     this.prayers.forEach((p) => {
       console.log(
-        "prayers",
+        formatDate(Date(),"medium", this.locale),
+        " Prayers",        
         p.name,
         p.label,
         p.start,

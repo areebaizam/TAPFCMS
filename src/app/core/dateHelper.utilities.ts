@@ -25,13 +25,12 @@ export class DateHelper {
     );
   }
 
-
   public static getTomorrowDateInterval(): number {
     const today = new Date();
     let tomorrow = new Date();
     tomorrow.setDate(today.getDate() + 1);
     tomorrow.setHours(0, 0, 0, 0);
-    return tomorrow.getTime() - today.getTime() + 10*secondsToMilliseconds;
+    return tomorrow.getTime() - today.getTime() + 10 * secondsToMilliseconds;
   }
 
   public static addDaysToEpochInEpoch(epochtime: number, days: number): number {
@@ -57,5 +56,9 @@ export class DateHelper {
 
   public static get getDayToMilliseconds(): number {
     return dayToMilliseconds;
+  }
+  
+  public static getMinutesToMilliseconds(minutes: number): number {
+    return minutes * minutesToMilliseconds;
   }
 }
