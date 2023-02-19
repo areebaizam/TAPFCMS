@@ -14,7 +14,7 @@
                 <span class="prayer-time main-title align-center">{{prayer.athan}}</span>
                 <span class="prayer-time main-title align-right">{{prayer.iqamah}}</span>
             </div>
-            <div class="interval-grid-wrapper mb-3" *ngIf="prayer.type===prayerType.MAKROOH"
+            <div class="interval-grid-wrapper mb-3 makrooh" *ngIf="prayer.type===prayerType.MAKROOH"
                 [class.isActiveWarn]="prayer.isActive">
                 <span class="interval-name main-title">{{prayer.name}}</span>
                 <div class="prayer-time-container">
@@ -52,5 +52,5 @@
             </div>
         </ng-container>
     </div>
-    <span class="main-title align-center">{{orgDetails}}</span>
+    <span class="main-sub-title align-center mt-2">{{orgDetails}}</span>
 </div>

@@ -35,16 +35,31 @@
     // background-color: $primary-theme-color-background;
 }
 
-.jumuah-container{
+.jumuah-container {
     border-radius: 10px;
-    background-color: rgba($primary-theme-color-background,.5);
+    background-color: rgba($primary-theme-color-background, .5);
 }
 
-.isActive{
-    background-color: $primary-theme-color-background;
+.isActive {
+    background-color: rgba($primary-theme-color, 1);
+    -webkit-box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
+    -moz-box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
+    box-shadow: 10px 10px 21px -7px rgba(93, 64, 55, 1);
+
+    * {
+        color: $primary-theme-color-background;
+    }
 }
-.isActiveWarn{
-    background-color:rgb(255, 195, 190,.5);
+
+.isActiveWarn {
+    background-color: rgb(255, 195, 190, .5);
+}
+
+.makrooh {
+    * {
+        color: #E56D4B;
+        text-shadow: none;
+    }
 }
 
 .prayer-name,
@@ -79,9 +94,10 @@
 .prayer-time {
     width: 300px;
     font-size: 70px;
-    
+
 }
-.prayer-time-jumuah{
+
+.prayer-time-jumuah {
     font-size: 42px;
 }
 
@@ -90,10 +106,12 @@
     font-size: 32px;
     line-height: .5;
 }
+
 .interval-label {
     width: 300px;
     font-size: 24px;
 }
+
 .khutbah-label {
     width: 260px;
     font-size: 32px;
