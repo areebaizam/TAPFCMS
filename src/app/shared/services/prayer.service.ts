@@ -399,7 +399,7 @@ export class PrayerService {
           this.locale
         ),
         athan: formatDate(
-          DateHelper.addEpochTimeInEpochMinutes(this._maghribStartInEpoch, 7),
+          DateHelper.addEpochTimeInEpochMinutes(this._maghribStartInEpoch, 6),
           "hh:mm a",
           this.locale
         ),
