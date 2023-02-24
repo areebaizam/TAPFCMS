@@ -298,9 +298,11 @@ export class PrayerService {
       },
       {
         name: ePrayers.SHUROOQ,
+        label:"Starts",
         type: ePrayerType.MAKROOH,
         start: formatDate(this._sunriseStartInEpoch, "hh:mm a", this.locale),
         startEpoch: this._sunriseStartInEpoch,
+        athan: formatDate(this._sunriseStartInEpoch, "hh:mm a", this.locale),
         end: formatDate(this._ishraqStartInEpoch, "hh:mm a", this.locale),
         endEpoch: this._ishraqStartInEpoch,
         visible: true,
@@ -331,9 +333,11 @@ export class PrayerService {
       },
       {
         name: ePrayers.ZAWAL,
+        label:"Ends",
         type: ePrayerType.MAKROOH,
         start: formatDate(this._zawalStartInEpoch, "hh:mm a", this.locale),
         startEpoch: this._zawalStartInEpoch,
+        athan: formatDate(this._noonStartInEpoch, "hh:mm a", this.locale),
         end: formatDate(this._noonStartInEpoch, "hh:mm a", this.locale),
         endEpoch: this._noonStartInEpoch,
         visible: true,

@@ -16,7 +16,7 @@ export const MONTHS = [
 export enum ePrayers {
   TAHAJJUD = "Tahajjud",
   FAJR = "Fajr",
-  SHUROOQ = "Shurooq",
+  SHUROOQ = "Sunrise",
   ISHRAQ = "Ishraq",
   CHASHT = "Chasht",
   ZAWAL = "Zawal",

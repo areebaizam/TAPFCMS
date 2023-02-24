@@ -160,7 +160,7 @@ export const cardData = [
     iconLabel: "register",
     url: eRouteURL.CONTACT,
     header:'Volunteer with Us',
-    content:'We are short of volunteers for Jumuah preparations. We need volunteers to help us make the arrangements.',
+    content:'We are short of volunteers for Jumah preparations. We need volunteers to help us make the arrangements.',
     visible: true,
   },
   {
@@ -195,7 +195,7 @@ export const cardData = [
     type: eTopicHeading.SERVICES,
     iconHeaderClass: "volunteer_activism",
     header:'Food Distribution',
-    content:'Friday food distribution services have resumed. You can buy food after Jumuah prayer on first come first serve basis.',
+    content:'Friday food distribution services have resumed. You can buy food after Jumah prayer on first come first serve basis.',
     visible: true,
   },  
 ] as Array<FeatureCard>;

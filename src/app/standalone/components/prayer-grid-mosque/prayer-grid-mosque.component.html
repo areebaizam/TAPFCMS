@@ -16,15 +16,17 @@
             </div>
             <div class="interval-grid-wrapper mb-3 makrooh" *ngIf="prayer.type===prayerType.MAKROOH"
                 [class.isActiveWarn]="prayer.isActive">
-                <span class="interval-name main-title">{{prayer.name}}</span>
-                <div class="prayer-time-container">
+                <span class="prayer-name main-title">{{prayer.name}}</span>
+                <span class="prayer-time main-title align-center">{{prayer.label}}</span>
+                <span class="prayer-time main-title align-right">{{prayer.athan}}</span>
+                <!-- <div class="prayer-time-container">
                     <span class="interval-time main-title align-center">{{prayer.start}}</span>
                     <span class="body-text interval-label align-center">{{prayer.startLabel}}</span>
                 </div>
                 <div class="prayer-time-container">
                     <span class="interval-time main-title align-right">{{prayer.end}}</span>
                     <span class="body-text interval-label align-right">{{prayer.endLabel}}</span>
-                </div>
+                </div> -->
             </div>
             <div class="interval-grid-wrapper mb-3" *ngIf="prayer.type===prayerType.NAFL"
                 [class.isActive]="prayer.isActive">
@@ -52,5 +54,5 @@
             </div>
         </ng-container>
     </div>
-    <span class="main-sub-title align-center mt-2">{{orgDetails}}</span>
+    <!-- <span class="main-sub-title align-center mt-2">{{orgDetails}}</span> -->
 </div>

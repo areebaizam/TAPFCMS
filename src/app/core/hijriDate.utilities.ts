@@ -22,7 +22,7 @@ const hijriDays = [
   "Thulatha",
   "Arbaa",
   "Khams",
-  "Jumuah",
+  "Jumah",
   "Sabt",
 ];
 

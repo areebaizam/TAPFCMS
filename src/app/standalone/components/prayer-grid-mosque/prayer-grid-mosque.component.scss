@@ -59,6 +59,8 @@
     * {
         color: #E56D4B;
         text-shadow: none;
+        font-size: 60px;
+        line-height: 1;
     }
 }
 
@@ -69,8 +71,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
-
 }
 
 .prayer-label {
@@ -94,7 +94,6 @@
 .prayer-time {
     width: 300px;
     font-size: 70px;
-
 }
 
 .prayer-time-jumuah {
