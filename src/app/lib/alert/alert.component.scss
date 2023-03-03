@@ -1,9 +1,10 @@
 @import '/src/app/styles/global-variables.scss';
 @import '/src/app/styles/styles-theme.scss';
 
-.alert{
+.alert {
     margin: 1rem $page-wrapper-padding-right 0 $page-wrapper-padding-left;
 }
+
 .alert-info {
     --bs-alert-color: #5D4037;
     --bs-alert-bg: rgba(215, 204, 200, 0.6);
