@@ -19,6 +19,6 @@ export const PrayerConfig = {
     zawal: -20,
     dhur: 2,
     asr: -15,
-    maghrib: 9,//1 minute added in BCMA
+    maghrib: 4,//1 minute added in BCMA
   },
 } as PrayerConfigModel;
