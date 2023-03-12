@@ -45,7 +45,9 @@ export class DateHelper {
     let minutes = parseInt(
       time.split(" ").join("").padStart(5, "0").slice(3, 5)
     );
-    date.setHours(hour, minutes, 0, 0);
+    // TODO Remove TimeOffset
+    var dayLightSavingHour = (480 - date.getTimezoneOffset()) / 60;
+    date.setHours(hour + dayLightSavingHour, minutes, 0, 0);
     return date.getTime();
   }
 
@@ -57,7 +59,7 @@ export class DateHelper {
   public static get getDayToMilliseconds(): number {
     return dayToMilliseconds;
   }
-  
+
   public static getMinutesToMilliseconds(minutes: number): number {
     return minutes * minutesToMilliseconds;
   }
